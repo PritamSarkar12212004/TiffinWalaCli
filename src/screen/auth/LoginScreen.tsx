@@ -6,21 +6,27 @@ import {
   TextInput,
   ActivityIndicator,
   TouchableOpacity,
-  Alert,
   Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import UiTheme from '../../constant/theme/ui/UiTheme';
 import MainLogo from '../../constant/image/logo/MainLogo';
+import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
+import { userContext } from '../../context/ContextApi';
+import useLoginHook from '../../hooks/auth/useLoginHook';
+import usehandleVerifyOtp from '../../hooks/auth/usehandleVerifyOtp';
+
 
 const LoginScreen = () => {
+  const { loginApi } = useLoginHook()
+  const { varifyOtp } = usehandleVerifyOtp()
+  const { setPopup } = userContext()
   const navigation = useNavigation();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
-  const [showOtpInput, setShowOtpInput] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [responseOtp, setResponseotp] = useState('');
+  const [otpContainer, setOtpContainer] = useState<any>(null);
 
   const handlePhoneNumberChange = (text: string) => {
     const numericValue = text.replace(/[^0-9]/g, '');
@@ -29,36 +35,26 @@ const LoginScreen = () => {
 
   const handleSendOtp = () => {
     if (phoneNumber.length < 10) {
-      Alert.alert('Please enter a valid 10-digit phone number');
+      setPopup({
+        status: true,
+        message: 'Please enter a valid 10-digit phone number',
+        type: 'error',
+        title: 'Error',
+        func: cleanup,
+      });
       return;
     }
 
     setIsLoading(true);
-    // Simulate OTP send
-    const generatedOtp = '123456';
-    setResponseotp(generatedOtp);
-    setOtpSent(true);
-    setShowOtpInput(true);
-    setIsLoading(false);
+    loginApi(phoneNumber, setIsLoading, setPopup, setOtpContainer, setOtpSent)
   };
-
   const handleVerifyOtp = () => {
     setIsLoading(true);
-    if (otp === responseOtp) {
-      // Simulate login success
-      Alert.alert('Login successful');
-      setIsLoading(false);
-      navigation.navigate('Home' as never); // Replace 'Home' with your route name
-    } else {
-      Alert.alert('Invalid OTP, please try again');
-      setIsLoading(false);
-    }
+    varifyOtp(otp,otpContainer,phoneNumber,setIsLoading,setPopup)
   };
 
   const cleanup = () => {
     setOtpSent(false);
-    setResponseotp('');
-    setShowOtpInput(false);
     setOtp('');
     setPhoneNumber('');
   };
@@ -77,10 +73,12 @@ const LoginScreen = () => {
 
         {/* Form Card */}
         <View className="bg-zinc-800/50 p-6 rounded-3xl shadow-2xl backdrop-blur-lg">
-          {!showOtpInput ? (
+          {!otpContainer ? (
             <>
               <Text className="text-zinc-400 mb-3 text-lg">Phone Number</Text>
               <View className="flex-row items-center bg-zinc-700/50 rounded-2xl px-4 py-2 border border-zinc-600">
+                <View><FontAwesome6 name="mobile" iconStyle="solid" color={UiTheme.Button.primary} size={20} />
+                </View>
                 <TextInput
                   className="flex-1 ml-3 text-white text-lg"
                   placeholder="Enter your phone number"
@@ -107,7 +105,9 @@ const LoginScreen = () => {
           ) : (
             <>
               <Text className="text-zinc-400 mb-3 text-lg">Enter OTP</Text>
-              <View className="flex-row items-center bg-zinc-700/50 rounded-2xl px-4 py-4 border border-zinc-600">
+              <View className="flex-row items-center bg-zinc-700/50 rounded-2xl px-4 py-2 border border-zinc-600">
+                <View><FontAwesome6 name="lock" iconStyle="solid" color={UiTheme.Button.primary} size={20} />
+                </View>
                 <TextInput
                   className="flex-1 ml-3 text-white text-lg"
                   placeholder="Enter 6-digit OTP"

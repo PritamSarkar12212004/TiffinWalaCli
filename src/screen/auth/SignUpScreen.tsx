@@ -6,15 +6,20 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  Alert
+  Alert,
+  Image
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import UiTheme from '../../constant/theme/ui/UiTheme';
+import MainLogo from '../../constant/image/logo/MainLogo';
+import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
+import { userContext } from '../../context/ContextApi';
+
 
 
 
 const SignupScreen = () => {
+  const { setPopup } = userContext()
   const navigation = useNavigation();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
@@ -32,7 +37,13 @@ const SignupScreen = () => {
     setIsLoading(true);
     if (phoneNumber.length < 10) {
       setIsLoading(false);
-      Alert.alert("Error", "Please enter a valid phone number");
+      setPopup({
+        status: true,
+        message: 'Please enter a valid 10-digit phone number',
+        type: 'error',
+        title: 'Error',
+        func: cleanup,
+      });
     } else {
       // Mocking an OTP API response
       const fakeOtp = '123456'; // replace this with actual API call
@@ -43,7 +54,13 @@ const SignupScreen = () => {
         setShowOtpInput(true);
         setIsLoading(false);
       } catch (err: any) {
-        Alert.alert("OTP Error", err?.response?.data?.message || "Failed to send OTP");
+        setPopup({
+          status: true,
+          message: err?.response?.data?.message || "Failed to send OTP",
+          type: 'error',
+          title: 'Error',
+          func: cleanup,
+        });
         setIsLoading(false);
       }
     }
@@ -56,7 +73,13 @@ const SignupScreen = () => {
       cleanup();
       navigation.navigate("UserInfo" as never); // Adjust route name
     } else {
-      Alert.alert("Invalid OTP", "Please enter a valid OTP");
+      setPopup({
+        status: true,
+        message: 'Invalid OTP, please try again',
+        type: 'error',
+        title: 'Error',
+        func: cleanup,
+      });
     }
   };
 
@@ -70,14 +93,14 @@ const SignupScreen = () => {
 
   return (
     <ScrollView className="flex-1 bg-black" showsVerticalScrollIndicator={false}>
-      <View className="flex-1 py-6 px-4 ">
+      <View className="flex-1 py-6 px-3 ">
         {/* Header */}
         <View className="items-center mt-12 mb-16">
           <View
-            className="w-32 h-32 rounded-full mb-6 border-4 overflow-hidden"
+            className="w-32 h-32 bg-white rounded-full mb-6 border-4 overflow-hidden"
             style={{ borderColor: UiTheme.Button.primary }}
           >
-            {/* Add image here */}
+            <Image source={MainLogo.src} resizeMode='cover' className="w-full h-full" />
           </View>
           <Text className="text-4xl font-bold text-white mb-3 text-center">Join TiffinWala</Text>
           <Text className="text-zinc-400 text-center text-lg">
@@ -93,6 +116,8 @@ const SignupScreen = () => {
               <View className="mb-8">
                 <Text className="text-zinc-400 mb-3 text-lg">Phone Number</Text>
                 <View className="flex-row items-center bg-zinc-700/50 rounded-2xl px-4 py-2 border border-zinc-600">
+                  <View><FontAwesome6 name="mobile" iconStyle="solid" color={UiTheme.Button.primary} size={20} />
+                  </View>
                   <TextInput
                     className="flex-1 ml-3 text-white text-lg"
                     placeholder="Enter your phone number"
@@ -119,11 +144,13 @@ const SignupScreen = () => {
               </TouchableOpacity>
             </View>
           ) : (
-            // OTP Input
+            // OTP Input 
             <View>
               <View className="mb-8">
                 <Text className="text-zinc-400 mb-3 text-lg">Enter OTP</Text>
-                <View className="flex-row items-center bg-zinc-700/50 rounded-2xl px-4 py-4 border border-zinc-600">
+                <View className="flex-row items-center bg-zinc-700/50 rounded-2xl px-4 py-2 border border-zinc-600">
+                  <View><FontAwesome6 name="lock" iconStyle="solid" color={UiTheme.Button.primary} size={20} />
+                  </View>
                   <TextInput
                     className="flex-1 ml-3 text-white text-lg"
                     placeholder="Enter 6-digit OTP"
@@ -159,7 +186,6 @@ const SignupScreen = () => {
                 onPress={() => setShowOtpInput(false)}
                 activeOpacity={0.8}
               >
-                <Ionicons name="arrow-back" size={24} color={UiTheme.Button.primary} />
                 <Text className="text-zinc-400 ml-2 text-base">Change phone number</Text>
               </TouchableOpacity>
             </View>
@@ -188,7 +214,7 @@ const SignupScreen = () => {
                 key={index}
                 className="flex-row items-center bg-zinc-800/50 p-6 rounded-3xl border border-zinc-700"
               >
-                <Ionicons name="checkmark-circle-outline" size={28} color={UiTheme.Button.primary} />
+                <FontAwesome6 name="utensils" iconStyle="solid" color={UiTheme.Button.primary} size={30} />
                 <View className="ml-4 flex-1">
                   <Text className="text-white font-semibold text-lg">{item.title}</Text>
                   <Text className="text-zinc-400 text-base">{item.desc}</Text>

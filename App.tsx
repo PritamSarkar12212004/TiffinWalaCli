@@ -6,6 +6,10 @@ import AuthNavigations from './src/navigations/auth/AuthNavigations';
 import SplashNavigation from './src/navigations/spash/SplashNavigation';
 import { getSplashTokenFun } from './src/functions/token/SpashTokenHandlear';
 import { Text, View } from 'react-native';
+import { ContextProvider } from './src/context/ContextApi';
+import MainNavigation from './src/navigations/main/MainNavigation';
+import { getFullData } from './src/functions/token/DataTokenhandler';
+import Token from './src/constant/tokens/TokenConstant';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,8 +19,14 @@ const App = () => {
 
   useEffect(() => {
     const authSplash = getSplashTokenFun();
-    if (JSON.parse(authSplash)) {
-      setInitialRoute('Auth');
+    const fullData = getFullData(Token.UserInfo)
+    if (authSplash) {
+      if (fullData) {
+        setInitialRoute('Main');
+      }
+      else {
+        setInitialRoute('Auth');
+      }
       setLoading(false);
     } else {
       setInitialRoute('Splash');
@@ -31,12 +41,15 @@ const App = () => {
         <Text>Loading...</Text>
       </View>
     ) : (
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRoute}>
-          <Stack.Screen name="Auth" component={AuthNavigations} />
-          <Stack.Screen name="Splash" component={SplashNavigation} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <ContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRoute}>
+            <Stack.Screen name="Auth" component={AuthNavigations} />
+            <Stack.Screen name="Splash" component={SplashNavigation} />
+            <Stack.Screen name="Main" component={MainNavigation} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ContextProvider>
     )
   );
 };
