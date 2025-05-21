@@ -10,5 +10,8 @@ interface ContextTypeInterface {
   setPopup: React.Dispatch<React.SetStateAction<popupType>>;
   UserFprofile: any;
   setUserProfile: React.Dispatch<React.SetStateAction<any>>;
+  location: any;
+  setLocation: React.Dispatch<React.SetStateAction<any>>;
+  
 }
 export {popupType, ContextTypeInterface};

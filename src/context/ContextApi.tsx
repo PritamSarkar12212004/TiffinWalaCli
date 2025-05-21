@@ -15,6 +15,8 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     });
     const [UserFprofile, setUserProfile] = useState<any>(null)
 
+    const [location, setLocation] = useState<any>(null)
+
     return (
         <Context.Provider
             value={{
@@ -24,6 +26,8 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
                 // user profile
                 UserFprofile,
                 setUserProfile,
+                location,
+                setLocation
             }}
         >
             {children}

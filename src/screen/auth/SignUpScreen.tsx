@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  Alert,
   Image
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -14,11 +13,13 @@ import UiTheme from '../../constant/theme/ui/UiTheme';
 import MainLogo from '../../constant/image/logo/MainLogo';
 import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
 import { userContext } from '../../context/ContextApi';
-
-
-
+import useSignuphook from '../../hooks/auth/useSignuphook';
+import { setTemData } from '../../functions/token/DataTokenhandler';
+import Token from '../../constant/tokens/TokenConstant';
 
 const SignupScreen = () => {
+
+  const { signupFuncv } = useSignuphook()
   const { setPopup } = userContext()
   const navigation = useNavigation();
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -27,7 +28,6 @@ const SignupScreen = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [responseOtp, setResponseotp] = useState('');
-
   const handlePhoneNumberChange = (text: string) => {
     const numericValue = text.replace(/[^0-9]/g, '');
     setPhoneNumber(numericValue);
@@ -45,14 +45,9 @@ const SignupScreen = () => {
         func: cleanup,
       });
     } else {
-      // Mocking an OTP API response
-      const fakeOtp = '123456'; // replace this with actual API call
       try {
-        // const res = await api.post("/api/otp/signup", { number: phoneNumber });
-        setResponseotp(fakeOtp);
-        setOtpSent(true);
-        setShowOtpInput(true);
-        setIsLoading(false);
+        setIsLoading(true);
+        signupFuncv(setResponseotp, setOtpSent, setShowOtpInput, setIsLoading, phoneNumber, setPopup)
       } catch (err: any) {
         setPopup({
           status: true,
@@ -68,10 +63,11 @@ const SignupScreen = () => {
 
   const handleVerifyOtp = () => {
     if (responseOtp === otp) {
-      // Replace this with navigation or saving token
-      Alert.alert("Success", "OTP verified successfully!");
-      cleanup();
-      navigation.navigate("UserInfo" as never); // Adjust route name
+      setTemData(Token.TemLogin, phoneNumber)
+      navigation.navigate('UserProfileSetScreen', {
+        phoneNumber: phoneNumber
+      });
+      cleanup()
     } else {
       setPopup({
         status: true,
