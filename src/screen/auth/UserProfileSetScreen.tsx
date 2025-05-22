@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, TextInput, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image, TextInput, StyleSheet, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import AuthNavigation from '../../components/navigation/auth/AuthNavigation';
 import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
@@ -21,18 +21,26 @@ const UserProfileSetScreen = () => {
         { label: 'Other', value: 'other' },
     ];
     const [isGenderFocus, setIsGenderFocus] = useState(false);
+
+    //fealds
     const [selectedGender, setSelectedGender] = useState(null);
     const [location, setLocation] = useState('');
     const [uri, setUri] = useState('');
-    const [userName, setUserName] = useState('');
+    const [userName, setUserName] = useState<string>('');
     const [email, setEmail] = useState('');
     const [bio, setBio] = useState('');
+
+    // locationLoading
+    const [locationLoading, setLocationLoading] = useState<any>()
+
+    // functions call
     const pikImage = () => {
         ImagePikerFunc(setUri);
     }
     const getCurrentLocation = () => {
-        GetCurrentLocationFunc(setLocation, setPopup);
-    }
+        setLocationLoading(true);
+        GetCurrentLocationFunc(setLocation, setPopup, setLocationLoading);
+    };
     return (
         <View className="flex-1 bg-black p-2">
             <ScrollView className="flex-1">
@@ -54,7 +62,7 @@ const UserProfileSetScreen = () => {
                         <Text className="text-white text-xl font-bold mb-1">User Name</Text>
                         <View className="w-full border-2 border-gray-600 rounded-xl px-3 flex flex-row items-center gap-2">
                             <FontAwesome6 name="user" iconStyle="solid" color={"gray"} size={20} />
-                            <TextInput className="flex-1 text-white text-xl" placeholder="User Name" placeholderTextColor={'gray'} />
+                            <TextInput value={userName} onChangeText={(text) => setUserName(text)} className="flex-1 text-white text-xl" placeholder="User Name" placeholderTextColor={'gray'} />
                         </View>
                     </View>
                     {/* Email */}
@@ -62,7 +70,7 @@ const UserProfileSetScreen = () => {
                         <Text className="text-white text-xl font-bold mb-1">Email (optional)</Text>
                         <View className="w-full border-2 border-gray-600 rounded-xl px-3 flex flex-row items-center gap-2">
                             <FontAwesome6 name="envelope" iconStyle="solid" color={"gray"} size={20} />
-                            <TextInput keyboardType='email-address' className="flex-1 text-white text-xl" placeholder="Email address" placeholderTextColor={'gray'} />
+                            <TextInput value={email} onChangeText={(email) => setEmail(email)} keyboardType='email-address' className="flex-1 text-white text-xl" placeholder="Email address" placeholderTextColor={'gray'} />
                         </View>
                     </View>
                     {/* Bio */}
@@ -70,7 +78,7 @@ const UserProfileSetScreen = () => {
                         <Text className="text-white text-xl font-bold mb-1">BIO</Text>
                         <View className="w-full border-2 border-gray-600 rounded-xl px-3 flex flex-row items-center gap-2">
                             <FontAwesome6 name="pen" iconStyle="solid" color={"gray"} size={20} />
-                            <TextInput keyboardType='email-address' className="flex-1 text-white text-xl" placeholder="write BIO" placeholderTextColor={'gray'} />
+                            <TextInput keyboardType='default' value={bio} onChangeText={(bio) => setBio(bio)} className="flex-1 text-white text-xl" placeholder="Write Bio" placeholderTextColor={'gray'} />
                         </View>
                     </View>
                     {/* Gender Dropdown */}
@@ -103,9 +111,16 @@ const UserProfileSetScreen = () => {
                     {/* Location */}
                     <View className="w-full">
                         <Text className="text-white text-lg font-semibold mb-1">Location</Text>
-                        <TouchableOpacity onPress={() => getCurrentLocation()} className="w-full border-2 bg-zinc-800 border-gray-600 rounded-xl px-3 flex flex-row items-center gap-3 h-16">
-                            <FontAwesome6 name="location-arrow" iconStyle="solid" color={"gray"} size={25} />
-                            <Text className="text-lg font-semibold text-gray-400">Get current location</Text>
+                        <TouchableOpacity onPress={() => locationLoading ? null : getCurrentLocation()} className="w-full border-2 bg-zinc-800 border-gray-600 rounded-xl px-3 flex flex-row items-center gap-3 h-16">
+                            {
+                                locationLoading ? <ActivityIndicator size={20} color={'orange'} /> : <FontAwesome6 name="location-arrow" iconStyle="solid" color={"gray"} size={25} />
+
+                            }
+                            {
+                                locationLoading ? <Text className="text-lg font-semibold text-gray-400">Getting current location...</Text>
+                                    : location ? <Text className="text-lg flex-auto font-semibold text-gray-400 text-sm text-wrap">{location.FormateAddress}</Text> : <Text className="text-lg font-semibold text-gray-400">Get current location</Text>
+
+                            }
                         </TouchableOpacity>
                     </View>
 

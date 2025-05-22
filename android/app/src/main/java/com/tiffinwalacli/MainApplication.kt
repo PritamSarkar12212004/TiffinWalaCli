@@ -12,14 +12,17 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
 
+// Add this import as per instruction:
+import com.reactnativecompressor.CompressorPackage
+
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
       object : DefaultReactNativeHost(this) {
         override fun getPackages(): List<ReactPackage> =
             PackageList(this).packages.apply {
-              // Packages that cannot be autolinked yet can be added manually here, for example:
-              // add(MyReactNativePackage())
+              // Add CompressorPackage manually:
+              add(CompressorPackage())
             }
 
         override fun getJSMainModuleName(): String = "index"
@@ -28,6 +31,7 @@ class MainApplication : Application(), ReactApplication {
 
         override val isNewArchEnabled: Boolean = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
         override val isHermesEnabled: Boolean = BuildConfig.IS_HERMES_ENABLED
+        
       }
 
   override val reactHost: ReactHost
