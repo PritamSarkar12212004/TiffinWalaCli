@@ -12,6 +12,7 @@ interface ContextTypeInterface {
   setUserProfile: React.Dispatch<React.SetStateAction<any>>;
   location: any;
   setLocation: React.Dispatch<React.SetStateAction<any>>;
-  
+  userTemLocation: any;
+  setUserTemLocation: React.Dispatch<React.SetStateAction<any>>;
 }
 export {popupType, ContextTypeInterface};

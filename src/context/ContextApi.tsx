@@ -1,4 +1,4 @@
-import { createContext, use, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { popupType, ContextTypeInterface } from "../interface/context/childreen";
 
 const Context = createContext<ContextTypeInterface | undefined>(undefined);
@@ -16,6 +16,7 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     const [UserFprofile, setUserProfile] = useState<any>(null)
 
     const [location, setLocation] = useState<any>(null)
+    const [userTemLocation, setUserTemLocation] = useState<any>("")
 
     return (
         <Context.Provider
@@ -27,7 +28,9 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
                 UserFprofile,
                 setUserProfile,
                 location,
-                setLocation
+                setLocation,
+                userTemLocation,
+                setUserTemLocation,
             }}
         >
             {children}

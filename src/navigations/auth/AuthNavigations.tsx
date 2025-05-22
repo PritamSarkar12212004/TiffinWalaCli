@@ -11,7 +11,7 @@ const AuthNavigations = () => {
     return (
         <AuthWraper>
             <PopUpWraper>
-                <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='UserProfileSetScreen'  >
+                <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='LoginScreen'  >
                     <Stack.Screen
                         name="LoginScreen"
                         component={LoginScreen}

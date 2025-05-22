@@ -12,8 +12,8 @@ import { userContext } from '../../context/ContextApi';
 
 const UserProfileSetScreen = () => {
     const route = useRoute();
-    const { setPopup } = userContext()
-    // const { phoneNumber }: any = route.params;
+    const { setPopup } = userContext();
+    const { phoneNumber }: any = route.params;
 
     const genderOptions = [
         { label: 'Male', value: 'male' },
@@ -26,17 +26,18 @@ const UserProfileSetScreen = () => {
     const [selectedGender, setSelectedGender] = useState(null);
     const [location, setLocation] = useState('');
     const [uri, setUri] = useState('');
-    const [userName, setUserName] = useState<string>('');
-    const [email, setEmail] = useState('');
+    const [userName, setUserName] = useState<any>('');
+    const [email, setEmail] = useState<any>('');
     const [bio, setBio] = useState('');
 
-    // locationLoading
+    // Loading
     const [locationLoading, setLocationLoading] = useState<any>()
+    const [profileCreateLoading, setProfileCreateLodaing] = useState<boolean>(false)
 
     // functions call
     const pikImage = () => {
         ImagePikerFunc(setUri);
-    }
+    };
     const getCurrentLocation = () => {
         setLocationLoading(true);
         GetCurrentLocationFunc(setLocation, setPopup, setLocationLoading);
@@ -125,7 +126,7 @@ const UserProfileSetScreen = () => {
                     </View>
 
                     <View className='w-full flex items-center justify-center'>
-                        <AuthButton />
+                        <AuthButton userName={userName} email={email} bio={bio} selectedGender={selectedGender} location={location} uri={uri} phoneNumber={phoneNumber} setProfileCreateLodaing={setProfileCreateLodaing} profileCreateLoading={profileCreateLoading} />
                     </View>
                 </View>
             </ScrollView>

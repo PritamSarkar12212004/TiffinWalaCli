@@ -10,67 +10,72 @@ const GetCurrentLocationFunc = async (
 ) => {
   setLocationLoading(true);
 
+  // Wrap Geolocation.getCurrentPosition in a promise to handle timeout manually
+  const getPosition = () => {
+    return new Promise<Geolocation.GeoPosition>((resolve, reject) => {
+      let timeoutId = setTimeout(() => {
+        reject(new Error('Geolocation request timed out'));
+      }, 15000); // 15 seconds timeout
+
+      Geolocation.getCurrentPosition(
+        position => {
+          clearTimeout(timeoutId);
+          resolve(position);
+        },
+        error => {
+          clearTimeout(timeoutId);
+          reject(error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 20000, // Increase native timeout a bit (20s)
+          maximumAge: 10000,
+        },
+      );
+    });
+  };
+
   try {
-    Geolocation.getCurrentPosition(
-      async pos => {
-        const {latitude: lat, longitude: lng} = pos.coords;
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
 
-        try {
-          const res = await axios.get(
-            `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=${apikey}`,
-          );
+    try {
+      const res = await axios.get(
+        `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=${apikey}`
+      );
 
-          const locationData = res?.data?.features?.[0]?.properties;
+      const locationData = res?.data?.features?.[0]?.properties;
 
-          if (locationData?.formatted) {
-            setLocation({
-              FormateAddress: locationData.formatted,
-              lat,
-              lng,
-            });
-          } else {
-            throw new Error('Invalid response structure');
-          }
-        } catch (err) {
-          console.error('API Error:', err);
-          setPopup({
-            status: true,
-            title: 'API Error',
-            message: 'Failed to fetch location details.',
-            type: 'error',
-            func: () => setPopup({status: false}),
-          });
-        } finally {
-          setLocationLoading(false);
-        }
-      },
-      geoError => {
-        console.error('Geolocation Error:', geoError);
-        setLocationLoading(false);
-        setPopup({
-          status: true,
-          title: 'Geolocation Error',
-          message: 'Failed to get current location.',
-          type: 'error',
-          func: () => setPopup({status: false}),
+      if (locationData?.formatted) {
+        setLocation({
+          FormateAddress: locationData.formatted,
+          lat,
+          lng,
         });
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 10000,
-      },
-    );
-  } catch (outerError) {
-    console.error('Unexpected Error:', outerError);
-    setLocationLoading(false);
+      } else {
+        throw new Error('Invalid response structure');
+      }
+    } catch (apiError) {
+      console.error('API Error:', apiError);
+      setPopup({
+        status: true,
+        title: 'API Error',
+        message: 'Failed to fetch location details.',
+        type: 'error',
+        func: () => setPopup({ status: false }),
+      });
+    }
+  } catch (geoError) {
+    console.error('Geolocation Error:', geoError);
     setPopup({
       status: true,
-      title: 'Unexpected Error',
-      message: 'An unexpected error occurred while fetching location.',
+      title: 'Geolocation Error',
+      message: geoError.message || 'Failed to get current location.',
       type: 'error',
-      func: () => setPopup({status: false}),
+      func: () => setPopup({ status: false }),
     });
+  } finally {
+    setLocationLoading(false);
   }
 };
 
