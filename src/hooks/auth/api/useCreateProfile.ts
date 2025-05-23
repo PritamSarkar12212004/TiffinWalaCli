@@ -30,7 +30,7 @@ const useCreateProfile = () => {
       const fullAddress = {
         latitude: location.lat,
         longitude: location.lng,
-        address: location.FormattedAddress, // Correct this key based on your data structure
+        address: location.FormateAddress, // Correct this key based on your data structure
       };
       console.log('call 3');
 

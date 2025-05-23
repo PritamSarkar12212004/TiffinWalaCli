@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { popupType, ContextTypeInterface } from "../interface/context/childreen";
+import AddressGeterFunc from "../functions/context/GetAddressFunc";
 
 const Context = createContext<ContextTypeInterface | undefined>(undefined);
 export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -17,6 +18,24 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
 
     const [location, setLocation] = useState<any>(null)
     const [userTemLocation, setUserTemLocation] = useState<any>("")
+
+
+
+
+
+    useEffect(() => {
+        AddressGeterFunc({ setUserProfile, setUserTemLocation });
+        return () => {
+            setUserProfile(null)
+            setUserTemLocation(null)
+        }
+    }, [])
+
+    // useEffect(() => {
+    //     return () => {
+    //         setLocationSearch(null)
+    //     }
+    // }, [])
 
     return (
         <Context.Provider

@@ -61,7 +61,6 @@ const CreateProfile = ({
     return;
   }
   setProfileCreateLodaing(true);
-  console.log('call 1');
   createUserProfile({
     userName,
     email,

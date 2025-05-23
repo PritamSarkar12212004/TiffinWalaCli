@@ -37,16 +37,17 @@ const GetCurrentLocationFunc = async (
 
   try {
     const pos = await getPosition();
-    const { latitude: lat, longitude: lng } = pos.coords;
+    const {latitude: lat, longitude: lng} = pos.coords;
 
     try {
       const res = await axios.get(
-        `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=${apikey}`
+        `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=${apikey}`,
       );
 
       const locationData = res?.data?.features?.[0]?.properties;
 
       if (locationData?.formatted) {
+        console.log(locationData?.formatted);
         setLocation({
           FormateAddress: locationData.formatted,
           lat,
@@ -62,7 +63,7 @@ const GetCurrentLocationFunc = async (
         title: 'API Error',
         message: 'Failed to fetch location details.',
         type: 'error',
-        func: () => setPopup({ status: false }),
+        func: () => setPopup({status: false}),
       });
     }
   } catch (geoError) {
@@ -72,7 +73,7 @@ const GetCurrentLocationFunc = async (
       title: 'Geolocation Error',
       message: geoError.message || 'Failed to get current location.',
       type: 'error',
-      func: () => setPopup({ status: false }),
+      func: () => setPopup({status: false}),
     });
   } finally {
     setLocationLoading(false);
