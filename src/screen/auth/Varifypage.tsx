@@ -8,6 +8,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import usevarifySignUpTop from '../../hooks/auth/signup/usevarifySignUpTop';
 import { userContext } from '../../utils/context/ContextProvider';
 import AuthPupup from '../../layout/popUp/AuthPupup';
+import useLoginVarify from '../../hooks/auth/login/useLoginVarify';
 
 const Varifypage = () => {
 
@@ -21,12 +22,18 @@ const Varifypage = () => {
     });
     const navigation = useNavigation()
     const route = useRoute()
-    const { phoneNumber, otp } = route.params as any;
+    const { phoneNumber, otp, path } = route.params as any;
     const [enterOtp, setEnterOtp] = useState(null);
+    const [loading, setLoading] = useState(false)
     const { setTempPhomne } = userContext()
     const { varifyotp } = usevarifySignUpTop()
+    const { varifyotpLogin } = useLoginVarify()
     const handleVarify = () => {
-        varifyotp({ enterOtp: enterOtp, otp: otp, phoneNumber: phoneNumber, navigation: navigation, setTempPhomne: setTempPhomne, setPopUp: setPopUp });
+        if (path == 'login') {
+            varifyotpLogin({ enterOtp: enterOtp, otp: otp, phoneNumber: phoneNumber, navigation: navigation, setPopUp: setPopUp, setLoading: setLoading });
+        } else {
+            varifyotp({ enterOtp: enterOtp, otp: otp, phoneNumber: phoneNumber, navigation: navigation, setTempPhomne: setTempPhomne, setPopUp: setPopUp });
+        }
     }
     return (
         <View className="flex-1 bg-black pt-5">
@@ -47,7 +54,7 @@ const Varifypage = () => {
             <View className="flex-1 items-center justify-between bg-white rounded-t-[40px] pt-10 px-5 pb-10">
                 <OtpInput setEnterOtp={setEnterOtp} />
                 <View className="w-full gap-8 items-center justify-center px-5">
-                    <VarifyButton handleVarify={handleVarify} />
+                    <VarifyButton handleVarify={handleVarify} loading={loading} />
                 </View>
             </View>
         </View>

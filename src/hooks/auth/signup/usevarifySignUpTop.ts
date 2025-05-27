@@ -9,7 +9,7 @@ const usevarifySignUpTop = () => {
   }: any) => {
     if (enterOtp == otp) {
       setTempPhomne(phoneNumber);
-      navigation.navigate('ProfileSetupnav', {
+      navigation.replace('ProfileSetupnav', {
         Screen: 'ProfileLocation',
       } as never);
     } else {

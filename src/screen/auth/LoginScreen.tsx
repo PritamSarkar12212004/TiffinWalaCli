@@ -4,12 +4,25 @@ import PhoneInput from '../../components/auth/textinput/PhoneInput';
 import LoginButton from '../../components/auth/buttons/LoginButton';
 import { useNavigation } from '@react-navigation/native';
 import ImageConstant from '../../constants/image/ImageConstant';
+import AuthPupup from '../../layout/popUp/AuthPupup';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [activenavigate, setActiveNavigate] = useState<boolean>(false);
+
+  // auth popup
+  const [popUp, setPopUp] = useState<{
+    isVisible: boolean;
+    message: string;
+  }>({
+    isVisible: false,
+    message: '',
+  });
+
   return (
     <View className='flex-1 flex bg-black pt-5'>
+      <AuthPupup popUp={popUp} setPopUp={setPopUp} />
       <Image source={ImageConstant.Auth.AuthHeaderimage} className='w-full h-full absolute top-0 left-0' />
       <View className='w-full flex items-center gap-4 justify-center px-3 pt-5 pb-14 '>
         <View className='w-full h-20'></View>
@@ -21,9 +34,9 @@ const LoginScreen = () => {
         </Text>
       </View>
       <View className='flex-1 flex pb-10 items-center justify-between bg-white rounded-t-[40px] pt-10 px-5'>
-        <PhoneInput setPhoneNumber={setPhoneNumber} />
+        <PhoneInput setPhoneNumber={setPhoneNumber} setActiveNavigate={setActiveNavigate} />
         <View className='w-full flex gap-8 items-center justify-center px-5 '>
-          <LoginButton />
+          <LoginButton path='login' activenavigate={activenavigate} phoneNumber={phoneNumber} setPopUp={setPopUp} />
           <View className='flex-row items-center justify-center gap-2'>
             <Text className=''>Don’t have an account?</Text> <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("SignupScreen" as never)} ><Text className='text-[#FF7622]'>Sign Up</Text></TouchableOpacity>
           </View>
