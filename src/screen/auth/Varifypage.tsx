@@ -1,13 +1,37 @@
 import { View, Text, Image } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import AuthNavigation from '../../components/auth/navigation/AuthNavigation';
 import OtpInput from '../../components/auth/textinput/OtpInput';
 import VarifyButton from '../../components/auth/buttons/VarifyButton';
 import ImageConstant from '../../constants/image/ImageConstant';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import usevarifySignUpTop from '../../hooks/auth/signup/usevarifySignUpTop';
+import { userContext } from '../../utils/context/ContextProvider';
+import AuthPupup from '../../layout/popUp/AuthPupup';
 
 const Varifypage = () => {
+
+    // auth popup
+    const [popUp, setPopUp] = useState<{
+        isVisible: boolean;
+        message: string;
+    }>({
+        isVisible: false,
+        message: '',
+    });
+    const navigation = useNavigation()
+    const route = useRoute()
+    const { phoneNumber, otp } = route.params as any;
+    const [enterOtp, setEnterOtp] = useState(null);
+    const { setTempPhomne } = userContext()
+    const { varifyotp } = usevarifySignUpTop()
+    const handleVarify = () => {
+        varifyotp({ enterOtp: enterOtp, otp: otp, phoneNumber: phoneNumber, navigation: navigation, setTempPhomne: setTempPhomne, setPopUp: setPopUp });
+    }
     return (
         <View className="flex-1 bg-black pt-5">
+            <AuthPupup popUp={popUp} setPopUp={setPopUp} />
+
             <Image source={ImageConstant.Auth.AuthHeaderimage} className='w-full h-full absolute top-0 left-0' />
             <View className="w-full h-20" >
                 <AuthNavigation />
@@ -21,9 +45,9 @@ const Varifypage = () => {
                 </Text>
             </View>
             <View className="flex-1 items-center justify-between bg-white rounded-t-[40px] pt-10 px-5 pb-10">
-                <OtpInput />
+                <OtpInput setEnterOtp={setEnterOtp} />
                 <View className="w-full gap-8 items-center justify-center px-5">
-                    <VarifyButton />
+                    <VarifyButton handleVarify={handleVarify} />
                 </View>
             </View>
         </View>

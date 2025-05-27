@@ -5,12 +5,12 @@ import useCallOtpSignup from '../../../hooks/auth/signup/useCallOtpSignup';
 interface PhoneInputProps {
     setPhoneNumber: (number: string) => void;
     phoneNumber?: any;
+    setActiveNavigate: (active: boolean) => void;
 }
 
-const PhoneInput: React.FC<PhoneInputProps> = ({ setPhoneNumber, phoneNumber }) => {
+const PhoneInput: React.FC<PhoneInputProps> = ({ setPhoneNumber, setActiveNavigate }) => {
     const [phone, setPhone] = useState('');
     const [error, setError] = useState('');
-    const { callOtpSignup } = useCallOtpSignup();
 
     const handleChange = (text: string) => {
         // Remove non-numeric characters
@@ -22,9 +22,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ setPhoneNumber, phoneNumber }) 
             // Validate length
             if (cleaned.length === 10) {
                 setError('');
-                // Call the signup function if phone number is valid
-                console.log(phoneNumber);
-                callOtpSignup(phoneNumber);
+                setActiveNavigate(true);
             } else {
                 setError('Phone number must be 10 digits');
             }

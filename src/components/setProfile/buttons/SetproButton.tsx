@@ -4,7 +4,7 @@ import FIcon from '../../../layout/icon/FIcon'
 import CurrentLocationFun from '../../../functions/location/CurrentLocationFun'
 import { useNavigation } from '@react-navigation/native'
 
-const SetproButton = ({ setPopUp, locationget, content, icon, setLocation }: any) => {
+const SetproButton = ({ setPopUp, locationget, content, icon, setLocation, tempPhomne }: any) => {
     const [loading, setLoading] = useState(false)
     const navigation = useNavigation()
 
@@ -14,6 +14,7 @@ const SetproButton = ({ setPopUp, locationget, content, icon, setLocation }: any
     const navigatePage = () => {
         navigation.navigate('CreateProfile', {
             location: locationget,
+            phone: tempPhomne,
         })
     }
 

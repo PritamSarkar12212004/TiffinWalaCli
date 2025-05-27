@@ -11,7 +11,7 @@ const SlpashSecoundaryButton = () => {
         navigation.replace("AuthNavigations" as never)
     }
     return (
-        <TouchableOpacity activeOpacity={0.8} onPress={() => pagenavigation()} className=' w-full  rounded-2xl py-6 flex items-center justify-center'>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => pagenavigation()} className=' w-full  rounded-2xl h-20 flex items-center justify-center'>
             <Text className='text-xl font-bold text-black'>Skip</Text>
         </TouchableOpacity>
     )

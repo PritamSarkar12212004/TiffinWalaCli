@@ -4,8 +4,7 @@ import React, { useState } from 'react'
 const CreateProfileButton = ({ content, profileCreater }: any) => {
     const [loading, setLoading] = useState(false)
     const handlePress = () => {
-        setLoading(true)
-        profileCreater()
+        profileCreater(setLoading)
     }
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={() => loading ? null : handlePress()} className='bg-[#FF7622] w-full  rounded-2xl py-6 flex items-center h-20 justify-center'>

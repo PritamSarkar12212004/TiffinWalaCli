@@ -15,7 +15,7 @@ const AuthNavigations = () => {
           animation: 'slide_from_right'
         }} component={LoginScreen} />
         <Stack.Screen name="SignupScreen" options={{
-          animation: 'slide_from_bottom'
+          animation: 'slide_from_right'
         }} component={SignupScreen} />
         <Stack.Screen name="Varifypage" options={{
           animation: 'slide_from_right'

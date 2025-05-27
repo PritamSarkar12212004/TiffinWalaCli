@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 const SetproNevigation = () => {
     const navigation = useNavigation()
     return (
-        <View className='w-full flex flex-row items-center justify-between'>
+        <View className='w-full flex flex-row px-3 items-center justify-between'>
             <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} className='h-14 w-14 rounded-full flex items-center justify-center bg-gray-300'>
                 <FIcon size={30} name='arrow-left' color='gray' />
             </TouchableOpacity>

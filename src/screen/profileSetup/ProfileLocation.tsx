@@ -3,8 +3,9 @@ import MapView, { Marker } from 'react-native-maps';
 import React, { useState } from 'react';
 import SetproButton from '../../components/setProfile/buttons/SetproButton';
 import AuthPupup from '../../layout/popUp/AuthPupup';
-
+import { userContext } from '../../utils/context/ContextProvider';
 const ProfileLocation = () => {
+    const { tempPhomne } = userContext()
     const [location, setLocation] = useState(null);
     const [popUp, setPopUp] = useState<{
         isVisible: boolean;
@@ -61,7 +62,7 @@ const ProfileLocation = () => {
             </View>
 
             <View className="px-5 w-full flex items-center gap-10 justify-center">
-                <SetproButton setPopUp={setPopUp} locationget={location} setLocation={setLocation} content="Access LOCATION" icon="location-dot" />
+                <SetproButton tempPhomne={tempPhomne} setPopUp={setPopUp} locationget={location} setLocation={setLocation} content="Access LOCATION" icon="location-dot" />
                 <Text className="text-center tracking-widest font-semibold text-zinc-600">
                     DFOOD WILL ACCESS YOUR LOCATION ONLY WHILE USING THE APP
                 </Text>

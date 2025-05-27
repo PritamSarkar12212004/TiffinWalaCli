@@ -1,15 +1,27 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import React, { useState } from 'react';
 import PhoneInput from '../../components/auth/textinput/PhoneInput';
 import LoginButton from '../../components/auth/buttons/LoginButton';
 import AuthNavigation from '../../components/auth/navigation/AuthNavigation';
 import ImageConstant from '../../constants/image/ImageConstant';
+import AuthPupup from '../../layout/popUp/AuthPupup';
 
 const SignupScreen = () => {
     const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [activenavigate, setActiveNavigate] = useState<boolean>(false);
+
+    // auth popup
+    const [popUp, setPopUp] = useState<{
+        isVisible: boolean;
+        message: string;
+    }>({
+        isVisible: false,
+        message: '',
+    });
 
     return (
         <View className="flex-1 bg-black pt-5">
+            <AuthPupup popUp={popUp} setPopUp={setPopUp} />
             <Image source={ImageConstant.Auth.AuthHeaderimage} className='w-full h-full absolute top-0 left-0' />
             <View className="w-full h-20" >
                 <AuthNavigation />
@@ -23,9 +35,9 @@ const SignupScreen = () => {
                 </Text>
             </View>
             <View className="flex-1 items-center justify-between bg-white rounded-t-[40px] pt-10 px-5 pb-10">
-                <PhoneInput setPhoneNumber={setPhoneNumber} phoneNumber={phoneNumber} />
+                <PhoneInput setActiveNavigate={setActiveNavigate} setPhoneNumber={setPhoneNumber} />
                 <View className="w-full gap-8 items-center justify-center px-5">
-                    <LoginButton />
+                    <LoginButton activenavigate={activenavigate} phoneNumber={phoneNumber} setPopUp={setPopUp} />
                 </View>
             </View>
         </View>

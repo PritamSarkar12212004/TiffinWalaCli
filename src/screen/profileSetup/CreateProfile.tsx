@@ -5,19 +5,31 @@ import InputField from '../../components/setProfile/inputfildes/InputField'
 import FIcon from '../../layout/icon/FIcon'
 import SingleImgPicker from '../../functions/image/SingleImgPicker'
 import ImageConstant from '../../constants/image/ImageConstant'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import useCreateProfile from '../../hooks/setProfile/useCreateProfile'
 import CreateProfileButton from '../../components/setProfile/buttons/CreateProfileButton'
+import AuthPupup from '../../layout/popUp/AuthPupup'
 
 const CreateProfile = () => {
+    const navigation = useNavigation()
     const route = useRoute()
     const location = route.params?.location
+    const phone = route.params?.phone
     // information state
     const [name, setName] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [bio, setBio] = useState<string>("")
     const [gender, setGender] = useState<string>("")
     const [image, setImage] = useState<string>("")
+
+    // auth popup state
+    const [popUp, setPopUp] = useState<{
+        isVisible: boolean,
+        message: string
+    }>({
+        isVisible: false,
+        message: ''
+    })
 
 
     const genderOption = [
@@ -38,19 +50,25 @@ const CreateProfile = () => {
         SingleImgPicker({ setImage })
     }
     const { createProfile } = useCreateProfile()
-    const profileCreater = () => {
+    const profileCreater = (setLoading: any) => {
         createProfile({
             name,
             email,
             bio,
             location,
             image,
+            phone,
+            gender,
+            setPopUp,
+            setLoading,
+            navigation
         })
     }
     return (
         <View className='flex-1 bg-white pt-3'>
             <SetproNevigation />
             <ScrollView className='flex-1 mt-5 px-3' showsVerticalScrollIndicator={false}>
+                <AuthPupup popUp={popUp} setPopUp={setPopUp} />
                 <View className='flex-1 mt-10'>
                     <View className='w-full flex items-center justify-center gap-3'>
                         <TouchableOpacity onPress={() => selectimage()} activeOpacity={0.8} className='w-64 h-72 bg-zinc-400 rounded-[40px]'>

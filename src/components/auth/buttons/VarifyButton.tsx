@@ -1,11 +1,9 @@
 import { Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
 
-const VarifyButton = () => {
-    const navigation = useNavigation()
+const VarifyButton = ({ handleVarify }: any) => {
     const navigatePage = async () => {
-        navigation.navigate('ProfileSetupnav' as never)
+        handleVarify();
     }
 
     return (

@@ -15,7 +15,12 @@ const CurrentLocationFun = ({setPopUp, setLoading, setLocation}: any) => {
 
       const {latitude, longitude} = position.coords;
 
-      const address = await reverseGeocode(latitude, longitude, setPopUp);
+      const address = await reverseGeocode(
+        latitude,
+        longitude,
+        setPopUp,
+        setLoading,
+      );
       const locationData = {
         latitude,
         longitude,
@@ -46,7 +51,8 @@ export default CurrentLocationFun;
 const reverseGeocode = async (
   latitude: number,
   longitude: number,
-  setPopUp,
+  setPopUp: any,
+  setLoading: any,
 ) => {
   try {
     const response = await axios.get(
@@ -66,13 +72,17 @@ const reverseGeocode = async (
     if (response.data && response.data.display_name) {
       return response.data.display_name;
     } else {
-      return null;
+      setPopUp({
+        isVisible: true,
+        message: 'Failed to get address. Please try again.',
+      });
+      setLoading(false);
     }
   } catch (error) {
     setPopUp({
       isVisible: true,
       message: 'Failed to get address. Please try again.',
     });
-    return null;
+    setLoading(false);
   }
 };

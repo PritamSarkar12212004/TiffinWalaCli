@@ -7,21 +7,24 @@ import AuthNavigations from './src/navigations/auth/AuthNavigations';
 import { Text, View } from 'react-native';
 import AnimationPath from './src/constants/animation/AnimationPath';
 import AnimationLotti from './src/components/global/animation/AnimationLotti';
-import { getSplashToken } from './src/functions/Token/PageTokenManagerFun';
+import { getAuthToken, getSplashToken } from './src/functions/Token/PageTokenManagerFun';
 import PageToken from './src/constants/tokens/PageToken';
 import ProfileSetupnav from './src/navigations/profileSetup/ProfileSetupnav';
+import { ContextProvider } from './src/utils/context/ContextProvider';
+import Mainnavigation from './src/navigations/main/Mainnavigation';
 
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [initialRoute, setInitialRoute] = useState<string>('AuthNavigations');
+  const [initialRoute, setInitialRoute] = useState<string>('');
+
 
   const tokenFinder = () => {
-    // getSplashToken(PageToken.SplashToken) ? setInitialRoute('AuthNavigations') : setInitialRoute('Splash');
+    getSplashToken(PageToken.SplashToken) ? getAuthToken(PageToken.profile.profileToken) ? setInitialRoute('Mainnavigation') : setInitialRoute('AuthNavigations') : setInitialRoute('Splash');
   }
   useEffect(() => {
-    // tokenFinder()
+    tokenFinder()
   }, [])
 
 
@@ -35,13 +38,17 @@ const App = () => {
         bg={'#fff'}
       />
       <Text className='text-2xl font-bold text-gray-800'>Welcome to Tiffin Wala</Text>
-    </View> : <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRoute}>
-        <Stack.Screen name="Splash" component={SplashNavigation} />
-        <Stack.Screen name="AuthNavigations" component={AuthNavigations} />
-        <Stack.Screen name="ProfileSetupnav" component={ProfileSetupnav} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    </View> :
+      <ContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRoute}>
+            <Stack.Screen name="Splash" component={SplashNavigation} />
+            <Stack.Screen name="AuthNavigations" component={AuthNavigations} />
+            <Stack.Screen name="ProfileSetupnav" component={ProfileSetupnav} />
+            <Stack.Screen name="Mainnavigation" component={Mainnavigation} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ContextProvider>
   )
 };
 
