@@ -1,36 +1,28 @@
-import React from 'react';
+import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../../screen/auth/LoginScreen';
-import AuthWraper from '../../layout/authLayout/AuthWraper';
-import SignupScreen from '../../screen/auth/SignUpScreen';
-import PopUpWraper from '../../layout/PopUp/PopUpWraper';
-import UserProfileSetScreen from '../../screen/auth/UserProfileSetScreen';
+import AuthWraper from '../../layout/wraper/AuthWraper';
+import SignupScreen from '../../screen/auth/SignupScreen';
+import Varifypage from '../../screen/auth/Varifypage';
 const Stack = createNativeStackNavigator();
 
-const AuthNavigations = () => {
-    return (
-        <AuthWraper>
-            <PopUpWraper>
-                <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='LoginScreen'  >
-                    <Stack.Screen
-                        name="LoginScreen"
-                        component={LoginScreen}
-                        options={{ headerShown: false, animation: 'fade' }}
-                    />
-                    <Stack.Screen
-                        name="SignupScreen"
-                        component={SignupScreen}
-                        options={{ headerShown: false, animation: 'fade' }}
-                    />
-                    <Stack.Screen
-                        name="UserProfileSetScreen"
-                        component={UserProfileSetScreen}
-                        options={{ headerShown: false, animation: 'fade' }}
-                    />
-                </Stack.Navigator>
-            </PopUpWraper>
-        </AuthWraper>
-    );
-};
 
-export default AuthNavigations;
+const AuthNavigations = () => {
+  return (
+    <AuthWraper>
+      <Stack.Navigator screenOptions={{ headerShown: false }} >
+        <Stack.Screen name="LoginScreen" options={{
+          animation: 'slide_from_right'
+        }} component={LoginScreen} />
+        <Stack.Screen name="SignupScreen" options={{
+          animation: 'slide_from_bottom'
+        }} component={SignupScreen} />
+        <Stack.Screen name="Varifypage" options={{
+          animation: 'slide_from_right'
+        }} component={Varifypage} />
+      </Stack.Navigator>
+    </AuthWraper>
+  )
+}
+
+export default AuthNavigations

@@ -1,0 +1,96 @@
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
+import SetproNevigation from '../../components/setProfile/navigation/SetproNevigation'
+import InputField from '../../components/setProfile/inputfildes/InputField'
+import FIcon from '../../layout/icon/FIcon'
+import SingleImgPicker from '../../functions/image/SingleImgPicker'
+import ImageConstant from '../../constants/image/ImageConstant'
+import { useRoute } from '@react-navigation/native'
+import useCreateProfile from '../../hooks/setProfile/useCreateProfile'
+import CreateProfileButton from '../../components/setProfile/buttons/CreateProfileButton'
+
+const CreateProfile = () => {
+    const route = useRoute()
+    const location = route.params?.location
+    // information state
+    const [name, setName] = useState<string>("")
+    const [email, setEmail] = useState<string>("")
+    const [bio, setBio] = useState<string>("")
+    const [gender, setGender] = useState<string>("")
+    const [image, setImage] = useState<string>("")
+
+
+    const genderOption = [
+        {
+            icons: "mars",
+            name: "Male"
+        },
+        {
+            icons: "venus",
+            name: "Female"
+        },
+        {
+            icons: "transgender",
+            name: "Other"
+        },
+    ]
+    const selectimage = () => {
+        SingleImgPicker({ setImage })
+    }
+    const { createProfile } = useCreateProfile()
+    const profileCreater = () => {
+        createProfile({
+            name,
+            email,
+            bio,
+            location,
+            image,
+        })
+    }
+    return (
+        <View className='flex-1 bg-white pt-3'>
+            <SetproNevigation />
+            <ScrollView className='flex-1 mt-5 px-3' showsVerticalScrollIndicator={false}>
+                <View className='flex-1 mt-10'>
+                    <View className='w-full flex items-center justify-center gap-3'>
+                        <TouchableOpacity onPress={() => selectimage()} activeOpacity={0.8} className='w-64 h-72 bg-zinc-400 rounded-[40px]'>
+                            {
+                                image ? <Image source={{ uri: image }} className='w-full h-full rounded-[40px]' /> : <Image source={
+                                    ImageConstant.SetprofileNoImg
+                                } className='w-full h-full rounded-[40px]' />
+                            }
+                        </TouchableOpacity>
+                        <Text className='text-xl font-semibold'>
+                            {name ? name : "Set your profile picture"}
+                        </Text>
+                    </View>
+                    <View className='w-full flex gap-4 mt-10'>
+                        <InputField title='Name' placeholder='Enter your name' setinput={setName} />
+                        <InputField title='Email (optional)' placeholder='Enter your email' setinput={setEmail} />
+                        <InputField title='Bio' placeholder='write bio' setinput={setBio} />
+                        <View className='w-full   mt-4'>
+                            <Text className='text-xl font-semibold text-zinc-700'>Gender</Text>
+                            <View className=' w-full flex flex-row items-center justify-between gap-2'>
+                                {
+                                    genderOption.map((item, index) => {
+                                        return (
+                                            <TouchableOpacity style={{ backgroundColor: gender === item.name ? "orange" : "#3F3F3F" }} activeOpacity={0.8} onPress={() => setGender(item.name)} key={index} className='flex-row bg-zinc-300 rounded-xl px-5 py-3  gap-1 flex items-center justify-center'>
+                                                <FIcon name={item.icons} size={30} color='white' />
+                                                <Text className='text-xl font-semibold text-white'>{item.name}</Text>
+                                            </TouchableOpacity>
+                                        )
+                                    })
+                                }
+                            </View>
+                        </View>
+                    </View>
+                    <View className='w-full mt-10 mb-48 '>
+                        <CreateProfileButton profileCreater={profileCreater} content='Create Profile' />
+                    </View>
+                </View>
+            </ScrollView>
+        </View>
+    )
+}
+
+export default CreateProfile
