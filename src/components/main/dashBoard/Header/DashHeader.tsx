@@ -6,10 +6,12 @@ const DashHeader = ({ userInfo }: any) => {
     const navigation = useNavigation()
     return (
         <View className='w-full flex items-center justify-between flex-row'>
-            <View className='flex flex-row items-center justify-center gap-3'>
-                <TouchableOpacity activeOpacity={0.8} className='bg-[#ECF0F4] h-16 w-16 rounded-full flex items-center justify-center'>
+            <TouchableOpacity onPress={() => navigation.navigate('LocationScree', {
+                location: userInfo.location
+            })} activeOpacity={0.8} className='flex flex-row items-center justify-center gap-3'>
+                <View className='bg-[#ECF0F4] h-16 w-16 rounded-full flex items-center justify-center'>
                     <FIcon name='location-dot' size={30} color='#FF7622' />
-                </TouchableOpacity>
+                </View>
                 <View className=''>
                     <Text className='text-xl font-semibold text-[#FF7622] tracking-widest leading-tight'>Deliver to</Text>
                     <View className='flex flex-row items-center justify-center gap-2'>
@@ -21,7 +23,7 @@ const DashHeader = ({ userInfo }: any) => {
                         <FIcon name='chevron-down' size={15} color='black' />
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
             <View>
                 <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen', {
                     userInfo: userInfo

@@ -5,6 +5,7 @@ import MainWraper from '../../layout/wraper/MainWraper';
 import ProfileScreen from '../../screen/main/ProfileScreen';
 import PersonalInfo from '../../screen/main/page/Profile/PersonalInfo';
 import ProfileEdit from '../../screen/main/page/Profile/ProfileEdit';
+import LocationScree from '../../screen/main/location/LocationScree';
 
 const Stack = createNativeStackNavigator();
 const Mainnavigation = () => {
@@ -23,6 +24,9 @@ const Mainnavigation = () => {
                 <Stack.Screen name="ProfileEdit" options={{
                     animation: 'slide_from_right'
                 }} component={ProfileEdit} />
+                <Stack.Screen name="LocationScree" options={{
+                    animation: 'slide_from_bottom'
+                }} component={LocationScree} />
             </Stack.Navigator>
         </MainWraper>
     )
