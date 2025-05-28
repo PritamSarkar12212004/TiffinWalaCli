@@ -4,13 +4,27 @@ import { ContextinterFace } from "../../interface/context/ContextinterFace";
 
 const Context = createContext<ContextinterFace | undefined>(undefined);
 export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
+    // temp phone number for navigation
     const [tempPhomne, setTempPhomne] = useState<any>(null);
+
+    // mai screen
+    const [userInfo, setUserInfo] = useState<{
+        location: any,
+        userinfo: any
+    }>({
+        location: {},
+        userinfo: {}
+    })
     return (
         // temp phone number for navigation
         <Context.Provider
             value={{
                 tempPhomne,
-                setTempPhomne
+                setTempPhomne,
+
+                // main screen
+                userInfo,
+                setUserInfo
             }}
         >
             {children}
