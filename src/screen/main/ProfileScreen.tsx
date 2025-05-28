@@ -1,0 +1,93 @@
+import { ScrollView, View } from 'react-native'
+import React from 'react'
+import NavigationProfile from '../../components/main/profile/navigation/NavigationProfile'
+import ProfileView from '../../components/main/profile/elements/ProfileView'
+import ProfileOptionContainer from '../../layout/main/profile/options/ProfileOptionContainer'
+
+const ProfileScreen = () => {
+    const options1 = [
+        {
+            title: 'Personal Information',
+            icon: 'user',
+            color: '#FB6F3D',
+            function: () => { }
+        },
+        {
+            title: 'Addresses',
+            icon: 'map',
+            color: '#413DFB',
+            function: () => { }
+        },
+
+    ]
+    const options2 = [
+        {
+            title: 'Basket',
+            icon: 'basket-shopping',
+            color: '#369BFF',
+            function: () => { }
+        },
+        {
+            title: 'Favourite',
+            icon: 'heart',
+            color: '#B33D',
+            function: () => { }
+        },
+        {
+            title: 'Notifications',
+            icon: 'bell',
+            color: '#FFAA2A',
+            function: () => { }
+        },
+
+    ]
+    const options3 = [
+        {
+            title: 'FAQs',
+            icon: 'question',
+            color: '#FB6D3A',
+            function: () => { }
+        },
+        {
+            title: 'Terms & Conditions',
+            icon: 'paperclip',
+            color: '#2AE1E1',
+            function: () => { }
+        },
+        {
+            title: 'Setting',
+            icon: 'gear',
+            color: '#413DFB',
+            function: () => { }
+        },
+
+    ]
+    const options4 = [
+        {
+            title: 'Log Out',
+            icon: 'right-from-bracket',
+            color: '#FB4A59',
+            function: () => { }
+        },
+
+
+    ]
+    return (
+        <View className='flex-1 bg-[#F3F3F3] px-3 py-2'>
+            <NavigationProfile path='Profile' option='' func={() => { }} />
+            <ScrollView className='flex-1 pt-5 '>
+                <View className='flex-1 flex gap-10 mb-20'>
+                    <ProfileView />
+                    <View className='flex-1 flex gap-5'>
+                        <ProfileOptionContainer options={options1} />
+                        <ProfileOptionContainer options={options2} />
+                        <ProfileOptionContainer options={options3} />
+                        <ProfileOptionContainer options={options4} />
+                    </View>
+                </View>
+            </ScrollView>
+        </View>
+    )
+}
+
+export default ProfileScreen

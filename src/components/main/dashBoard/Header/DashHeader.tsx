@@ -5,7 +5,7 @@ const DashHeader = ({ userInfo }: any) => {
     return (
         <View className='w-full flex items-center justify-between flex-row'>
             <View className='flex flex-row items-center justify-center gap-3'>
-                <TouchableOpacity className='bg-[#ECF0F4] h-16 w-16 rounded-full flex items-center justify-center'>
+                <TouchableOpacity activeOpacity={0.8} className='bg-[#ECF0F4] h-16 w-16 rounded-full flex items-center justify-center'>
                     <FIcon name='location-dot' size={30} color='#FF7622' />
                 </TouchableOpacity>
                 <View className=''>
@@ -21,7 +21,7 @@ const DashHeader = ({ userInfo }: any) => {
                 </View>
             </View>
             <View>
-                <TouchableOpacity className='bg-[#181C2E] h-16 w-16 rounded-full flex items-center justify-center'>
+                <TouchableOpacity activeOpacity={0.8} className='bg-[#181C2E] h-16 w-16 rounded-full flex items-center justify-center'>
                     <Text className='text-[#FF7622] text-3xl font-bold text-center '>
                         {
                             userInfo.userinfo.User_Name.charAt(0).toUpperCase()
