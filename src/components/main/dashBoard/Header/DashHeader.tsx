@@ -1,7 +1,9 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FIcon from '../../../../layout/icon/FIcon'
+import { useNavigation } from '@react-navigation/native'
 const DashHeader = ({ userInfo }: any) => {
+    const navigation = useNavigation()
     return (
         <View className='w-full flex items-center justify-between flex-row'>
             <View className='flex flex-row items-center justify-center gap-3'>
@@ -21,7 +23,9 @@ const DashHeader = ({ userInfo }: any) => {
                 </View>
             </View>
             <View>
-                <TouchableOpacity activeOpacity={0.8} className='bg-[#181C2E] h-16 w-16 rounded-full flex items-center justify-center'>
+                <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen', {
+                    userInfo: userInfo
+                })} activeOpacity={0.8} className='bg-[#181C2E] h-16 w-16 rounded-full flex items-center justify-center'>
                     <Text className='text-[#FF7622] text-3xl font-bold text-center '>
                         {
                             userInfo.userinfo.User_Name.charAt(0).toUpperCase()

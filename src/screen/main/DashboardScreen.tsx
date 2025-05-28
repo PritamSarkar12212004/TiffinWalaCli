@@ -8,6 +8,8 @@ import SeacrhDash from '../../components/main/dashBoard/search/SeacrhDash'
 import DistanceCateDash from '../../components/main/dashBoard/categuary/DistanceCateDash'
 import DashBoardCarsdlayout from '../../layout/main/dashboard/DashBoardCarsdlayout/DashBoardCarsdlayout'
 import useFetchMainProduct from '../../hooks/main/dashboard/useFetchMainProduct'
+import AnimationLotti from '../../components/global/animation/AnimationLotti'
+import AnimationPath from '../../constants/animation/AnimationPath'
 
 const DashboardScreen = () => {
   const { userInfo, setUserInfo } = userContext()
@@ -20,6 +22,9 @@ const DashboardScreen = () => {
       setUserInfo(res)
       fetchMaindata({ setLoading: setloading, setMainData: setMainData, location: res.location })
     })
+    return () => {
+      setUserInfo(null)
+    }
   }, [])
   return (
     <View className='flex-1 bg-[#F3F3F3] px-3 py-2'>
@@ -36,7 +41,10 @@ const DashboardScreen = () => {
             </ScrollView>
           </View>
         </View> : <View className='flex-1 flex items-center justify-center'>
-          <Text className='text-2xl font-bold'>Loading...</Text>
+          <AnimationLotti height={400} width={400} path={AnimationPath.MainDashBoardLoading} bg="#F3F3F3" />
+          <Text className='text-2xl font-bold'>
+            Loading...
+          </Text>
         </View>
       }
     </View>

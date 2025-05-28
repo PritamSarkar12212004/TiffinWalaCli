@@ -3,14 +3,23 @@ import React from 'react'
 import NavigationProfile from '../../components/main/profile/navigation/NavigationProfile'
 import ProfileView from '../../components/main/profile/elements/ProfileView'
 import ProfileOptionContainer from '../../layout/main/profile/options/ProfileOptionContainer'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 const ProfileScreen = () => {
+    const navigation = useNavigation()
+
+    const route = useRoute()
+    const profileInfo = route.params.userInfo.userinfo
+    const location = route.params.userInfo.location
+
     const options1 = [
         {
             title: 'Personal Information',
             icon: 'user',
             color: '#FB6F3D',
-            function: () => { }
+            function: () => {
+                navigation.navigate('PersonalInfo', { profileInfo: profileInfo, location: location })
+            }
         },
         {
             title: 'Addresses',
@@ -72,12 +81,13 @@ const ProfileScreen = () => {
 
 
     ]
+
     return (
         <View className='flex-1 bg-[#F3F3F3] px-3 py-2'>
             <NavigationProfile path='Profile' option='' func={() => { }} />
             <ScrollView className='flex-1 pt-5 '>
                 <View className='flex-1 flex gap-10 mb-20'>
-                    <ProfileView />
+                    <ProfileView profileInfo={profileInfo} />
                     <View className='flex-1 flex gap-5'>
                         <ProfileOptionContainer options={options1} />
                         <ProfileOptionContainer options={options2} />
