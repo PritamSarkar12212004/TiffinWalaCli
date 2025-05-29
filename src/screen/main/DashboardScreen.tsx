@@ -10,18 +10,26 @@ import DashBoardCarsdlayout from '../../layout/main/dashboard/DashBoardCarsdlayo
 import useFetchMainProduct from '../../hooks/main/dashboard/useFetchMainProduct'
 import AnimationLotti from '../../components/global/animation/AnimationLotti'
 import AnimationPath from '../../constants/animation/AnimationPath'
+import DistanceData from '../../data/dashBoard/distance/DistanceData'
+import FoodType from '../../data/dashBoard/foodType/FoodType'
 
 const DashboardScreen = () => {
-  const { userInfo, setUserInfo, pageLoader } = userContext()
+  const { userInfo, setUserInfo, pageLoader, setPageLoader } = userContext()
   const [loading, setloading] = useState(true)
   const [mainData, setMainData] = useState([])
+
+  // components
+
+  const [distance, selecetedDistance] = useState(DistanceData[1])
+  const [foodType, setFoodType] = useState(FoodType[0])
+
+  // hooks
   const { fetchMaindata } = useFetchMainProduct()
   useEffect(() => {
     const data = GetUserInfo()
     data.then((res) => {
-      console.log(res)
       setUserInfo(res)
-      fetchMaindata({ setLoading: setloading, setMainData: setMainData, location: res.location })
+      fetchMaindata({ setLoading: setloading, setMainData: setMainData, location: res.location, distance: distance, foodType: foodType })
     })
     return () => {
       setUserInfo(null)
@@ -36,8 +44,8 @@ const DashboardScreen = () => {
             <ScrollView showsVerticalScrollIndicator={false} >
               <SeacrhDash name={userInfo.userinfo.
                 User_Name} />
-              <CateguaryDahs />
-              <DistanceCateDash />
+              <CateguaryDahs foodType={foodType} setFoodType={setFoodType} setPageLoader={setPageLoader} pageLoader={pageLoader} />
+              <DistanceCateDash setPageLoader={setPageLoader} pageLoader={pageLoader} distance={distance} selecetedDistance={selecetedDistance} />
               <DashBoardCarsdlayout mainData={mainData} />
             </ScrollView>
           </View>

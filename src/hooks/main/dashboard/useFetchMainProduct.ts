@@ -1,10 +1,18 @@
 import api from '../../../utils/api/Axios';
 
 const useFetchMainProduct = () => {
-  const fetchMaindata = ({setLoading, setMainData, location}: any) => {
+  const fetchMaindata = ({
+    setLoading,
+    setMainData,
+    location,
+    distance,
+    foodType,
+  }: any) => {
     api
       .post('/api/product/fetch-mainData-product', {
         locationData: location,
+        distance: distance,
+        foodType,
       })
       .then(res => {
         if (!res.data.products) {
