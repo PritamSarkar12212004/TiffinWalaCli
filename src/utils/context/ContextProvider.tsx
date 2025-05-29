@@ -11,10 +11,10 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     const [userInfo, setUserInfo] = useState<{
         location: any,
         userinfo: any
-    }>({
-        location: {},
-        userinfo: {}
-    })
+    }>(null)
+
+    // whole page loader
+    const [pageLoader, setPageLoader] = useState<boolean>(false);
     return (
         // temp phone number for navigation
         <Context.Provider
@@ -24,7 +24,9 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
 
                 // main screen
                 userInfo,
-                setUserInfo
+                setUserInfo,
+                pageLoader,
+                setPageLoader
             }}
         >
             {children}

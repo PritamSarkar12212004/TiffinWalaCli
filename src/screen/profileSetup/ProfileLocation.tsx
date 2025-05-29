@@ -55,7 +55,7 @@ const ProfileLocation = () => {
                 </View>
                 <Text className="text-sm  text-zinc-600 text-center px-8">
                     {
-                        location ? location.fullAddress : "Set Your Location"
+                        location ? location.address : "Set Your Location"
                     }
 
                 </Text>

@@ -2,25 +2,33 @@ import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import LocationHeader from '../../../components/main/location/LocationHeader'
 import MapView, { Marker } from 'react-native-maps';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import CurrentLocationFun from '../../../functions/location/CurrentLocationFun';
 import AuthPupup from '../../../layout/popUp/AuthPupup';
-import { getLocation, removeLocation } from '../../../functions/Token/PageTokenManagerFun';
+import { removeLocation, setLocation } from '../../../functions/Token/PageTokenManagerFun';
 import PageToken from '../../../constants/tokens/PageToken';
+import { userContext } from '../../../utils/context/ContextProvider';
 
 const LocationScree = () => {
+  const navigation = useNavigation()
   const route = useRoute()
   const { location } = route.params;
+  const { pageLoader, setPageLoader } = userContext()
 
-  const [locationPath, setLocationPath] = useState(
-    {
-      latitude: location.latitude,
-      longitude: location.longitude,
-      latitudeDelta: 0.005, // Zoomed-in view
-      longitudeDelta: 0.005,
-      address: location.address,
-    }
-  );
+  const locationPath =
+  {
+    latitude: location.latitude,
+    longitude: location.longitude,
+    latitudeDelta: 0.005, // Zoomed-in view
+    longitudeDelta: 0.005,
+    address: location.address,
+  };
+  const [getNewLocation, setGetNewLocation] = useState<{
+    latitude: any;
+    longitude: any;
+    address: any
+  }>(null);
+
   const [popUp, setPopUp] = useState<{
     isVisible: boolean;
     message: string;
@@ -31,11 +39,16 @@ const LocationScree = () => {
   const [loading, setLoading] = useState(false)
 
   const setLocationFunc = async () => {
-    // await removeLocation(PageToken.profile.locationToken)
-    console.log(getLocation(PageToken.profile.locationToken));
-    console.log(locationPath);
-    const 
-
+    let remove = removeLocation(PageToken.profile.locationToken);
+    if (remove) {
+      let set = setLocation(PageToken.profile.locationToken, getNewLocation);
+      setPageLoader(!pageLoader)
+      if (set) {
+        navigation.goBack()
+      }
+    } else {
+      console.log("faild location set")
+    }
   }
 
 
@@ -52,11 +65,11 @@ const LocationScree = () => {
           showsCompass={true}
           userInterfaceStyle='dark'
         >
-          {location && (
+          {getNewLocation && (
             <Marker
               coordinate={{
-                latitude: locationPath.latitude,
-                longitude: locationPath.longitude,
+                latitude: getNewLocation.latitude,
+                longitude: getNewLocation.longitude,
               }}
               title="Your Location"
               description="This is your current location"
@@ -73,7 +86,7 @@ const LocationScree = () => {
             <View className='w-full p-5 rounded-3xl  bg-[#e2e5e9]'>
               <Text className='text-sm text-zinc-700 '>
                 {
-                  locationPath?.address ? locationPath.address : locationPath.fullAddress
+                  getNewLocation?.address ? getNewLocation.address : locationPath.address
                 }
               </Text>
             </View>
@@ -82,24 +95,24 @@ const LocationScree = () => {
             <View className='bg-[#e2e5e9] py-2 px- rounded-3xl px-2'>
               <Text className='text-sm text-zinc-700 '>
                 {
-                  locationPath.latitude
+                  getNewLocation ? getNewLocation.latitude : locationPath.latitude
                 }
               </Text>
             </View>
             <View className='bg-[#e2e5e9] py-2 px-2 rounded-3xl px-2'>
               <Text className='text-sm text-zinc-700 '>
                 {
-                  locationPath.longitude
+                  getNewLocation ? getNewLocation.longitude : locationPath.longitude
                 }
               </Text>
             </View>
           </View>
         </View>
         <View className='w-full '>
-          <TouchableOpacity onPress={() => loading ? null : locationPath.fullAddress ? setLocationFunc() : CurrentLocationFun({ setPopUp, setLoading: setLoading, setLocation: setLocationPath }).getCurrentLocation()
+          <TouchableOpacity onPress={() => loading ? null : getNewLocation ? setLocationFunc() : CurrentLocationFun({ setPopUp, setLoading: setLoading, setLocation: setGetNewLocation }).getCurrentLocation()
           } activeOpacity={0.8} className='w-full bg-[#FF7622] h-20 rounded-2xl flex items-center justify-center'>
             {
-              loading ? <ActivityIndicator color={'white'} size={'large'} /> : location.fullAddress ? <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>Get Location</Text> : <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>Conform Location</Text>
+              loading ? <ActivityIndicator color={'white'} size={'large'} /> : !getNewLocation ? <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>Get Location</Text> : <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>Conform Location</Text>
             }
           </TouchableOpacity>
         </View>

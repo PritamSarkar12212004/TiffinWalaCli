@@ -26,7 +26,7 @@ const CurrentLocationFun = ({setPopUp, setLoading, setLocation}: any) => {
         longitude,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
-        fullAddress: address || 'Address not found',
+        address: address || 'Address not found',
       };
       setLocation(locationData);
       setLoading(false);

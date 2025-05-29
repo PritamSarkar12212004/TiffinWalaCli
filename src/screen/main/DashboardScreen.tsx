@@ -12,24 +12,25 @@ import AnimationLotti from '../../components/global/animation/AnimationLotti'
 import AnimationPath from '../../constants/animation/AnimationPath'
 
 const DashboardScreen = () => {
-  const { userInfo, setUserInfo } = userContext()
+  const { userInfo, setUserInfo, pageLoader } = userContext()
   const [loading, setloading] = useState(true)
   const [mainData, setMainData] = useState([])
   const { fetchMaindata } = useFetchMainProduct()
   useEffect(() => {
     const data = GetUserInfo()
     data.then((res) => {
+      console.log(res)
       setUserInfo(res)
       fetchMaindata({ setLoading: setloading, setMainData: setMainData, location: res.location })
     })
     return () => {
       setUserInfo(null)
     }
-  }, [])
+  }, [pageLoader])
   return (
     <View className='flex-1 bg-[#F3F3F3] px-3 py-2'>
       {
-        !loading ? <View className='flex-1'>
+        !loading && userInfo ? <View className='flex-1'>
           <DashHeader userInfo={userInfo} />
           <View className='w-full flex gap-3 mt-5'>
             <ScrollView showsVerticalScrollIndicator={false} >

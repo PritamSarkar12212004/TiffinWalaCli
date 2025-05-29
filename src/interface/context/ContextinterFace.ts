@@ -6,6 +6,8 @@ interface ContextinterFace {
     userinfo: any;
   };
   setUserInfo: any;
+  pageLoader: any;
+  setPageLoader: any;
 }
 
 export {ContextinterFace};
