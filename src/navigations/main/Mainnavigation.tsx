@@ -6,12 +6,13 @@ import ProfileScreen from '../../screen/main/ProfileScreen';
 import PersonalInfo from '../../screen/main/page/Profile/PersonalInfo';
 import ProfileEdit from '../../screen/main/page/Profile/ProfileEdit';
 import LocationScree from '../../screen/main/location/LocationScree';
+import ShowmMainProductScreen from '../../screen/main/page/product/ShowmMainProductScreen';
 
 const Stack = createNativeStackNavigator();
 const Mainnavigation = () => {
     return (
         <MainWraper>
-            <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='DashboardScreen'>
+            <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='ShowmMainProductScreen'>
                 <Stack.Screen name="DashboardScreen" options={{
                     animation: 'slide_from_right'
                 }} component={DashboardScreen} />
@@ -27,6 +28,9 @@ const Mainnavigation = () => {
                 <Stack.Screen name="LocationScree" options={{
                     animation: 'slide_from_bottom'
                 }} component={LocationScree} />
+                <Stack.Screen name="ShowmMainProductScreen" options={{
+                    animation: 'slide_from_bottom'
+                }} component={ShowmMainProductScreen} />
             </Stack.Navigator>
         </MainWraper>
     )
