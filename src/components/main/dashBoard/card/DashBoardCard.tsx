@@ -1,10 +1,17 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FIcon from '../../../../layout/icon/FIcon'
+import { useNavigation } from '@react-navigation/native'
 
 const DashBoardCard = ({ item }: any) => {
+    const navigation = useNavigation()
+    const navigationScreen = () => {
+        navigation.navigate('ShowmMainProductScreen', {
+            item: item
+        })
+    }
     return (
-        <TouchableOpacity activeOpacity={0.8} className='w-full flex gap-3 '>
+        <TouchableOpacity onPress={() => navigationScreen()} activeOpacity={0.8} className='w-full flex gap-3 '>
             <View className='w-full  h-72 bg-[#98A8B8] rounded-3xl'>
                 <Image source={{ uri: item.postCoverImage[0] }} resizeMode='cover' className='w-full h-full rounded-3xl' />
             </View>

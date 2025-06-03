@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 const Mainnavigation = () => {
     return (
         <MainWraper>
-            <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='ShowmMainProductScreen'>
+            <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='DashboardScreen'>
                 <Stack.Screen name="DashboardScreen" options={{
                     animation: 'slide_from_right'
                 }} component={DashboardScreen} />
@@ -29,7 +29,7 @@ const Mainnavigation = () => {
                     animation: 'slide_from_bottom'
                 }} component={LocationScree} />
                 <Stack.Screen name="ShowmMainProductScreen" options={{
-                    animation: 'slide_from_bottom'
+                    animation: 'slide_from_right'
                 }} component={ShowmMainProductScreen} />
             </Stack.Navigator>
         </MainWraper>

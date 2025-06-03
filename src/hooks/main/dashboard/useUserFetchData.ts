@@ -1,0 +1,33 @@
+import api from '../../../utils/api/Axios';
+
+const useUserFetchData = () => {
+  const fetchUserData = (userId: string, setVender: any) => {
+    try {
+      api
+        .post('/api/user/fetch-userData', {
+          userId,
+        })
+        .then(res => {
+          setVender(res.data.data);
+          console.log(res.data.data);
+        })
+        .catch(err => {
+          if (err.response.data.message)
+            setVender({
+              message: err.response.data.message,
+            });
+          else
+            setVender({
+              message: 'Something went wrong',
+            });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return {
+    fetchUserData,
+  };
+};
+
+export default useUserFetchData;
