@@ -1,10 +1,14 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FIcon from '../../../../layout/icon/FIcon'
+import { useNavigation } from '@react-navigation/native'
 
-const SeacrhDash = ({ name }: any) => {
+const SeacrhDash = ({ name, distance }: any) => {
+    const navigation = useNavigation()
     return (
-        <View className='w-full flex gap-4 '>
+        <TouchableOpacity onPress={() => navigation.navigate('SearchScreen', {
+            distance: distance
+        })} activeOpacity={0.8} className='w-full flex gap-4 '>
             <Text className=''>Hey {name}, <Text className='font-bold'>Welcome!</Text></Text>
             <View>
                 <View className='w-full bg-[#A0A5BA] h-16 gap-4 rounded-3xl flex flex-row px-5 items-center'>
@@ -12,7 +16,7 @@ const SeacrhDash = ({ name }: any) => {
                     <Text className='text-white text-lg'>Search dishes, restaurants</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

@@ -42,11 +42,13 @@ const DashboardScreen = () => {
           <DashHeader userInfo={userInfo} />
           <View className='w-full flex gap-3 mt-5'>
             <ScrollView showsVerticalScrollIndicator={false} >
-              <SeacrhDash name={userInfo.userinfo.
-                User_Name} />
-              <CateguaryDahs foodType={foodType} setFoodType={setFoodType} setPageLoader={setPageLoader} pageLoader={pageLoader} />
-              <DistanceCateDash setPageLoader={setPageLoader} pageLoader={pageLoader} distance={distance} selecetedDistance={selecetedDistance} />
-              <DashBoardCarsdlayout mainData={mainData} />
+              <View className='flex-1 flex gap-3'>
+                <SeacrhDash name={userInfo.userinfo.
+                  User_Name} distance={distance} />
+                <CateguaryDahs foodType={foodType} setFoodType={setFoodType} setPageLoader={setPageLoader} pageLoader={pageLoader} />
+                <DistanceCateDash setPageLoader={setPageLoader} pageLoader={pageLoader} distance={distance} selecetedDistance={selecetedDistance} />
+                <DashBoardCarsdlayout mainData={mainData} />
+              </View>
             </ScrollView>
           </View>
         </View> : <View className='flex-1 flex items-center justify-center'>
