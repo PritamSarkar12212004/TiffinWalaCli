@@ -1,7 +1,7 @@
 import api from '../../../../utils/api/Axios';
 
 const useControllLike = () => {
-  const likeController = async (
+  const likeControllers = async (
     userId: string,
     productId: string,
     isFavorite: boolean,
@@ -28,7 +28,7 @@ const useControllLike = () => {
     }
   };
 
-  return {likeController};
+  return {likeControllers};
 };
 
 export default useControllLike;

@@ -17,7 +17,10 @@ const useLikeproduct = () => {
         setIsFavorite(false);
       }
       return res.data;
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
   };
   return {
     likeProductFetch,

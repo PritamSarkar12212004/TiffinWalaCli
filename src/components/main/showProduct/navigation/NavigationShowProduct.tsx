@@ -5,10 +5,10 @@ import { useNavigation } from '@react-navigation/native'
 import useControllLike from '../../../../hooks/main/dashboard/controller/useControllLike'
 
 const NavigationShowProduct = ({ fevirote, userId, productid, setIsFavorite }: any) => {
-    const { likeController } = useControllLike()
+    const { likeControllers } = useControllLike()
     const navigation = useNavigation()
     const handleFavorite = () => {
-        likeController(userId, productid, productid, setIsFavorite)
+        likeControllers(userId, productid, productid, setIsFavorite)
         setIsFavorite(!fevirote);
 
     };

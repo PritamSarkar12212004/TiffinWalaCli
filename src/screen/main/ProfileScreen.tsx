@@ -21,26 +21,17 @@ const ProfileScreen = () => {
                 navigation.navigate('PersonalInfo', { profileInfo: profileInfo, location: location })
             }
         },
-        {
-            title: 'Addresses',
-            icon: 'map',
-            color: '#413DFB',
-            function: () => { }
-        },
 
     ]
     const options2 = [
         {
-            title: 'Basket',
-            icon: 'basket-shopping',
-            color: '#369BFF',
-            function: () => { }
-        },
-        {
-            title: 'Favourite',
+            title: 'Favorite',
             icon: 'heart',
             color: '#B33D',
-            function: () => { }
+            function: () => {
+                navigation.navigate('FeviroteProductScreen', { profileInfo: profileInfo })
+
+            }
         },
         {
             title: 'Notifications',
@@ -63,12 +54,7 @@ const ProfileScreen = () => {
             color: '#2AE1E1',
             function: () => { }
         },
-        {
-            title: 'Setting',
-            icon: 'gear',
-            color: '#413DFB',
-            function: () => { }
-        },
+
 
     ]
     const options4 = [

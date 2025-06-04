@@ -8,6 +8,7 @@ import ProfileEdit from '../../screen/main/page/Profile/ProfileEdit';
 import LocationScree from '../../screen/main/location/LocationScree';
 import ShowmMainProductScreen from '../../screen/main/page/product/ShowmMainProductScreen';
 import SearchScreen from '../../screen/main/page/search/SearchScreen';
+import FeviroteProductScreen from '../../screen/main/page/Profile/FeviroteProductScreen';
 
 const Stack = createNativeStackNavigator();
 const Mainnavigation = () => {
@@ -35,6 +36,9 @@ const Mainnavigation = () => {
                 <Stack.Screen name="SearchScreen" options={{
                     animation: 'slide_from_right'
                 }} component={SearchScreen} />
+                <Stack.Screen name="FeviroteProductScreen" options={{
+                    animation: 'slide_from_right'
+                }} component={FeviroteProductScreen} />
             </Stack.Navigator>
         </MainWraper>
     )
