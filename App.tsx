@@ -23,6 +23,9 @@ const App = () => {
   const tokenFinder = () => {
     getSplashToken(PageToken.SplashToken) ? getAuthToken(PageToken.profile.profileToken) ? setInitialRoute('Mainnavigation') : setInitialRoute('AuthNavigations') : setInitialRoute('Splash');
   }
+
+
+
   useEffect(() => {
     tokenFinder()
   }, [])

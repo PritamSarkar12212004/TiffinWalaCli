@@ -5,7 +5,7 @@ import React from 'react';
 const MainWraper = ({ children }: any) => {
     return (
         <SafeAreaView className='flex-1 bg-[#F3F3F3]'>
-            <StatusBar barStyle="dark-content" translucent />
+            <StatusBar barStyle="dark-content" backgroundColor={'#F3F3F3'} translucent />
             <View className='flex-1 '>
                 {children}
             </View>

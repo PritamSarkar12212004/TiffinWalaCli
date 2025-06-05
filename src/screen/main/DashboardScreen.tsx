@@ -1,5 +1,6 @@
 import { View, Text, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import messaging from '@react-native-firebase/messaging';
 import DashHeader from '../../components/main/dashBoard/Header/DashHeader'
 import { userContext } from '../../utils/context/ContextProvider'
 import GetUserInfo from '../../functions/main/information/GetUserInfo'
@@ -12,27 +13,56 @@ import AnimationLotti from '../../components/global/animation/AnimationLotti'
 import AnimationPath from '../../constants/animation/AnimationPath'
 import DistanceData from '../../data/dashBoard/distance/DistanceData'
 import FoodType from '../../data/dashBoard/foodType/FoodType'
-
+import requestForNotification from '../../functions/notification/request/requestForNotification'
+import onScreenNotiFyFunc from '../../functions/notification/noticonFig/onScreenNotiFyFunc';
+import useTokenGet from '../../hooks/notification/useTokenGet';
 const DashboardScreen = () => {
   const { userInfo, setUserInfo, pageLoader, setPageLoader } = userContext()
-  const [loading, setloading] = useState(true)
-  const [mainData, setMainData] = useState([])
-
+  const [loading, setloading] = useState(true);
+  const [mainData, setMainData] = useState([]);
+  const [token, settoken] = useState<any>(null)
+  const [updateToken, setUpdateToken] = useState<any>(null);
   // components
-
-  const [distance, selecetedDistance] = useState(DistanceData[1])
-  const [foodType, setFoodType] = useState(FoodType[0])
+  const [distance, selecetedDistance] = useState(DistanceData[1]);
+  const [foodType, setFoodType] = useState(FoodType[0]);
 
   // hooks
-  const { fetchMaindata } = useFetchMainProduct()
+  const { fetchMaindata } = useFetchMainProduct();
+  const { tokenSet } = useTokenGet();
+
+
   useEffect(() => {
+    const tokenRefresh = messaging().onTokenRefresh((newToken) => {
+      setUpdateToken(newToken);
+    });
+
+    return () => {
+      tokenRefresh();
+    };
+  }, []);
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      onScreenNotiFyFunc(remoteMessage);
+    });
+    return unsubscribe;
+  }, []);
+
+
+  useEffect(() => {
+    if (userInfo && token) {
+      tokenSet(updateToken ? updateToken : token, userInfo.userinfo._id);
+    }
+  }, [userInfo, token]);
+
+  useEffect(() => {
+    requestForNotification(settoken)
     const data = GetUserInfo()
     data.then((res) => {
       setUserInfo(res)
       fetchMaindata({ setLoading: setloading, setMainData: setMainData, location: res.location, distance: distance, foodType: foodType })
-    })
+    });
     return () => {
-      setUserInfo(null)
+      setUserInfo(null);
     }
   }, [pageLoader])
   return (
