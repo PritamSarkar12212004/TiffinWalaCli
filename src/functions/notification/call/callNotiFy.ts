@@ -2,8 +2,8 @@ import api from '../../../utils/api/Axios';
 
 const callNotiFy = async (token: any) => {
   await api.post('/api/notify/market', {
-    title: 'test',
-    body: 'test',
+    title: 'open',
+    body: 'open',
     token: token,
   });
 };

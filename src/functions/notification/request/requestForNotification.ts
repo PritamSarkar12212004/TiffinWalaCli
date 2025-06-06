@@ -1,6 +1,6 @@
 import {PermissionsAndroid} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
-import callNotiFy from '../manager/callNotiFy';
+import callNotiFy from '../call/callNotiFy';
 
 const requestForNotification = async (settoken: any) => {
   const request = await PermissionsAndroid.request(

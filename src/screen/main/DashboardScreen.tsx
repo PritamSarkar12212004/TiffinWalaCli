@@ -14,8 +14,10 @@ import AnimationPath from '../../constants/animation/AnimationPath'
 import DistanceData from '../../data/dashBoard/distance/DistanceData'
 import FoodType from '../../data/dashBoard/foodType/FoodType'
 import requestForNotification from '../../functions/notification/request/requestForNotification'
-import onScreenNotiFyFunc from '../../functions/notification/noticonFig/onScreenNotiFyFunc';
+import onScreenNotiFyFunc from '../../functions/notification/manager/onScreenNotiFyFunc';
 import useTokenGet from '../../hooks/notification/useTokenGet';
+import eventNotify from '../../functions/notification/manager/eventNotify';
+import remaindernotiFy from '../../functions/notification/manager/remaindernotiFy';
 const DashboardScreen = () => {
   const { userInfo, setUserInfo, pageLoader, setPageLoader } = userContext()
   const [loading, setloading] = useState(true);
@@ -42,7 +44,13 @@ const DashboardScreen = () => {
   }, []);
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      onScreenNotiFyFunc(remoteMessage);
+      if (remoteMessage.data.type == 'open') {
+        onScreenNotiFyFunc(remoteMessage);
+      } else if (remoteMessage.data.type == 'event') {
+        eventNotify(remoteMessage);
+      } else if (remoteMessage.data.type == 'remainder') {
+        remaindernotiFy(remoteMessage);
+      }
     });
     return unsubscribe;
   }, []);
