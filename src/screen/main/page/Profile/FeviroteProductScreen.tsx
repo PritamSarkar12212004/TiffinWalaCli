@@ -23,8 +23,7 @@ const FeviroteProductScreen = () => {
     }, [])
 
     return (
-        <View className='flex-1 bg-[#F3F3F3] px-3 py-2'>
-
+        <View className='flex-1 bg-[#F3F3F3] px-3 pt-2'>
             <View className='flex-1'>
                 <NavigationProfile path='Favorite' option='' func={() => { }} />
                 {

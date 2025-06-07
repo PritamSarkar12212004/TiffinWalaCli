@@ -1,10 +1,12 @@
-import notifee from '@notifee/react-native';
+import notifee, {AndroidStyle, AndroidImportance} from '@notifee/react-native';
 
 const onScreenNotiFyFunc = async (remoteMessage: any) => {
   const {title, body} = remoteMessage.notification;
   const channelId = await notifee.createChannel({
     id: 'default',
-    name: 'Default Channel',
+    name: 'open notiFy',
+    sound: 'notify',
+    importance: AndroidImportance.HIGH,
   });
 
   await notifee.displayNotification({
@@ -12,7 +14,11 @@ const onScreenNotiFyFunc = async (remoteMessage: any) => {
     body: body,
     android: {
       channelId,
-      smallIcon: 'ic_launcher', // make sure it's added in your native config
+      largeIcon: 'ic_launcher',
+      style: {
+        type: AndroidStyle.BIGTEXT,
+        text: body || '',
+      },
       pressAction: {
         id: 'default',
       },

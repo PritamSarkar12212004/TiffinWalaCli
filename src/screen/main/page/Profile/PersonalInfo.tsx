@@ -34,7 +34,7 @@ const PersonalInfo = () => {
 
     ]
     return (
-        <View className='flex-1 bg-[#F3F3F3] px-3 py-2'>
+        <View className='flex-1 bg-[#F3F3F3] px-3 pt-2'>
             <NavigationProfile path='Personal Info' option='Edit' func={() => {
                 navigation.navigate('ProfileEdit', { location, profileInfo })
             }} />

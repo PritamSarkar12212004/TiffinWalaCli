@@ -1,4 +1,4 @@
-import notifee, {AndroidStyle} from '@notifee/react-native';
+import notifee, {AndroidStyle, AndroidImportance} from '@notifee/react-native';
 
 const eventNotify = async (remoteMessage: any) => {
   const {title, body, image} = remoteMessage.notification;
@@ -6,7 +6,9 @@ const eventNotify = async (remoteMessage: any) => {
 
   const channelId = await notifee.createChannel({
     id: 'default',
-    name: 'Default Channel',
+    name: 'event notiFy',
+    sound: 'notify',
+    importance: AndroidImportance.HIGH,
   });
 
   await notifee.displayNotification({

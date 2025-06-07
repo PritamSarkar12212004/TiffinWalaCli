@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 const DashHeader = ({ userInfo }: any) => {
     const navigation = useNavigation()
     return (
-        <View className='w-full flex items-center justify-between flex-row'>
+        <View className='w-full flex items-center justify-between flex-row pb-3'>
             <TouchableOpacity onPress={() => navigation.navigate('LocationScree', {
                 location: userInfo.location
             })} activeOpacity={0.8} className='flex flex-row items-center justify-center gap-3'>

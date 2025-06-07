@@ -1,12 +1,13 @@
-import notifee, {AndroidStyle} from '@notifee/react-native';
+import notifee, {AndroidStyle, AndroidImportance} from '@notifee/react-native';
 
 const remaindernotiFy = async (remoteMessage: any) => {
-  const {title, body, image} = remoteMessage.notification;
-  const data = remoteMessage.data;
+  const {title, body} = remoteMessage.notification;
 
   const channelId = await notifee.createChannel({
     id: 'default',
-    name: 'Default Channel',
+    name: 'remainder notiFy',
+    sound: 'notify',
+    importance: AndroidImportance.HIGH,
   });
 
   await notifee.displayNotification({

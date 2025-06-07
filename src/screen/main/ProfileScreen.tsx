@@ -33,12 +33,7 @@ const ProfileScreen = () => {
 
             }
         },
-        {
-            title: 'Notifications',
-            icon: 'bell',
-            color: '#FFAA2A',
-            function: () => { }
-        },
+
 
     ]
     const options3 = [
@@ -69,7 +64,7 @@ const ProfileScreen = () => {
     ]
 
     return (
-        <View className='flex-1 bg-[#F3F3F3] px-3 py-2'>
+        <View className='flex-1 bg-[#F3F3F3] px-3 pt-2'>
             <NavigationProfile path='Profile' option='' func={() => { }} />
             <ScrollView className='flex-1 pt-5 '>
                 <View className='flex-1 flex gap-10 mb-20'>

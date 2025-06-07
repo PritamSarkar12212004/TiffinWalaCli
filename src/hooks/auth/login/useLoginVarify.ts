@@ -1,4 +1,6 @@
+import NotiFyToken from '../../../constants/tokens/NotiFyToken';
 import PageToken from '../../../constants/tokens/PageToken';
+import {setNotifyToken} from '../../../functions/Token/NotifyTokenManagerFun';
 import {
   setAuthToken,
   setLocation,
@@ -23,6 +25,10 @@ const useLoginVarify = () => {
         .then(async res => {
           await setAuthToken(PageToken.profile.mainDataToken, res.data.data);
           await setAuthToken(PageToken.profile.profileToken, true);
+          await setNotifyToken(NotiFyToken.Event, 'true');
+          await setNotifyToken(NotiFyToken.Fun, 'true');
+          await setNotifyToken(NotiFyToken.Promotion, 'true');
+          await setNotifyToken(NotiFyToken.Remainder, 'true');
           await setLocation(
             PageToken.profile.locationToken,
             res.data.data.User_Address,

@@ -19,7 +19,7 @@ const ProfileEdit = () => {
     const [bio, setBio] = useState(profileInfo.User_Bio)
 
     return (
-        <View className='flex-1 bg-[#F3F3F3] px-3 py-2'>
+        <View className='flex-1 bg-[#F3F3F3] px-3 pt-2'>
             <NavigationProfile path='Edit Profile' option='' func={() => { }} />
             <View className='flex-1  pt-5  flex gap-10'>
                 <ScrollView className='flex-1'>

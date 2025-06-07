@@ -1,5 +1,7 @@
+import NotiFyToken from '../../constants/tokens/NotiFyToken';
 import PageToken from '../../constants/tokens/PageToken';
 import CloudanerysingleImgIpload from '../../functions/image/CloudanerysingleImgIpload';
+import {setNotifyToken} from '../../functions/Token/NotifyTokenManagerFun';
 import {
   setAuthToken,
   setLocation,
@@ -47,6 +49,10 @@ const useCreateProfile = () => {
               PageToken.profile.locationToken,
               res.data.data.User_Address,
             );
+            await setNotifyToken(NotiFyToken.Event, 'true');
+            await setNotifyToken(NotiFyToken.Fun, 'true');
+            await setNotifyToken(NotiFyToken.Promotion, 'true');
+            await setNotifyToken(NotiFyToken.Remainder, 'true');
             await setAuthToken(PageToken.profile.profileToken, true);
             setLoading(false);
             navigation.navigate('Mainnavigation' as any);

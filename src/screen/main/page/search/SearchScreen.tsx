@@ -29,7 +29,7 @@ const SearchScreen = () => {
         top3ProductFinder({ setTop3Product: setTop3Product, location: userInfo.location, distance: distance })
     }, [])
     return (
-        <View className='flex-1 bg-[#F3F3F3] px-3 py-2'>
+        <View className='flex-1 bg-[#F3F3F3] px-3 pt-2'>
             <NavigationProfile path='Search' option='' />
             <ScrollView className='flex-1 ' showsVerticalScrollIndicator={false}>
                 <View className='flex-1  pt-5  flex gap-4'>
