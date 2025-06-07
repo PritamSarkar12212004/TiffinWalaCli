@@ -8,6 +8,7 @@ import useTopProductFetch from '../../../../hooks/main/search/useTopProductFetch
 import { userContext } from '../../../../utils/context/ContextProvider'
 import TopProduct from '../../../../components/main/dashBoard/search/TopProduct'
 import ShowSearchResult from '../../../../components/main/dashBoard/search/ShowSearchResult'
+import SearchTopSclaton from '../../../../skeleton/search/SearchTopSclaton'
 
 const SearchScreen = () => {
     const route = useRoute()
@@ -50,7 +51,7 @@ const SearchScreen = () => {
                     </View>
                     <View className='w-full flex items-center justify-center'>
                         {
-                            result ? <ShowSearchResult item={result} /> : top3Product && <TopProduct top3Product={top3Product} />
+                            result ? <ShowSearchResult item={result} /> : top3Product ? <TopProduct top3Product={top3Product} /> : <SearchTopSclaton />
                         }
                     </View>
                 </View>

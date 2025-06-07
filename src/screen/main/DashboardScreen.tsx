@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import messaging from '@react-native-firebase/messaging'
 import DashHeader from '../../components/main/dashBoard/Header/DashHeader'
@@ -20,6 +20,11 @@ import remaindernotiFy from '../../functions/notification/manager/remaindernotiF
 import { setNotifyToken } from '../../functions/Token/NotifyTokenManagerFun'
 import NotiFyToken from '../../constants/tokens/NotiFyToken'
 import DashBoardCard from '../../components/main/dashBoard/card/DashBoardCard'
+import MainCardSkalaton from '../../skeleton/dashboard/MainCardSkalaton'
+import DashBoardCardSkeleton from '../../skeleton/dashboard/MainCardSkalaton'
+import SearchSclaton from '../../skeleton/dashboard/SearchSclaton'
+import CateguaryDahsSclaton from '../../skeleton/dashboard/CateguaryDahsSclaton'
+import DistanceCateDashSclaton from '../../skeleton/dashboard/DistanceCateDashSclaton'
 
 const DashboardScreen = () => {
   const { userInfo, setUserInfo, pageLoader, setPageLoader } = userContext()
@@ -29,6 +34,7 @@ const DashboardScreen = () => {
   const [updateToken, setUpdateToken] = useState<any>(null)
   const [distance, selecetedDistance] = useState(DistanceData[1])
   const [foodType, setFoodType] = useState(FoodType[0])
+  const [loader, setloader] = useState(false)
 
   const { fetchMaindata } = useFetchMainProduct()
   const { tokenSet } = useTokenGet()
@@ -84,43 +90,54 @@ const DashboardScreen = () => {
 
   return (
     <View className="flex-1 bg-[#F3F3F3] px-3 py-t">
-      {!loading && userInfo ? (
+      {userInfo ? (
         <View className="flex-1">
           <DashHeader userInfo={userInfo} />
           <FlatList
             ListHeaderComponent={
               <View className="gap-4 mt-4">
-                <SeacrhDash name={userInfo.userinfo.User_Name} distance={distance} />
-                <CateguaryDahs
-                  foodType={foodType}
-                  setFoodType={setFoodType}
-                  setPageLoader={setPageLoader}
-                  pageLoader={pageLoader}
-                />
-                <DistanceCateDash
-                  setPageLoader={setPageLoader}
-                  pageLoader={pageLoader}
-                  distance={distance}
-                  selecetedDistance={selecetedDistance}
-                />
+                {
+                  loading ? (
+                    <View className='flex flex-1 gap-4 '>
+                      <SearchSclaton />
+                      <CateguaryDahsSclaton />
+                      <DistanceCateDashSclaton />
+                    </View>
+                  ) : <View className=' '>
+                    <SeacrhDash name={userInfo.userinfo.User_Name} distance={distance} />
+                    <CateguaryDahs
+                      foodType={foodType}
+                      setFoodType={setFoodType}
+                      setPageLoader={setPageLoader}
+                      pageLoader={pageLoader}
+                    />
+                    <DistanceCateDash
+                      setPageLoader={setPageLoader}
+                      pageLoader={pageLoader}
+                      distance={distance}
+                      selecetedDistance={selecetedDistance}
+                    />
+                  </View>
+                }
               </View>
+
             }
             data={mainData}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => <DashBoardCard item={item} />}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 100 }}
+            ListEmptyComponent={<MainCardSkalaton />}
           />
         </View>
       ) : (
-        <View className="flex-1 items-center justify-center">
+        <View className="flex-1 justify-center items-center">
           <AnimationLotti
-            height={400}
-            width={400}
-            path={AnimationPath.MainDashBoardLoading}
-            bg="#F3F3F3"
+            height={200}
+            width={200}
+            bg={'#F3F3F3'}
+            path={AnimationPath.SplashLoading}
           />
-          <Text className="text-2xl font-bold">Loading...</Text>
         </View>
       )}
     </View>

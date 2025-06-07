@@ -11,6 +11,7 @@ import ShowProBottmSheet from '../../../../layout/bottomSheet/ShowProduct/ShowPr
 import NoProfileDataFound from '../../../../layout/bottomSheet/NoProfileData/NoProfileDataFound'
 import { userContext } from '../../../../utils/context/ContextProvider'
 import useLikeproduct from '../../../../hooks/main/dashboard/controller/useLikeproduct'
+import ShowProBottmSheetSclotan from '../../../../skeleton/ShowProduct/ShowProBottmSheetSclotan'
 const { width } = Dimensions.get('window');
 const ShowmMainProductScreen = () => {
     const [fevirote, setIsFavorite] = useState<any>(null)
@@ -208,7 +209,7 @@ const ShowmMainProductScreen = () => {
             >
                 <BottomSheetView className='flex-1 bg-white p-3'>
                     {
-                        vender?.message ? <NoProfileDataFound message={vender} /> : <ShowProBottmSheet vender={vender} />
+                        vender ? vender?.message ? <NoProfileDataFound message={vender} /> : <ShowProBottmSheet vender={vender} /> : <ShowProBottmSheetSclotan />
                     }
                 </BottomSheetView>
             </BottomSheet>
