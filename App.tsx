@@ -12,6 +12,8 @@ import PageToken from './src/constants/tokens/PageToken';
 import ProfileSetupnav from './src/navigations/profileSetup/ProfileSetupnav';
 import { ContextProvider } from './src/utils/context/ContextProvider';
 import Mainnavigation from './src/navigations/main/Mainnavigation';
+import HelperNavigation from './src/navigations/helper/HelperNavigation';
+import mobileAds, { NativeAd, TestIds } from 'react-native-google-mobile-ads';
 
 
 const Stack = createNativeStackNavigator();
@@ -23,11 +25,18 @@ const App = () => {
   const tokenFinder = () => {
     getSplashToken(PageToken.SplashToken) ? getAuthToken(PageToken.profile.profileToken) ? setInitialRoute('Mainnavigation') : setInitialRoute('AuthNavigations') : setInitialRoute('Splash');
   }
-
-
-
   useEffect(() => {
     tokenFinder()
+    mobileAds()
+      .initialize()
+      .then(adapterStatuses => {
+        console.log('MobileAds initialization complete', adapterStatuses);
+      });
+    NativeAd.createForAdRequest(TestIds.NATIVE)
+      .then(() => {
+        console.log("native add loaded");
+      })
+      .catch(console.error);
   }, [])
 
 
@@ -49,6 +58,7 @@ const App = () => {
             <Stack.Screen name="AuthNavigations" component={AuthNavigations} />
             <Stack.Screen name="ProfileSetupnav" component={ProfileSetupnav} />
             <Stack.Screen name="Mainnavigation" component={Mainnavigation} />
+            <Stack.Screen name="HelperNavigation" component={HelperNavigation} />
           </Stack.Navigator>
         </NavigationContainer>
       </ContextProvider>

@@ -67,6 +67,10 @@ const ShowmMainProductScreen = () => {
     const { viewsProduct } = useViewsProductApi()
     const { fetchUserData } = useUserFetchData()
     const { likeProductFetch } = useLikeproduct()
+
+
+
+
     useEffect(() => {
         viewsProduct(data._id);
         fetchUserData(data.postVendorId, setVender)

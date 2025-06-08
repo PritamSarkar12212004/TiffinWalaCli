@@ -4,6 +4,7 @@ import NavigationProfile from '../../../../components/main/profile/navigation/Na
 import useLikeProductApi from '../../../../hooks/main/profile/useLikeProductApi'
 import { userContext } from '../../../../utils/context/ContextProvider'
 import useControllLike from '../../../../hooks/main/dashboard/controller/useControllLike'
+import FeviroteprofileSclaton from '../../../../skeleton/profile/FeviroteprofileSclaton'
 
 const FeviroteProductScreen = () => {
     const { userInfo } = userContext()
@@ -81,7 +82,11 @@ const FeviroteProductScreen = () => {
                                 </View>
                             )}
                         />
-                    </View> : null
+                    </View> : <View className='flex-1 flex gap-4'>
+                        <FeviroteprofileSclaton />
+                        <FeviroteprofileSclaton />
+                        <FeviroteprofileSclaton />
+                    </View>
                 }
 
             </View>

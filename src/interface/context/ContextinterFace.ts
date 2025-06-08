@@ -8,6 +8,8 @@ interface ContextinterFace {
   setUserInfo: any;
   pageLoader: any;
   setPageLoader: any;
+  addCountry: any;
+  setAddCountry: any;
 }
 
 export {ContextinterFace};

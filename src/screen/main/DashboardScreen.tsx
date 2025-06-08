@@ -17,14 +17,13 @@ import onScreenNotiFyFunc from '../../functions/notification/manager/onScreenNot
 import useTokenGet from '../../hooks/notification/useTokenGet'
 import eventNotify from '../../functions/notification/manager/eventNotify'
 import remaindernotiFy from '../../functions/notification/manager/remaindernotiFy'
-import { setNotifyToken } from '../../functions/Token/NotifyTokenManagerFun'
-import NotiFyToken from '../../constants/tokens/NotiFyToken'
 import DashBoardCard from '../../components/main/dashBoard/card/DashBoardCard'
 import MainCardSkalaton from '../../skeleton/dashboard/MainCardSkalaton'
-import DashBoardCardSkeleton from '../../skeleton/dashboard/MainCardSkalaton'
 import SearchSclaton from '../../skeleton/dashboard/SearchSclaton'
 import CateguaryDahsSclaton from '../../skeleton/dashboard/CateguaryDahsSclaton'
 import DistanceCateDashSclaton from '../../skeleton/dashboard/DistanceCateDashSclaton'
+import { useNavigation } from '@react-navigation/native'
+import NativeAds from '../../ads/nativeAds/NativeAds'
 
 const DashboardScreen = () => {
   const { userInfo, setUserInfo, pageLoader, setPageLoader } = userContext()
@@ -34,21 +33,26 @@ const DashboardScreen = () => {
   const [updateToken, setUpdateToken] = useState<any>(null)
   const [distance, selecetedDistance] = useState(DistanceData[1])
   const [foodType, setFoodType] = useState(FoodType[0])
-  const [loader, setloader] = useState(false)
+  const navigation = useNavigation()
 
   const { fetchMaindata } = useFetchMainProduct()
   const { tokenSet } = useTokenGet()
+  const injectAdsIntoData = (data) => {
+    const result = [];
+    data.forEach((item, index) => {
+      result.push(item);
+      if ((index + 1) % 3 === 0) {
+        result.push({ isAd: true, _id: `ad-${index}` });
+      }
+    });
+    return result;
+  };
+
 
   useEffect(() => {
     const tokenRefresh = messaging().onTokenRefresh((newToken) => {
       setUpdateToken(newToken)
     })
-
-    setNotifyToken(NotiFyToken.Event, true)
-    setNotifyToken(NotiFyToken.Fun, true)
-    setNotifyToken(NotiFyToken.Promotion, true)
-    setNotifyToken(NotiFyToken.Remainder, true)
-
     return () => {
       tokenRefresh()
     }
@@ -79,7 +83,8 @@ const DashboardScreen = () => {
         setMainData: setMainData,
         location: res.location,
         distance,
-        foodType
+        foodType,
+        navigation
       })
     })
 
@@ -96,14 +101,14 @@ const DashboardScreen = () => {
           <FlatList
             ListHeaderComponent={
               <View className="gap-4 mt-4">
-                {
-                  loading ? (
-                    <View className='flex flex-1 gap-4 '>
-                      <SearchSclaton />
-                      <CateguaryDahsSclaton />
-                      <DistanceCateDashSclaton />
-                    </View>
-                  ) : <View className=' '>
+                {loading ? (
+                  <View className='flex flex-1 gap-4 '>
+                    <SearchSclaton />
+                    <CateguaryDahsSclaton />
+                    <DistanceCateDashSclaton />
+                  </View>
+                ) : (
+                  <View className='flex  gap-4 '>
                     <SeacrhDash name={userInfo.userinfo.User_Name} distance={distance} />
                     <CateguaryDahs
                       foodType={foodType}
@@ -118,17 +123,31 @@ const DashboardScreen = () => {
                       selecetedDistance={selecetedDistance}
                     />
                   </View>
-                }
+                )}
               </View>
-
             }
-            data={mainData}
+            data={injectAdsIntoData(mainData)}
             keyExtractor={(item) => item._id}
-            renderItem={({ item }) => <DashBoardCard item={item} />}
+            renderItem={({ item }) => {
+              if (item.isAd) {
+                return (
+                  <NativeAds />
+                );
+              }
+              return <DashBoardCard item={item} />;
+            }}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 100 }}
-            ListEmptyComponent={<MainCardSkalaton />}
+            ListEmptyComponent={
+              loading ? (
+                <MainCardSkalaton />
+              ) : (
+                <View className=" flex-1 justify-center items-center mt-10">
+                  <Text className="text-gray-500 text-xl font-semibold">No Data Found in your area </Text>
+                </View>
+              )
+            }
           />
+
         </View>
       ) : (
         <View className="flex-1 justify-center items-center">

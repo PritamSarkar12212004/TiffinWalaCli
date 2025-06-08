@@ -1,6 +1,8 @@
+import {useNavigation} from '@react-navigation/native';
 import api from '../../../utils/api/Axios';
 
 const useUserFetchData = () => {
+  const navigation = useNavigation();
   const fetchUserData = (userId: string, setVender: any) => {
     try {
       api
@@ -9,7 +11,6 @@ const useUserFetchData = () => {
         })
         .then(res => {
           setVender(res.data.data);
-          console.log(res.data.data);
         })
         .catch(err => {
           if (err.response.data.message)
@@ -22,6 +23,7 @@ const useUserFetchData = () => {
             });
         });
     } catch (error) {
+      navigation.goBack();
       console.log(error);
     }
   };

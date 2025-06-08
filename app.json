@@ -1,4 +1,8 @@
 {
   "name": "tiffinwalacli",
-  "displayName": "tiffinwalacli"
+  "displayName": "tiffinwalacli",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-6357576702874785~6863678824",
+    "ios_app_id": "ca-app-pub-6357576702874785~5284364652"
+  }
 }

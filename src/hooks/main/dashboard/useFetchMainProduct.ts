@@ -7,6 +7,7 @@ const useFetchMainProduct = () => {
     location,
     distance,
     foodType,
+    navigation,
   }: any) => {
     api
       .post('/api/product/fetch-mainData-product', {
@@ -23,7 +24,7 @@ const useFetchMainProduct = () => {
         setLoading(false);
       })
       .catch(err => {
-        console.log(err);
+        navigation.replace('HelperNavigation' as never);
         setLoading(false);
       });
   };

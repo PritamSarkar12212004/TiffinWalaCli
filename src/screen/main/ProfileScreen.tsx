@@ -41,7 +41,10 @@ const ProfileScreen = () => {
             title: 'FAQs',
             icon: 'question',
             color: '#FB6D3A',
-            function: () => { }
+            function: () => {
+                navigation.navigate('Faqs', { profileInfo: profileInfo })
+
+            }
         },
         {
             title: 'Terms & Conditions',

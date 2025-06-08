@@ -2,12 +2,24 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FIcon from '../../../../layout/icon/FIcon'
 import { useNavigation } from '@react-navigation/native'
+import { userContext } from '../../../../utils/context/ContextProvider'
 
 const DashBoardCard = ({ item }: any) => {
+    const {
+        addCountry,
+        setAddCountry
+    } = userContext()
     const navigation = useNavigation()
 
     const navigationScreen = () => {
-        navigation.navigate('ShowmMainProductScreen', { item })
+        if (addCountry == 3) {
+            navigation.navigate('RewardedAdd' as never)
+            setAddCountry(0)
+        } else {
+            navigation.navigate('ShowmMainProductScreen', { item })
+            setAddCountry(addCountry + 1)
+        }
+
     }
 
     return (
@@ -30,7 +42,7 @@ const DashBoardCard = ({ item }: any) => {
                 <Text className="text-xl font-semibold text-gray-800">
                     {item?.postTitle || 'Untitled'}
                 </Text>
-                
+
             </View>
 
             <View className="mt-2 px-1 flex-row flex-wrap items-center gap-x-6 gap-y-2">

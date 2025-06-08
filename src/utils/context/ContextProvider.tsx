@@ -6,6 +6,7 @@ const Context = createContext<ContextinterFace | undefined>(undefined);
 export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
     // temp phone number for navigation
     const [tempPhomne, setTempPhomne] = useState<any>(null);
+    const [addCountry, setAddCountry] = useState<number>(0);
 
     // mai screen
     const [userInfo, setUserInfo] = useState<{
@@ -26,7 +27,9 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
                 userInfo,
                 setUserInfo,
                 pageLoader,
-                setPageLoader
+                setPageLoader,
+                addCountry,
+                setAddCountry
             }}
         >
             {children}
