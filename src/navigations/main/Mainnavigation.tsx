@@ -9,8 +9,9 @@ import LocationScree from '../../screen/main/location/LocationScree';
 import ShowmMainProductScreen from '../../screen/main/page/product/ShowmMainProductScreen';
 import SearchScreen from '../../screen/main/page/search/SearchScreen';
 import FeviroteProductScreen from '../../screen/main/page/Profile/FeviroteProductScreen';
-import Faqs from '../../screen/main/page/Profile/Faqs';
 import RewardedAdd from '../../screen/main/page/add/RewardedAdd';
+import TermsCondition from '../../screen/main/page/Profile/TermsCondition';
+import About from '../../screen/main/page/Profile/About';
 
 const Stack = createNativeStackNavigator();
 const Mainnavigation = () => {
@@ -41,9 +42,12 @@ const Mainnavigation = () => {
                 <Stack.Screen name="FeviroteProductScreen" options={{
                     animation: 'slide_from_right'
                 }} component={FeviroteProductScreen} />
-                <Stack.Screen name="Faqs" options={{
+                <Stack.Screen name="About" options={{
                     animation: 'slide_from_right'
-                }} component={Faqs} />
+                }} component={About} />
+                <Stack.Screen name="TermsCondition" options={{
+                    animation: 'slide_from_right'
+                }} component={TermsCondition} />
                 <Stack.Screen name="RewardedAdd" options={{
                     animation: 'slide_from_right'
                 }} component={RewardedAdd} />

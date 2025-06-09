@@ -38,22 +38,22 @@ const ProfileScreen = () => {
     ]
     const options3 = [
         {
-            title: 'FAQs',
-            icon: 'question',
-            color: '#FB6D3A',
-            function: () => {
-                navigation.navigate('Faqs', { profileInfo: profileInfo })
-
-            }
-        },
-        {
             title: 'Terms & Conditions',
             icon: 'paperclip',
             color: '#2AE1E1',
-            function: () => { }
+            function: () => {
+                navigation.navigate('TermsCondition', { profileInfo: profileInfo })
+            }
         },
+        {
+            title: 'About App',
+            icon: 'question',
+            color: '#FB6D3A',
+            function: () => {
+                navigation.navigate('About', { profileInfo: profileInfo })
 
-
+            }
+        },
     ]
     const options4 = [
         {

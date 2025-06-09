@@ -134,7 +134,7 @@ const DashboardScreen = () => {
                   <NativeAds />
                 );
               }
-              return <DashBoardCard item={item} />;
+              return <DashBoardCard item={item} navigation={navigation} />;
             }}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={

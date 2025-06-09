@@ -8,6 +8,9 @@ const ImageConstant = {
     AuthHeaderimage: require('../../assets/image/Auth/Authheader.png'),
   },
   SetprofileNoImg: require('../../assets/image/noImage/setProfileNo.png'),
+  Logo: {
+    Logo: require('../../assets/image/logo/MainLogo.png'),
+  },
 };
 
 export default ImageConstant;

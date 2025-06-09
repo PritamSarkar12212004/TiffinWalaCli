@@ -120,6 +120,9 @@ const ShowProBottmSheet = ({ vender }: any) => {
               showsMyLocationButton={true}
               showsCompass={true}
               userInterfaceStyle='dark'
+              loadingIndicatorColor='orange'
+              loadingEnabled={true}
+              scrollEnabled={false}
             >
               {vender?.User_Address && (
                 <Marker

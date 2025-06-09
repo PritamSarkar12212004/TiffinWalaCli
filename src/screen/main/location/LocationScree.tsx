@@ -8,6 +8,7 @@ import AuthPupup from '../../../layout/popUp/AuthPupup';
 import { removeLocation, setLocation } from '../../../functions/Token/PageTokenManagerFun';
 import PageToken from '../../../constants/tokens/PageToken';
 import { userContext } from '../../../utils/context/ContextProvider';
+import GetCurrentLocationByMark from '../../../functions/location/GetCurrentLocationByMark';
 
 const LocationScree = () => {
   const navigation = useNavigation()
@@ -64,17 +65,23 @@ const LocationScree = () => {
           showsMyLocationButton={true}
           showsCompass={true}
           userInterfaceStyle='dark'
+          loadingIndicatorColor='orange'
+          loadingEnabled={true}
+          onPress={async (e) => {
+            const { latitude, longitude } = e.nativeEvent.coordinate;
+            GetCurrentLocationByMark(setLoading, latitude, longitude, setPopUp, setGetNewLocation)
+          }}
+
         >
-          {getNewLocation && (
-            <Marker
-              coordinate={{
-                latitude: getNewLocation.latitude,
-                longitude: getNewLocation.longitude,
-              }}
-              title="Your Location"
-              description="This is your current location"
-            />
-          )}
+
+          <Marker
+            coordinate={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }}
+            title="Your Location"
+            description="This is your current location"
+          />
         </MapView>
       </View>
       <View className='w-full px-3  py-2 w-full  h-80 flex items-center justify-between gap-5'>
@@ -110,7 +117,7 @@ const LocationScree = () => {
         </View>
         <View className='w-full '>
           <TouchableOpacity onPress={() => loading ? null : getNewLocation ? setLocationFunc() : CurrentLocationFun({ setPopUp, setLoading: setLoading, setLocation: setGetNewLocation }).getCurrentLocation()
-          } activeOpacity={0.8} className='w-full bg-[#FF7622] h-20 rounded-2xl flex items-center justify-center'>
+          } activeOpacity={0.8} className='w-full bg-[#FF7622] h-20 rounded-3xl flex items-center justify-center'>
             {
               loading ? <ActivityIndicator color={'white'} size={'large'} /> : !getNewLocation ? <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>Get Location</Text> : <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>Conform Location</Text>
             }

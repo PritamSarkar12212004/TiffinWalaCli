@@ -40,6 +40,9 @@ const ProfileLocation = () => {
                         showsMyLocationButton={true}
                         showsCompass={true}
                         userInterfaceStyle='dark'
+                        scrollEnabled={false}
+                        loadingIndicatorColor='orange'
+                        loadingEnabled={true}
                     >
                         {location && (
                             <Marker
