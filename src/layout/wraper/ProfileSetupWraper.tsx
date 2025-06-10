@@ -4,9 +4,9 @@ import React from 'react';
 
 const ProfileSetupWraper = ({ children }: any) => {
     return (
-        <SafeAreaView className='flex-1 bg-white' edges={['top', 'bottom']}>
+        <SafeAreaView className='flex-1 bg-[#FFF3E0]' edges={['top', 'bottom']}>
             <StatusBar barStyle="dark-content" backgroundColor="white" />
-            <View className='flex-1 px-3'>
+            <View className='flex-1'>
                 {children}
             </View>
         </SafeAreaView>

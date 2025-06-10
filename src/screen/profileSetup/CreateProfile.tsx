@@ -88,18 +88,33 @@ const CreateProfile = () => {
                         <InputField title='Bio' placeholder='write bio' setinput={setBio} />
                         <View className='w-full   mt-4'>
                             <Text className='text-xl font-semibold text-zinc-700'>Gender</Text>
-                            <View className=' w-full flex flex-row items-center justify-between gap-2'>
-                                {
-                                    genderOption.map((item, index) => {
-                                        return (
-                                            <TouchableOpacity style={{ backgroundColor: gender === item.name ? "orange" : "#3F3F3F" }} activeOpacity={0.8} onPress={() => setGender(item.name)} key={index} className='flex-row bg-zinc-300 rounded-xl px-5 py-3  gap-1 flex items-center justify-center'>
-                                                <FIcon name={item.icons} size={30} color='white' />
-                                                <Text className='text-xl font-semibold text-white'>{item.name}</Text>
-                                            </TouchableOpacity>
-                                        )
-                                    })
-                                }
+                            <View className="w-full flex-row items-center justify-between gap-3 mt-2">
+                                {genderOption.map((item, index) => {
+                                    const isSelected = gender === item.name;
+                                    return (
+                                        <TouchableOpacity
+                                            key={index}
+                                            onPress={() => setGender(item.name)}
+                                            activeOpacity={0.9}
+                                            className={`flex-1 flex-row items-center justify-center px-4 py-3 rounded-2xl shadow-sm 
+          ${isSelected ? 'bg-[#FF7622]' : 'bg-zinc-100 border border-zinc-300'}`}
+                                        >
+                                            <FIcon
+                                                name={item.icons}
+                                                size={24}
+                                                color={isSelected ? 'white' : '#555'}
+                                            />
+                                            <Text
+                                                className={`ml-2 text-base font-semibold ${isSelected ? 'text-white' : 'text-zinc-700'
+                                                    }`}
+                                            >
+                                                {item.name}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    );
+                                })}
                             </View>
+
                         </View>
                     </View>
                     <View className='w-full mt-10 mb-48 '>

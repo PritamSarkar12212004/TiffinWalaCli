@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 const AuthNavigation = () => {
   const navigation = useNavigation()
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()} className='h-16 w-16 rounded-full bg-white flex items-center justify-center'>
+    <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()} className='h-16 w-16 z-50 rounded-full bg-white flex items-center justify-center'>
       <FIcon size={25} name='arrow-left' color='gray' />
     </TouchableOpacity>
   )

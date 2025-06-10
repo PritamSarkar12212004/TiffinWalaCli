@@ -4,8 +4,8 @@ import React from 'react';
 
 const AuthWraper = ({ children }: any) => {
     return (
-        <SafeAreaView className='flex-1 bg-black' edges={['top', 'bottom']}>
-            <StatusBar barStyle="light-content" backgroundColor="black" translucent />
+        <SafeAreaView className='flex-1 bg-[#FFF3E0]' edges={['top', 'bottom']}>
+            <StatusBar barStyle="dark-content" backgroundColor="black" translucent />
             <View className='flex-1 '>
                 {children}
             </View>

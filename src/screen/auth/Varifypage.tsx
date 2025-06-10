@@ -11,50 +11,84 @@ import AuthPupup from '../../layout/popUp/AuthPupup';
 import useLoginVarify from '../../hooks/auth/login/useLoginVarify';
 
 const Varifypage = () => {
+    const navigation = useNavigation();
+    const route = useRoute();
+    const { phoneNumber, otp, path } = route.params as any;
 
-    // auth popup
-    const [popUp, setPopUp] = useState<{
-        isVisible: boolean;
-        message: string;
-    }>({
+    const [enterOtp, setEnterOtp] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const { setTempPhomne } = userContext();
+    const { varifyotp } = usevarifySignUpTop();
+    const { varifyotpLogin } = useLoginVarify();
+
+    const [popUp, setPopUp] = useState({
         isVisible: false,
         message: '',
     });
-    const navigation = useNavigation()
-    const route = useRoute()
-    const { phoneNumber, otp, path } = route.params as any;
-    const [enterOtp, setEnterOtp] = useState(null);
-    const [loading, setLoading] = useState(false)
-    const { setTempPhomne } = userContext()
-    const { varifyotp } = usevarifySignUpTop()
-    const { varifyotpLogin } = useLoginVarify()
+
     const handleVarify = () => {
-        if (path == 'login') {
-            varifyotpLogin({ enterOtp: enterOtp, otp: otp, phoneNumber: phoneNumber, navigation: navigation, setPopUp: setPopUp, setLoading: setLoading });
+        if (path === 'login') {
+            varifyotpLogin({
+                enterOtp,
+                otp,
+                phoneNumber,
+                navigation,
+                setPopUp,
+                setLoading,
+            });
         } else {
-            varifyotp({ enterOtp: enterOtp, otp: otp, phoneNumber: phoneNumber, navigation: navigation, setTempPhomne: setTempPhomne, setPopUp: setPopUp });
+            varifyotp({
+                enterOtp,
+                otp,
+                phoneNumber,
+                navigation,
+                setTempPhomne,
+                setPopUp,
+            });
         }
-    }
+    };
+
     return (
-        <View className="flex-1 bg-black pt-5">
+        <View className="flex-1 bg-[#FFF3E0] pt-10">
             <AuthPupup popUp={popUp} setPopUp={setPopUp} />
 
-            <Image source={ImageConstant.Auth.AuthHeaderimage} className='w-full h-full absolute top-0 left-0' />
-            <View className="w-full h-20" >
+            {/* 🔙 Back Nav */}
+            <View className="px-4">
                 <AuthNavigation />
             </View>
-            <View className="w-full items-center gap-4 justify-center px-3 pt-5 pb-14">
-                <Text className="text-3xl text-white font-bold">
-                    Verification
-                </Text>
-                <Text className="text-white">
-                    We have sent a code to your email
+
+            {/* 🧭 App Info */}
+            <View className="items-center justify-center px-6 mt-2">
+                <Text className="text-[#FF7622] text-3xl font-extrabold">Tiffin Wala 🍱</Text>
+                <Text className="text-[#333] text-sm mt-1 text-center">
+                    Confirm your phone number to continue
                 </Text>
             </View>
-            <View className="flex-1 items-center justify-between bg-white rounded-t-[40px] pt-10 px-5 pb-10">
+
+            {/* 📩 Illustration or Logo */}
+            <View className="items-center justify-center my-2">
+                <Image
+                    source={ImageConstant.Logo.Logo}
+                    className="w-36 h-36 rounded-full bg-white shadow-md"
+                    resizeMode="cover"
+                />
+            </View>
+
+            {/* 📲 OTP Section */}
+            <View className="flex-1 bg-white rounded-t-3xl p-6 shadow-lg">
+                <Text className="text-2xl font-bold text-[#111E45] text-center mb-2">OTP Verification 🔐</Text>
+                <Text className="text-sm text-gray-500 text-center mb-4">
+                    We have sent a 4-digit code to your phone number
+                </Text>
+
                 <OtpInput setEnterOtp={setEnterOtp} />
-                <View className="w-full gap-8 items-center justify-center px-5">
+
+                <View className="mt-8 gap-6">
                     <VarifyButton handleVarify={handleVarify} loading={loading} />
+
+                    <Text className="text-center text-xs text-gray-400 mt-4 italic">
+                        “Your meals are just one step away.”
+                    </Text>
                 </View>
             </View>
         </View>

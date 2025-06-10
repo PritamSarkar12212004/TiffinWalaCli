@@ -1,13 +1,40 @@
-import { View, Text, TextInput } from 'react-native'
-import React from 'react'
+import { View, Text, TextInput } from 'react-native';
+import React from 'react';
 
-const InputField = ({ title, placeholder, setinput }: any) => {
-    return (
-        <View className='w-full flex gap-2'>
-            <Text className='text-xl font-semibold text-zinc-700'>{title}</Text>
-            <TextInput onChangeText={(text) => setinput(text)} className='w-full bg-gray-200 text-zinc-500 placeholder:text-zinc-500 h-16 rounded-xl text-xl font-semibold px-4' placeholder={placeholder} />
-        </View>
-    )
+interface InputFieldProps {
+    title: string;
+    placeholder: string;
+    setinput: (text: string) => void;
+    value?: string;
+    keyboardType?: 'default' | 'numeric' | 'email-address';
+    secureTextEntry?: boolean;
 }
 
-export default InputField
+const InputField: React.FC<InputFieldProps> = ({
+    title,
+    placeholder,
+    setinput,
+    value,
+    keyboardType = 'default',
+    secureTextEntry = false,
+}) => {
+    return (
+        <View className="w-full space-y-2">
+            <Text className="text-base font-semibold text-zinc-800 tracking-wide">
+                {title}
+            </Text>
+
+            <TextInput
+                value={value}
+                onChangeText={(text) => setinput(text)}
+                placeholder={placeholder}
+                keyboardType={keyboardType}
+                secureTextEntry={secureTextEntry}
+                className="w-full bg-[#F0F2F5] text-zinc-700 placeholder:text-zinc-500 
+                   h-14 rounded-2xl px-5 text-base font-medium shadow-sm"
+            />
+        </View>
+    );
+};
+
+export default InputField;
