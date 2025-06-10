@@ -5,18 +5,17 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import SingleImgPicker from '../../../../functions/image/SingleImgPicker'
 import ProEditInput from '../../../../components/main/profile/elements/ProEditInput'
 import ProfileEditBtn from '../../../../components/main/profile/buttons/ProfileEditBtn'
-
+import ImagePicker from "react-native-image-crop-picker";
 const ProfileEdit = () => {
-    const navigation = useNavigation();
     const route = useRoute();
     const { location, profileInfo } = route.params;
-    console.log(profileInfo);
 
     const [image, setImage] = useState(null)
     const [userName, setUserName] = useState(profileInfo.User_Name)
     const [phoneNumber, setPhoneNumber] = useState(profileInfo.User_Phone_Number)
     const [email, setEmail] = useState(profileInfo.User_Email)
     const [bio, setBio] = useState(profileInfo.User_Bio)
+    const [loading, setloadingg] = useState(false)
 
     return (
         <View className='flex-1 bg-[#F3F3F3] px-3 pt-2'>
@@ -35,7 +34,7 @@ const ProfileEdit = () => {
                         <ProEditInput value={email} setValue={setEmail} keybordType='email-address' title='Email (optional)' />
                         <ProEditInput value={phoneNumber} setValue={setPhoneNumber} keybordType='phone-pad' title='Phone Number' />
                         <ProEditInput value={bio} setValue={setBio} keybordType='default' title='Bio' />
-                        <ProfileEditBtn />
+                        <ProfileEditBtn loading={loading} setloadingg={setloadingg} data={{ userName, phoneNumber, email, bio, location, image, profileInfo }} />
                     </View>
                 </ScrollView>
             </View>

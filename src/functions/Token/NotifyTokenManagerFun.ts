@@ -9,4 +9,8 @@ const getNotifyToken = async (key: string) => {
   const status = await storage.getString(key);
   return status;
 };
-export {setNotifyToken, getNotifyToken};
+const removeNotifyToken = async (key: string) => {
+  await storage.delete(key);
+  return true;
+};
+export {setNotifyToken, getNotifyToken, removeNotifyToken};

@@ -74,14 +74,16 @@ const LocationScree = () => {
 
         >
 
-          <Marker
-            coordinate={{
-              latitude: location.latitude,
-              longitude: location.longitude,
-            }}
-            title="Your Location"
-            description="This is your current location"
-          />
+          {getNewLocation && (
+            <Marker
+              coordinate={{
+                latitude: getNewLocation.latitude,
+                longitude: getNewLocation.longitude,
+              }}
+              title="Your Location"
+              description="This is your current location"
+            />
+          )}
         </MapView>
       </View>
       <View className='w-full px-3  py-2 w-full  h-80 flex items-center justify-between gap-5'>

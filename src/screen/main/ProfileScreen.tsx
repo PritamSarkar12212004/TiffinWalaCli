@@ -4,6 +4,10 @@ import NavigationProfile from '../../components/main/profile/navigation/Navigati
 import ProfileView from '../../components/main/profile/elements/ProfileView'
 import ProfileOptionContainer from '../../layout/main/profile/options/ProfileOptionContainer'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { removeAuthToken, removeLocation } from '../../functions/Token/PageTokenManagerFun'
+import PageToken from '../../constants/tokens/PageToken'
+import { removeNotifyToken } from '../../functions/Token/NotifyTokenManagerFun'
+import NotiFyToken from '../../constants/tokens/NotiFyToken'
 
 const ProfileScreen = () => {
     const navigation = useNavigation()
@@ -47,7 +51,7 @@ const ProfileScreen = () => {
         },
         {
             title: 'About App',
-            icon: 'question',
+            icon: 'gear',
             color: '#FB6D3A',
             function: () => {
                 navigation.navigate('About', { profileInfo: profileInfo })
@@ -60,7 +64,16 @@ const ProfileScreen = () => {
             title: 'Log Out',
             icon: 'right-from-bracket',
             color: '#FB4A59',
-            function: () => { }
+            function: async () => {
+                await removeAuthToken(PageToken.profile.mainDataToken)
+                await removeLocation(PageToken.profile.locationToken)
+                await removeNotifyToken(NotiFyToken.Event)
+                await removeNotifyToken(NotiFyToken.Fun)
+                await removeNotifyToken(NotiFyToken.Promotion)
+                await removeNotifyToken(NotiFyToken.Remainder)
+                await removeAuthToken(PageToken.profile.profileToken)
+                await navigation.replace('AuthNavigations' as never)
+            }
         },
 
 
