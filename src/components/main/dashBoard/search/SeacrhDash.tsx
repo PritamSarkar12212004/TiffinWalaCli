@@ -2,9 +2,10 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FIcon from '../../../../layout/icon/FIcon'
 import { useNavigation } from '@react-navigation/native'
+import { NavigationProp } from '../../types/navigation'
 
 const SeacrhDash = ({ name, distance }: any) => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<NavigationProp>()
     return (
         <TouchableOpacity onPress={() => navigation.navigate('SearchScreen', {
             distance: distance

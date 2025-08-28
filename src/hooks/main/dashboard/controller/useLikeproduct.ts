@@ -8,7 +8,7 @@ const useLikeproduct = () => {
   ) => {
     try {
       const res = await api.post('/api/product/like-fetch-product', {
-        userId: userId._id,
+        userId: typeof userId === 'string' ? userId : (userId as any)._id,
         productId,
       });
       if (res.data.isLiked) {

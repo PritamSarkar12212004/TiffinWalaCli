@@ -7,11 +7,11 @@ const CreateProfileButton = ({ content, profileCreater }: any) => {
         profileCreater(setLoading)
     }
     return (
-        <TouchableOpacity activeOpacity={0.8} onPress={() => loading ? null : handlePress()} className='bg-[#FF7622] w-full  rounded-2xl py-6 flex items-center h-20 justify-center'>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => loading ? null : handlePress()} className='bg-[#FF7622] w-full rounded-2xl h-14 flex items-center justify-center'>
             {
                 loading ? (
                     <ActivityIndicator size="large" color="#fff" />
-                ) : <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>{content}</Text>
+                ) : <Text className='text-lg  flex flex-row gap-3 font-bold text-white'>{content}</Text>
             }
         </TouchableOpacity>
     )

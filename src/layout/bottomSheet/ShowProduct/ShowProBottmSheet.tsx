@@ -40,26 +40,32 @@ const ShowProBottmSheet = ({ vender }: any) => {
       android: `${scheme}${latLng}(${label})`
     });
 
-    Linking.canOpenURL(url).then(supported => {
-      if (supported) {
-        Linking.openURL(url);
-      } else {
-        const webUrl = `https://www.google.com/maps/search/?api=1&query=${latLng}`;
-        Linking.openURL(webUrl);
-      }
-    }).catch(err => console.error('An error occurred', err));
+    if (url) {
+      Linking.canOpenURL(url).then(supported => {
+        if (supported) {
+          Linking.openURL(url);
+        } else {
+          const webUrl = `https://www.google.com/maps/search/?api=1&query=${latLng}`;
+          Linking.openURL(webUrl);
+        }
+      }).catch(err => console.error('An error occurred', err));
+    }
   }
 
   const phoneLinking = () => {
     const phoneNumber = vender?.User_Phone_Number;
-    const url = `tel:${phoneNumber}`;
-    Linking.openURL(url).catch(err => console.error('An error occurred', err));
+    if (phoneNumber) {
+      const url = `tel:${phoneNumber}`;
+      Linking.openURL(url).catch(err => console.error('An error occurred', err));
+    }
   }
 
   const emailLinking = () => {
     const email = vender?.User_Email;
-    const url = `mailto:${email}`;
-    Linking.openURL(url).catch(err => console.error('An error occurred', err));
+    if (email) {
+      const url = `mailto:${email}`;
+      Linking.openURL(url).catch(err => console.error('An error occurred', err));
+    }
   }
 
   if (!vender) return null;

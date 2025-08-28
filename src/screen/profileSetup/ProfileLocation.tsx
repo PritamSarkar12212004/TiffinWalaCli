@@ -13,7 +13,7 @@ import { userContext } from '../../utils/context/ContextProvider';
 
 const ProfileLocation = () => {
     const { tempPhomne } = userContext();
-    const [location, setLocation] = useState(null);
+    const [location, setLocation] = useState<any>(null);
     const [popUp, setPopUp] = useState({
         isVisible: false,
         message: '',
@@ -43,50 +43,34 @@ const ProfileLocation = () => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
+                style={{ flex: 1 }}
             >
                 <AuthPupup popUp={popUp} setPopUp={setPopUp} />
-
-                {/* 🔲 Header */}
-                <View className="items-center justify-center mt-10 mb-4">
-                    <Text className="text-[#FF7622] text-3xl font-extrabold">Set Your Location 📍</Text>
-                    <Text className="text-[#333] text-sm mt-1 text-center">
-                        Enable precise delivery and accurate service experience
-                    </Text>
-                </View>
-
-                {/* 🗺️ Map Container */}
-                <View className="items-center mt-4 mb-6">
-                    <View className="w-72 h-96 bg-zinc-600 rounded-[60px] overflow-hidden shadow-xl">
-                        <MapView
-                            region={region}
-                            style={{ width: '100%', height: '100%' }}
-                            showsUserLocation={true}
-                            showsMyLocationButton={true}
-                            showsCompass={true}
-                            userInterfaceStyle="dark"
-                            scrollEnabled={false}
-                            loadingEnabled={true}
-                            loadingIndicatorColor="orange"
-                        >
-                            {location && (
-                                <Marker
-                                    coordinate={{
-                                        latitude: location.latitude,
-                                        longitude: location.longitude,
-                                    }}
-                                    title="Your Location"
-                                    description="This is your current location"
-                                />
-                            )}
-                        </MapView>
-                    </View>
-
-                    <Text className="text-center text-sm text-zinc-600 mt-4 px-6">
-                        {location?.address ?? '📍 Tap below to fetch your current location'}
-                    </Text>
-                </View>
-
-                {/* 🔘 Button Section */}
+                    <MapView
+                        region={region}
+                        style={{ flex: 1, width: '100%', height: 400 }}
+                        showsUserLocation={true}
+                        showsMyLocationButton={true}
+                        showsCompass={true}
+                        userInterfaceStyle="dark"
+                        scrollEnabled={false}
+                        loadingEnabled={true}
+                        loadingIndicatorColor="orange"
+                    >
+                        {location && (
+                            <Marker
+                                coordinate={{
+                                    latitude: location.latitude,
+                                    longitude: location.longitude,
+                                }}
+                                title="Your Location"
+                                description="This is your current location"
+                            />
+                        )}
+                    </MapView>
+                <Text className="text-center text-sm text-zinc-600 mt-4 px-6">
+                    {location?.address ?? '📍 Tap below to fetch your current location'}
+                </Text>
                 <View className="px-6 pb-10 pt-4 items-center gap-6">
                     <SetproButton
                         tempPhomne={tempPhomne}
@@ -96,7 +80,6 @@ const ProfileLocation = () => {
                         content="Access Location"
                         icon="location-dot"
                     />
-
                     <Text className="text-center text-xs text-zinc-500 tracking-wider leading-5 px-3 font-medium">
                         DFOOD only accesses your location while using the app for better delivery accuracy.
                     </Text>

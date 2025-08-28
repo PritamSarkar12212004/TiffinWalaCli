@@ -4,7 +4,9 @@ import Splash1 from '../../screen/splash/Splash1';
 import Splash2 from '../../screen/splash/Splash2';
 import Wraper from '../../layout/wraper/Wraper';
 import Splash3 from '../../screen/splash/Splash3';
-const Stack = createNativeStackNavigator();
+import { RootStackParamList } from '../../types/navigation';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const SplashNavigation = () => {
   return (

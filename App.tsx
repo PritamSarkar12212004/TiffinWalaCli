@@ -2,20 +2,17 @@ import './global.css';
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SplashNavigation from './src/navigations/splashNav/SplashNavigation';
 import AuthNavigations from './src/navigations/auth/AuthNavigations';
 import { Text, View } from 'react-native';
 import AnimationPath from './src/constants/animation/AnimationPath';
 import AnimationLotti from './src/components/global/animation/AnimationLotti';
-import { getAuthToken, getSplashToken } from './src/functions/Token/PageTokenManagerFun';
+import { getAuthToken } from './src/functions/Token/PageTokenManagerFun';
 import PageToken from './src/constants/tokens/PageToken';
 import ProfileSetupnav from './src/navigations/profileSetup/ProfileSetupnav';
 import { ContextProvider } from './src/utils/context/ContextProvider';
 import Mainnavigation from './src/navigations/main/Mainnavigation';
 import HelperNavigation from './src/navigations/helper/HelperNavigation';
 import mobileAds, { NativeAd, TestIds } from 'react-native-google-mobile-ads';
-
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -23,7 +20,7 @@ const App = () => {
 
 
   const tokenFinder = () => {
-    getSplashToken(PageToken.SplashToken) ? getAuthToken(PageToken.profile.profileToken) ? setInitialRoute('Mainnavigation') : setInitialRoute('AuthNavigations') : setInitialRoute('Splash');
+    getAuthToken(PageToken.profile.profileToken) ? setInitialRoute('Mainnavigation') : setInitialRoute('AuthNavigations')
   }
   useEffect(() => {
     tokenFinder()
@@ -54,7 +51,6 @@ const App = () => {
       <ContextProvider>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRoute}>
-            <Stack.Screen name="Splash" component={SplashNavigation} />
             <Stack.Screen name="AuthNavigations" component={AuthNavigations} />
             <Stack.Screen name="ProfileSetupnav" component={ProfileSetupnav} />
             <Stack.Screen name="Mainnavigation" component={Mainnavigation} />

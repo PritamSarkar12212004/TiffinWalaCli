@@ -53,7 +53,7 @@ const RewardedAdScreen = () => {
     }, []);
 
     useEffect(() => {
-        let timeoutId: NodeJS.Timeout;
+        let timeoutId: any;
 
         const unsubscribeLoaded = rewarded.addAdEventListener(
             RewardedAdEventType.LOADED,

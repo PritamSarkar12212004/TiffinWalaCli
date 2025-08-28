@@ -2,8 +2,10 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FIcon from '../../../../layout/icon/FIcon'
 import { useNavigation } from '@react-navigation/native'
+import { NavigationProp } from '../../types/navigation'
+
 const DashHeader = ({ userInfo }: any) => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<NavigationProp>()
     return (
         <View className='w-full flex items-center justify-between flex-row pb-3'>
             <TouchableOpacity onPress={() => navigation.navigate('LocationScree', {

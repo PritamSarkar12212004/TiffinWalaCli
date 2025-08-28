@@ -13,7 +13,7 @@ const CurrentLocationFun = ({setPopUp, setLoading, setLocation}: any) => {
         });
       });
 
-      const {latitude, longitude} = position.coords;
+      const {latitude, longitude} = (position as any).coords;
 
       const address = await reverseGeocode(
         latitude,

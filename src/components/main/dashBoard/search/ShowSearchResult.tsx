@@ -2,9 +2,10 @@ import { View, Image, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FIcon from '../../../../layout/icon/FIcon'
 import { useNavigation } from '@react-navigation/native'
+import { NavigationProp } from '../../types/navigation'
 
 const ShowSearchResult = ({ item }: any) => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<NavigationProp>()
     const navigationScreen = (item: any) => {
         navigation.navigate('ShowmMainProductScreen', {
             item: item

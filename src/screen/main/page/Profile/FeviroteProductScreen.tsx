@@ -15,7 +15,7 @@ const FeviroteProductScreen = () => {
     const { likeControllers } = useControllLike()
     const removeItom = (id: any) => {
         likeControllers(userInfo.userinfo._id, id, feviroteProduct, setIsFavorite)
-        const newList = list.filter((item) => item._id !== id)
+        const newList = list.filter((item: any) => item._id !== id)
         setList(newList)
     }
 

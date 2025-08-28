@@ -5,9 +5,8 @@ const VarifyButton = ({ handleVarify, loading }: any) => {
     const navigatePage = async () => {
         handleVarify();
     }
-
     return (
-        <TouchableOpacity activeOpacity={0.8} onPress={() => navigatePage()} className='bg-[#FF7622] w-full  rounded-2xl h-20 flex items-center justify-center'>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => navigatePage()} className='bg-[#FF7622] w-full  rounded-2xl h-14 flex items-center justify-center'>
             {
                 loading ? <ActivityIndicator
                     size={'large'}

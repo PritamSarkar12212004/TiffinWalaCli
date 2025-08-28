@@ -15,7 +15,7 @@ const Varifypage = () => {
     const route = useRoute();
     const { phoneNumber, otp, path } = route.params as any;
 
-    const [enterOtp, setEnterOtp] = useState(null);
+    const [enterOtp, setEnterOtp] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const { setTempPhomne } = userContext();
     const { varifyotp } = usevarifySignUpTop();
@@ -49,7 +49,7 @@ const Varifypage = () => {
     };
 
     return (
-        <View className="flex-1 bg-[#FFF3E0] pt-10">
+        <View className="flex-1 bg-[#FFF3E0] ">
             <AuthPupup popUp={popUp} setPopUp={setPopUp} />
 
             {/* 🔙 Back Nav */}
@@ -85,7 +85,6 @@ const Varifypage = () => {
 
                 <View className="mt-8 gap-6">
                     <VarifyButton handleVarify={handleVarify} loading={loading} />
-
                     <Text className="text-center text-xs text-gray-400 mt-4 italic">
                         “Your meals are just one step away.”
                     </Text>

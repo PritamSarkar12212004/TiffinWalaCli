@@ -1,7 +1,6 @@
 import { View, Text, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import { PhoneInputProps } from './types'; // optional: external types if you want
-import FIcon from '../../../layout/icon/FIcon';
 
 const PhoneInput: React.FC<PhoneInputProps> = ({ setPhoneNumber, setActiveNavigate }) => {
     const [phone, setPhone] = useState('');

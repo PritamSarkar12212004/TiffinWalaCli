@@ -12,8 +12,9 @@ import FeviroteProductScreen from '../../screen/main/page/Profile/FeviroteProduc
 import RewardedAdd from '../../screen/main/page/add/RewardedAdd';
 import TermsCondition from '../../screen/main/page/Profile/TermsCondition';
 import About from '../../screen/main/page/Profile/About';
+import { RootStackParamList } from '../../types/navigation';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const Mainnavigation = () => {
     return (
         <MainWraper>

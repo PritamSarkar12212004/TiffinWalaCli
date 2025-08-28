@@ -1,4 +1,4 @@
-interface ContextinterFace {
+export interface ContextinterFace {
   tempPhomne: any;
   setTempPhomne: any;
   userInfo: {
@@ -11,5 +11,3 @@ interface ContextinterFace {
   addCountry: any;
   setAddCountry: any;
 }
-
-export {ContextinterFace};

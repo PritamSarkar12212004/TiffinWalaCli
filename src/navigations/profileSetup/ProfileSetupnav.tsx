@@ -3,7 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileSetupWraper from '../../layout/wraper/ProfileSetupWraper';
 import ProfileLocation from '../../screen/profileSetup/ProfileLocation';
 import CreateProfile from '../../screen/profileSetup/CreateProfile';
-const Stack = createNativeStackNavigator();
+import { RootStackParamList } from '../../types/navigation';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 
 const ProfileSetupnav = () => {

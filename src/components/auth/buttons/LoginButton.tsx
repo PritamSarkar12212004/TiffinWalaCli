@@ -18,14 +18,13 @@ const LoginButton = ({ activenavigate, phoneNumber, setPopUp, path }: any) => {
         } else {
             setPopUp({ isVisible: true, message: 'Please enter your phone number' })
         }
-
     }
     return (
-        <TouchableOpacity activeOpacity={0.8} onPress={() => navigatePage()} className='bg-[#FF7622] w-full  rounded-2xl h-20 flex items-center justify-center'>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => navigatePage()} className='bg-[#FF7622] w-full  rounded-2xl h-14 flex items-center justify-center'>
             {
                 loading ? <ActivityIndicator
-                    color='white' size='large'
-                /> : <Text className='text-xl font-bold text-white'>NEXT</Text>
+                    color='white' size='small'
+                /> : <Text className='text-lg font-semibold text-white'>NEXT</Text>
 
             }
         </TouchableOpacity>

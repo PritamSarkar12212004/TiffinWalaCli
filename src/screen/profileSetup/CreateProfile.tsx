@@ -9,12 +9,12 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import useCreateProfile from '../../hooks/setProfile/useCreateProfile'
 import CreateProfileButton from '../../components/setProfile/buttons/CreateProfileButton'
 import AuthPupup from '../../layout/popUp/AuthPupup'
-
+import { NavigationProp } from '../../types/navigation'
 const CreateProfile = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<NavigationProp>()
     const route = useRoute()
-    const location = route.params?.location
-    const phone = route.params?.phone
+    const location = route.params?.location as any
+    const phone = route.params?.phone as any
     // information state
     const [name, setName] = useState<string>("")
     const [email, setEmail] = useState<string>("")
@@ -30,8 +30,6 @@ const CreateProfile = () => {
         isVisible: false,
         message: ''
     })
-
-
     const genderOption = [
         {
             icons: "mars",
@@ -67,7 +65,7 @@ const CreateProfile = () => {
     return (
         <View className='flex-1 bg-white pt-3'>
             <SetproNevigation />
-            <ScrollView className='flex-1 mt-5 px-3' showsVerticalScrollIndicator={false}>
+            <ScrollView className='flex-1 mt-5 px-4' showsVerticalScrollIndicator={false}>
                 <AuthPupup popUp={popUp} setPopUp={setPopUp} />
                 <View className='flex-1 mt-10'>
                     <View className='w-full flex items-center justify-center gap-3'>

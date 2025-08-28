@@ -13,7 +13,7 @@ import GetCurrentLocationByMark from '../../../functions/location/GetCurrentLoca
 const LocationScree = () => {
   const navigation = useNavigation()
   const route = useRoute()
-  const { location } = route.params;
+  const { location } = route.params as any;
   const { pageLoader, setPageLoader } = userContext()
 
   const locationPath =
@@ -28,7 +28,7 @@ const LocationScree = () => {
     latitude: any;
     longitude: any;
     address: any
-  }>(null);
+  } | null>(null);
 
   const [popUp, setPopUp] = useState<{
     isVisible: boolean;

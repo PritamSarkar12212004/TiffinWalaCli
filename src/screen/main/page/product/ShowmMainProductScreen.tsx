@@ -17,13 +17,13 @@ const ShowmMainProductScreen = () => {
     const [fevirote, setIsFavorite] = useState<any>(null)
     const { userInfo } = userContext()
     const route = useRoute()
-    const data = route.params.item
+    const data = route.params?.item as any
     const [activeIndex, setActiveIndex] = useState(0);
     const flatListRef = useRef(null);
     const [showMenu, setShowMenu] = useState(true)
     const [vender, setVender] = useState<any>(null)
 
-    const renderItem = ({ item }) => {
+    const renderItem = ({ item }: { item: any }) => {
         return (
             <View style={{ width, height: 384 }}>
                 <Image
@@ -35,19 +35,19 @@ const ShowmMainProductScreen = () => {
         );
     };
 
-    const handleScroll = (event) => {
+    const handleScroll = (event: any) => {
         const scrollPosition = event.nativeEvent.contentOffset.x;
         const index = Math.round(scrollPosition / width);
         setActiveIndex(index);
     };
 
     const renderDotIndicators = () => {
-        return data.postCoverImage.map((_, index) => {
+        return data.postCoverImage.map((_: any, index: number) => {
             return (
                 <TouchableOpacity
                     key={index}
                     onPress={() => {
-                        flatListRef.current.scrollToIndex({ index, animated: true });
+                        flatListRef.current?.scrollToIndex({ index, animated: true });
                     }}
                     className={`h-2 w-2 rounded-full mx-1 ${activeIndex === index ? 'bg-orange-500' : 'bg-gray-300'}`}
                 />
@@ -141,7 +141,7 @@ const ShowmMainProductScreen = () => {
                                     <Text className='text-xl font-semibold'>Food Type</Text>
                                     <ScrollView className='w-full flex py-3' horizontal showsHorizontalScrollIndicator={false}>
                                         {
-                                            data.postFoodType.map((item, index) => (
+                                            data.postFoodType.map((item: any, index: number) => (
                                                 <TouchableOpacity activeOpacity={0.8} key={index} className='pr-10 p-2 flex flex-row items-center gap-5 mr-5 rounded-full' style={{ backgroundColor: "#FFD27C" }}>
                                                     <View className='h-10 w-10 rounded-full bg-white flex items-center justify-center'>
                                                         <FIcon name={'leaf'} size={20} color={item == 'Vegan' ? 'green' : item == 'Veg' ? 'green' : 'red'} />
@@ -156,7 +156,7 @@ const ShowmMainProductScreen = () => {
                                     <Text className='text-xl font-semibold'>Available days</Text>
                                     <View className='w-full flex flex-row flex-wrap gap-5'>
                                         {
-                                            data.postValidDay.map((item, index) => (
+                                            data.postValidDay.map((item: any, index: number) => (
                                                 <View key={index} className='flex flex-row items-center justify-center gap-1'>
                                                     <FIcon name={'calendar-days'} size={20} color={'orange'} />
                                                     <Text className='text-sm text-gray-500'>{item}</Text>
@@ -170,7 +170,7 @@ const ShowmMainProductScreen = () => {
                                     {
                                         showMenu ? <View className='w-full flex '>
                                             {
-                                                data.postMenu.map((item, index) => (
+                                                data.postMenu.map((item: any, index: number) => (
                                                     <View key={index} className='w-full flex gap-1   '>
                                                         <Image source={{ uri: item.image }} className='rounded-2xl' style={{ width: "100%", aspectRatio: 2 / 1 }} />
                                                         <View className='w-fill flex px-2'>

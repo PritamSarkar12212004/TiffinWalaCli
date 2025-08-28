@@ -37,9 +37,9 @@ const DashboardScreen = () => {
 
   const { fetchMaindata } = useFetchMainProduct()
   const { tokenSet } = useTokenGet()
-  const injectAdsIntoData = (data) => {
-    const result = [];
-    data.forEach((item, index) => {
+  const injectAdsIntoData = (data: any[]) => {
+    const result: any[] = [];
+    data.forEach((item: any, index: number) => {
       result.push(item);
       if ((index + 1) % 3 === 0) {
         result.push({ isAd: true, _id: `ad-${index}` });

@@ -12,7 +12,7 @@ import SearchTopSclaton from '../../../../skeleton/search/SearchTopSclaton'
 
 const SearchScreen = () => {
     const route = useRoute()
-    const { distance } = route.params
+    const { distance } = route.params as any
     const { userInfo } = userContext()
     const [location, setLocation] = useState<any>(null)
     const [result, setResults] = useState<any>(null)

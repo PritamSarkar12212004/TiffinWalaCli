@@ -12,7 +12,7 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     const [userInfo, setUserInfo] = useState<{
         location: any,
         userinfo: any
-    }>(null)
+    } | null>(null)
 
     // whole page loader
     const [pageLoader, setPageLoader] = useState<boolean>(false);
@@ -22,7 +22,6 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
             value={{
                 tempPhomne,
                 setTempPhomne,
-
                 // main screen
                 userInfo,
                 setUserInfo,

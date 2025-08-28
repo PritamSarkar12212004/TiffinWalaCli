@@ -4,11 +4,12 @@ import NavigationProfile from '../../../../components/main/profile/navigation/Na
 import ProfileView from '../../../../components/main/profile/elements/ProfileView'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import FIcon from '../../../../layout/icon/FIcon'
+import { NavigationProp } from '../../../../types/navigation'
 
 const PersonalInfo = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<NavigationProp>()
     const route = useRoute()
-    const { profileInfo, location } = route.params
+    const { profileInfo, location } = route.params as any
     const options = [
         {
             title: profileInfo.User_Name,

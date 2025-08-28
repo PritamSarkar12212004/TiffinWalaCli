@@ -3,9 +3,10 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import PageToken from '../../../constants/tokens/PageToken'
 import { setSplashToken } from '../../../functions/Token/PageTokenManagerFun'
+import { NavigationProp } from '../../../types/navigation'
 
 const SlpashSecoundaryButton = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<NavigationProp>()
     const pagenavigation = async () => {
         await setSplashToken(PageToken.SplashToken, true)
         navigation.replace("AuthNavigations" as never)

@@ -3,9 +3,10 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { setSplashToken } from '../../../functions/Token/PageTokenManagerFun'
 import PageToken from '../../../constants/tokens/PageToken'
+import { NavigationProp } from '../../../types/navigation'
 
 const SplasPrimaryButton = ({ path }: any) => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<NavigationProp>()
     const navigatePage = async () => {
         if (path === 'login') {
             await setSplashToken(PageToken.SplashToken, true)

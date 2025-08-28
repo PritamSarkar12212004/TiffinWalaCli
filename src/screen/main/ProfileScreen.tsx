@@ -8,13 +8,14 @@ import { removeAuthToken, removeLocation } from '../../functions/Token/PageToken
 import PageToken from '../../constants/tokens/PageToken'
 import { removeNotifyToken } from '../../functions/Token/NotifyTokenManagerFun'
 import NotiFyToken from '../../constants/tokens/NotiFyToken'
+import { NavigationProp } from '../../types/navigation'
 
 const ProfileScreen = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<NavigationProp>()
 
     const route = useRoute()
-    const profileInfo = route.params.userInfo.userinfo
-    const location = route.params.userInfo.location
+    const profileInfo = route.params?.userInfo?.userinfo
+    const location = route.params?.userInfo?.location
 
     const options1 = [
         {

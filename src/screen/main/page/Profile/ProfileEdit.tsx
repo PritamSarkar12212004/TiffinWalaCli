@@ -6,9 +6,11 @@ import SingleImgPicker from '../../../../functions/image/SingleImgPicker'
 import ProEditInput from '../../../../components/main/profile/elements/ProEditInput'
 import ProfileEditBtn from '../../../../components/main/profile/buttons/ProfileEditBtn'
 import ImagePicker from "react-native-image-crop-picker";
+import { NavigationProp } from '../../../../types/navigation'
+
 const ProfileEdit = () => {
     const route = useRoute();
-    const { location, profileInfo } = route.params;
+    const { location, profileInfo } = route.params as any;
 
     const [image, setImage] = useState(null)
     const [userName, setUserName] = useState(profileInfo.User_Name)
