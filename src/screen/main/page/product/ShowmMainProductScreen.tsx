@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, TouchableOpacity, Dimensions, FlatList, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, Image, TouchableOpacity, Dimensions, FlatList, StyleSheet, ActivityIndicator } from 'react-native'
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import NavigationShowProduct from '../../../../components/main/showProduct/navigation/NavigationShowProduct'
 import FIcon from '../../../../layout/icon/FIcon'
@@ -12,6 +12,7 @@ import NoProfileDataFound from '../../../../layout/bottomSheet/NoProfileData/NoP
 import { userContext } from '../../../../utils/context/ContextProvider'
 import useLikeproduct from '../../../../hooks/main/dashboard/controller/useLikeproduct'
 import ShowProBottmSheetSclotan from '../../../../skeleton/ShowProduct/ShowProBottmSheetSclotan'
+import useFollower from '../../../../hooks/main/dashboard/controller/useFollower'
 const { width } = Dimensions.get('window');
 const ShowmMainProductScreen = () => {
     const [fevirote, setIsFavorite] = useState<any>(null)
@@ -20,9 +21,9 @@ const ShowmMainProductScreen = () => {
     const data = route.params?.item as any
     const [activeIndex, setActiveIndex] = useState(0);
     const flatListRef = useRef(null);
-    const [showMenu, setShowMenu] = useState(true)
     const [vender, setVender] = useState<any>(null)
-
+    const [follower, setFollower] = useState<any>(null)
+    const [followerLoadingm, setFollowerLoading] = useState<boolean | any>(false)
     const renderItem = ({ item }: { item: any }) => {
         return (
             <View style={{ width, height: 384 }}>
@@ -67,18 +68,29 @@ const ShowmMainProductScreen = () => {
     const { viewsProduct } = useViewsProductApi()
     const { fetchUserData } = useUserFetchData()
     const { likeProductFetch } = useLikeproduct()
+    const { fetchFollower } = useFollower()
 
-
-
+    const funcFollowControll = () => {
+        setFollowerLoading(true)
+        fetchFollower({
+            followingId: userInfo.userinfo._id,
+            FollowerId: data.postVendorId,
+            setFollowing: setFollower,
+            status: !follower,
+            setFollowerLoading: setFollowerLoading
+        })
+    }
 
     useEffect(() => {
         viewsProduct(data._id);
-        fetchUserData(data.postVendorId, setVender)
+        fetchUserData(data.postVendorId, setVender, setFollower)
         likeProductFetch(userInfo.userinfo, data._id, setIsFavorite)
         return () => {
             setVender(null)
+            setIsFavorite(null)
         }
     }, [])
+
     return (
         <GestureHandlerRootView style={styles.container}>
             <ScrollView className='flex-1' showsVerticalScrollIndicator={false}>
@@ -104,7 +116,15 @@ const ShowmMainProductScreen = () => {
                             </View>
                             <View className='w-full px-4 flex gap-8'>
                                 <View className='w-full flex gap-1 '>
-                                    <Text className='text-2xl font-semibold'>{data.postTitle}</Text>
+                                    <View className='w-full flex flex-row items-center justify-between'>
+                                        <Text className='text-2xl font-semibold'>{data.postTitle}</Text>
+                                        <TouchableOpacity activeOpacity={0.8} onPress={() => followerLoadingm ? null : funcFollowControll()} className={`w-28 flex items-center justify-center ${follower ? 'bg-white border-black' : "bg-red-500 duration-100 border-red-500"} h-8 border-[1px]  rounded-full`}>
+                                            {
+                                                followerLoadingm ? <ActivityIndicator color={'orange'} size={'small'} /> : follower == true ? <Text className={`${follower ? 'bg-white' : "bg-white"}`}>Following</Text>
+                                                    : <Text className={`${follower ? 'color-white' : "color-white"}`}>Follow</Text>
+                                            }
+                                        </TouchableOpacity>
+                                    </View>
                                     <View className='w-full flex flex-row gap-2'>
                                         <FIcon name='location-dot' color='orange' size={20} />
                                         <Text className='text-sm text-gray-500 text-wrap pr-3'>{data.postLocation}</Text>
@@ -168,29 +188,20 @@ const ShowmMainProductScreen = () => {
                                 <View className='w-full flex gap-2 '>
                                     <Text className='text-xl font-semibold'>Food menu</Text>
                                     {
-                                        showMenu ? <View className='w-full flex '>
+                                        <View className='w-full flex gap-3'>
                                             {
                                                 data.postMenu.map((item: any, index: number) => (
-                                                    <View key={index} className='w-full flex gap-1   '>
-                                                        <Image source={{ uri: item.image }} className='rounded-2xl' style={{ width: "100%", aspectRatio: 2 / 1 }} />
-                                                        <View className='w-fill flex px-2'>
-                                                            <Text className='text-lg font-semibold text-wrap'>
-                                                                {item.title}
-                                                            </Text>
-                                                            <Text className='text-sm text-gray-500 text-wrap'>
-                                                                {item.description}
-                                                            </Text>
-                                                        </View>
+                                                    <View key={index} className='w-full flex gap-1'>
+                                                        <Image source={{ uri: item }} className='rounded-2xl' style={{ width: "100%", aspectRatio: 2 / 1.4 }} />
                                                     </View>
                                                 ))
                                             }
                                         </View>
-                                            : null
                                     }
                                 </View>
                                 <View className='w-full flex '>
-                                    <TouchableOpacity onPress={() => openBottomSheet()} activeOpacity={0.8} className='w-full flex h-20 bg-[#FFD27C] rounded-3xl flex items-center justify-center'>
-                                        <Text className='text-xl font-semibold'>
+                                    <TouchableOpacity onPress={() => openBottomSheet()} activeOpacity={0.8} className='w-full flex h-14 bg-orange-400 rounded-3xl flex items-center justify-center'>
+                                        <Text className='text-lg text-white font-semibold'>
                                             Contact Details
                                         </Text>
                                     </TouchableOpacity>
@@ -217,7 +228,7 @@ const ShowmMainProductScreen = () => {
                     }
                 </BottomSheetView>
             </BottomSheet>
-        </GestureHandlerRootView>
+        </GestureHandlerRootView >
     )
 }
 const styles = StyleSheet.create({

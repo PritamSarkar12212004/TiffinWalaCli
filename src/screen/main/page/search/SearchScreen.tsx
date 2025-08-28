@@ -30,16 +30,16 @@ const SearchScreen = () => {
         top3ProductFinder({ setTop3Product: setTop3Product, location: userInfo.location, distance: distance })
     }, [])
     return (
-        <View className='flex-1 bg-[#F3F3F3] px-3 pt-2'>
+        <View className='flex-1 bg-white px-3 pt-2'>
             <NavigationProfile path='Search' option='' />
             <ScrollView className='flex-1 ' showsVerticalScrollIndicator={false}>
                 <View className='flex-1  pt-5  flex gap-4'>
-                    <View className='w-full  flex flex-row gap-3 bg-[#A0A5BA] h-16 rounded-3xl relative px-6 '>
+                    <View className='w-full bg-[#A0A5BA] h-14 gap-4 rounded-3xl flex flex-row px-5 items-center'>
                         <View className='h-full flex  justify-center'>
-                            <FIcon name='magnifying-glass' color='white' size={25} />
+                            <FIcon name='magnifying-glass' color='white' size={22} />
                         </View>
                         <View className='flex-auto flex-1'>
-                            <TextInput onChangeText={(text) => handleinput(text)} value={input} className='h-full text-xl font-semibold text-white placeholder:text-white w-full  placeholder:text-xl' placeholder="Search for food, restaurants..."
+                            <TextInput onChangeText={(text) => handleinput(text)} value={input} className='h-full text-lg font-semibold text-white placeholder:text-white w-full  placeholder:text-lg' placeholder="Search for food, restaurants..."
                             />
                         </View>
                         {
@@ -47,7 +47,6 @@ const SearchScreen = () => {
                                 <FIcon name='xmark' color='white' size={25} />
                             </TouchableOpacity> : null
                         }
-
                     </View>
                     <View className='w-full flex items-center justify-center'>
                         {

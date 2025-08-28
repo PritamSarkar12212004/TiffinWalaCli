@@ -83,7 +83,7 @@ const ProfileScreen = () => {
     return (
         <View className='flex-1 bg-white px-3 pt-2'>
             <NavigationProfile path='Profile' option='' func={() => { }} />
-            <ScrollView className='flex-1 pt-5 '>
+            <ScrollView className='flex-1 pt-5 ' showsVerticalScrollIndicator={false}>
                 <View className='flex-1 flex gap-10 mb-20'>
                     <ProfileView profileInfo={profileInfo} />
                     <View className='flex-1 flex gap-5'>

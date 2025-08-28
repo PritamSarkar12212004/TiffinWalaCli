@@ -151,15 +151,14 @@ const ShowProBottmSheet = ({ vender }: any) => {
           </TouchableOpacity>
         </View>
 
-        {/* Contact button */}
         <View className='w-full flex items-center justify-center mt-2'>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={phoneLinking}
-            className='w-full bg-orange-500 h-20 p-3 rounded-2xl flex-row items-center justify-center shadow-sm'
+            className='w-full bg-orange-500 h-14 p-3 rounded-2xl flex-row items-center justify-center shadow-sm'
           >
             <View className='flex-row items-center gap-2'>
-              <Text className='text-xl font-bold text-white'>Contact Now</Text>
+              <Text className='text-lg font-semibold text-white'>Contact Now</Text>
             </View>
           </TouchableOpacity>
         </View>

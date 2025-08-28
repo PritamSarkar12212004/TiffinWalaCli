@@ -10,17 +10,15 @@ const NavigationShowProduct = ({ fevirote, userId, productid, setIsFavorite }: a
     const handleFavorite = () => {
         likeControllers(userId, productid, productid, setIsFavorite)
         setIsFavorite(!fevirote);
-
     };
-
     return (
         <View className='w-full flex flex-row items-center justify-between px-3 left-0 absolute top-5 z-50'>
-            <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} className='h-16 flex items-center justify-center w-16 flex items-center justify-center bg-white rounded-full '>
+            <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} className='h-12 flex items-center justify-center w-12 flex items-center justify-center bg-white/40 rounded-full '>
                 <FIcon name='chevron-left' size={25} color='black' />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleFavorite()} activeOpacity={0.8} className='h-16 flex items-center justify-center w-16 flex items-center justify-center bg-white rounded-full '>
+            <TouchableOpacity onPress={() => handleFavorite()} activeOpacity={0.8} className='h-12 flex items-center justify-center w-12 flex items-center justify-center bg-white/40 rounded-full '>
                 {
-                    fevirote !== null ? fevirote ? <FIcon name='heart' size={25} color='red' /> : <FIcon name='heart' size={25} color='gray' /> : <ActivityIndicator size={'small'} color={'black'} />
+                    fevirote !== null ? fevirote ? <FIcon name='heart' size={25} color='red' /> : <FIcon name='heart' size={25} color='white' /> : <ActivityIndicator size={'small'} color={'black'} />
 
                 }
             </TouchableOpacity>
