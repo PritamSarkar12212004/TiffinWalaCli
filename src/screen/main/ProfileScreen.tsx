@@ -73,7 +73,7 @@ const ProfileScreen = () => {
                 await removeNotifyToken(NotiFyToken.Promotion)
                 await removeNotifyToken(NotiFyToken.Remainder)
                 await removeAuthToken(PageToken.profile.profileToken)
-                await navigation.replace('AuthNavigations' as never)
+                await navigation.replace('AuthNavigations' as any)
             }
         },
 
@@ -81,7 +81,7 @@ const ProfileScreen = () => {
     ]
 
     return (
-        <View className='flex-1 bg-[#F3F3F3] px-3 pt-2'>
+        <View className='flex-1 bg-white px-3 pt-2'>
             <NavigationProfile path='Profile' option='' func={() => { }} />
             <ScrollView className='flex-1 pt-5 '>
                 <View className='flex-1 flex gap-10 mb-20'>

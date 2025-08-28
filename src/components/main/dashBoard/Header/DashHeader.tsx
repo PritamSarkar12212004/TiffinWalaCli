@@ -7,12 +7,12 @@ import { NavigationProp } from '../../types/navigation'
 const DashHeader = ({ userInfo }: any) => {
     const navigation = useNavigation<NavigationProp>()
     return (
-        <View className='w-full flex items-center justify-between flex-row pb-3'>
+        <View className='w-full flex items-center justify-between flex-row pb-3 pt-1'>
             <TouchableOpacity onPress={() => navigation.navigate('LocationScree', {
                 location: userInfo.location
             })} activeOpacity={0.8} className='flex flex-row items-center justify-center gap-3'>
-                <View className='bg-[#ECF0F4] h-16 w-16 rounded-full flex items-center justify-center'>
-                    <FIcon name='location-dot' size={30} color='#FF7622' />
+                <View className='bg-[#ECF0F4] h-14 w-14 rounded-full flex items-center justify-center'>
+                    <FIcon name='location-dot' size={25} color='#FF7622' />
                 </View>
                 <View className=''>
                     <Text className='text-xl font-semibold text-[#FF7622] tracking-widest leading-tight'>Deliver to</Text>
@@ -29,8 +29,8 @@ const DashHeader = ({ userInfo }: any) => {
             <View>
                 <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen', {
                     userInfo: userInfo
-                })} activeOpacity={0.8} className='bg-[#181C2E] h-16 w-16 rounded-full flex items-center justify-center'>
-                    <Text className='text-[#FF7622] text-3xl font-bold text-center '>
+                })} activeOpacity={0.8} className='bg-[#181C2E] h-14 w-14 rounded-full flex items-center justify-center'>
+                    <Text className='text-[#FF7622] text-xl font-bold text-center '>
                         {
                             userInfo.userinfo.User_Name.charAt(0).toUpperCase()
                         }

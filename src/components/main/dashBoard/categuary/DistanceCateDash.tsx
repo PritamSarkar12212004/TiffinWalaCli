@@ -10,14 +10,14 @@ const DistanceCateDash = ({ distance, selecetedDistance, setPageLoader, pageLoad
     return (
         <View className='w-full flex '>
             <View className='w-full flex flex-row items-center justify-between'>
-                <Text className='text-xl font-semibold '>Distance</Text>
+                <Text className='text-lg font-semibold '>Distance</Text>
             </View>
             <View className='w-full flex flex-row '>
                 <ScrollView className='w-full flex py-3 ' horizontal showsHorizontalScrollIndicator={false}>
                     {
                         DistanceData.map((item, index) => (
-                            <TouchableOpacity onPress={() => handelChange(item)} activeOpacity={0.8} key={index} className='p-2 flex flex-row items-center gap-5  mr-5 rounded-3xl' style={{ backgroundColor: distance == item ? "#FFD27C" : undefined }}    >
-                                <View className='h-24 w-24 rounded-full flex items-center justify-center'>
+                            <TouchableOpacity onPress={() => handelChange(item)} activeOpacity={0.8} key={index} className='p-2 flex flex-row items-center gap-5  mr-5 rounded-3xl' style={{ backgroundColor: distance == item ? "#FFD27C" : "#F3F2EC" }}    >
+                                <View className='h-14 w-24 rounded-full flex items-center justify-center'>
                                     <Text className='text-xl font-bold '>
                                         {
                                             item.name

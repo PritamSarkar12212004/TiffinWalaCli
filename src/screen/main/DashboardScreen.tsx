@@ -1,4 +1,4 @@
-import { View, Text, FlatList, ActivityIndicator } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import messaging from '@react-native-firebase/messaging'
 import DashHeader from '../../components/main/dashBoard/Header/DashHeader'
@@ -34,7 +34,6 @@ const DashboardScreen = () => {
   const [distance, selecetedDistance] = useState(DistanceData[1])
   const [foodType, setFoodType] = useState(FoodType[0])
   const navigation = useNavigation()
-
   const { fetchMaindata } = useFetchMainProduct()
   const { tokenSet } = useTokenGet()
   const injectAdsIntoData = (data: any[]) => {
@@ -47,8 +46,6 @@ const DashboardScreen = () => {
     });
     return result;
   };
-
-
   useEffect(() => {
     const tokenRefresh = messaging().onTokenRefresh((newToken) => {
       setUpdateToken(newToken)
@@ -57,7 +54,6 @@ const DashboardScreen = () => {
       tokenRefresh()
     }
   }, [])
-
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       const { type } = remoteMessage.data || {}
@@ -87,14 +83,12 @@ const DashboardScreen = () => {
         navigation
       })
     })
-
     return () => {
       setUserInfo(null)
     }
   }, [pageLoader])
-
   return (
-    <View className="flex-1 bg-[#F3F3F3] px-3 py-t">
+    <View className="flex-1 bg-white px-3 py-t">
       {userInfo ? (
         <View className="flex-1">
           <DashHeader userInfo={userInfo} />
