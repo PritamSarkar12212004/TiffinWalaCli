@@ -1,11 +1,11 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
   // Auth Navigation
   LoginScreen: undefined;
   SignupScreen: undefined;
   Varifypage: undefined;
-  
+
   // Main Navigation
   DashboardScreen: undefined;
   ProfileScreen: {
@@ -31,6 +31,7 @@ export type RootStackParamList = {
   SearchScreen: {
     distance: any;
   };
+  NearMap: undefined;
   FeviroteProductScreen: {
     profileInfo: any;
   };
@@ -41,22 +42,23 @@ export type RootStackParamList = {
     profileInfo: any;
   };
   RewardedAdd: undefined;
-  
+
   // Profile Setup Navigation
   CreateProfile: {
     location: any;
     phone: string;
   };
   ProfileLocation: undefined;
-  
+
   // Splash Navigation
   Splash1: undefined;
   Splash2: undefined;
   Splash3: undefined;
-  
+
   // Error Screen
   ErrorScreen: undefined;
-  
+  LocationWarning: undefined;
+
   // Additional routes that might be used
   AuthNavigations: undefined;
   Mainnavigation: undefined;

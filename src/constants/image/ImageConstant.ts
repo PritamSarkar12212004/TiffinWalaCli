@@ -11,6 +11,9 @@ const ImageConstant = {
   Logo: {
     Logo: require('../../assets/image/logo/MainLogo.png'),
   },
+  Use:{
+    Map:require('../../assets/image/map/Map.png')
+  }
 };
 
 export default ImageConstant;

@@ -20,7 +20,6 @@ const useFetchMainProduct = () => {
           setMainData(false);
           setLoading(false);
         }
-        console.log(res.data.products);
         setMainData(res.data.products);
         setLoading(false);
       })

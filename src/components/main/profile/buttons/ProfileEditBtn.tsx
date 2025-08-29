@@ -18,9 +18,9 @@ const ProfileEditBtn = ({ data, loading, setloadingg }: any) => {
         })
     }
     return (
-        <TouchableOpacity activeOpacity={0.9} onPress={() => loading ? null : updateFunc()} className='w-full h-20 bg-[#FF7622] rounded-2xl flex items-center justify-center'>
+        <TouchableOpacity activeOpacity={0.9} onPress={() => loading ? null : updateFunc()} className='w-full h-14 bg-[#FF7622] rounded-2xl flex items-center justify-center'>
             {
-                loading ? <ActivityIndicator size='large' color='white' /> : <Text className='text-xl font-bold text-white'>Update profile</Text>
+                loading ? <ActivityIndicator size='small' color='white' /> : <Text className='text-lg font-semibold text-white'>Update profile</Text>
 
             }
         </TouchableOpacity >

@@ -8,6 +8,7 @@ import { NavigationProp } from '../../types/navigation'
 
 const ErrorScreen = () => {
     const navigation = useNavigation<NavigationProp>()
+
     return (
         <SafeAreaView className='flex-1 bg-[#F3F3F3] '>
             <StatusBar barStyle={'dark-content'} backgroundColor={'#F3F3F3'} />

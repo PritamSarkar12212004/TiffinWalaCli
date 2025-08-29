@@ -35,7 +35,7 @@ const PersonalInfo = () => {
 
     ]
     return (
-        <View className='flex-1 bg-[#F3F3F3] px-3 pt-2'>
+        <View className='flex-1 bg-white px-3 pt-2'>
             <NavigationProfile path='Personal Info' option='Edit' func={() => {
                 navigation.navigate('ProfileEdit', { location, profileInfo })
             }} />
@@ -45,12 +45,12 @@ const PersonalInfo = () => {
                     <View className='flex bg-[#dadfe4] rounded-3xl px-7 py-4 gap-3'>
                         {
                             options.map((item, index) => {
-                                return <TouchableOpacity onPress={() => item.function()} activeOpacity={0.8} key={index} className='w-full py-2 flex flex-row items-center justify-between' >
+                                return <TouchableOpacity onPress={() => item.function()} activeOpacity={0.8} key={index} className='w-full py-1 flex flex-row items-center justify-between' >
                                     <View className='flex flex-row items-center  gap-5'>
-                                        <View className='h-16 w-16 rounded-full bg-white flex items-center justify-center'>
+                                        <View className='h-12 w-12 rounded-full bg-white flex items-center justify-center'>
                                             <FIcon name={item.icon} size={25} color={item.color} />
                                         </View>
-                                        <Text className='text-xl flex-auto font-semibold text-wrap'>{item.title}</Text>
+                                        <Text className='text-lg flex-auto  text-wrap'>{item.title}</Text>
                                     </View>
                                 </TouchableOpacity>
                             })

@@ -1,13 +1,10 @@
 import { View, TouchableOpacity, Image, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import NavigationProfile from '../../../../components/main/profile/navigation/NavigationProfile'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useRoute } from '@react-navigation/native'
 import SingleImgPicker from '../../../../functions/image/SingleImgPicker'
 import ProEditInput from '../../../../components/main/profile/elements/ProEditInput'
 import ProfileEditBtn from '../../../../components/main/profile/buttons/ProfileEditBtn'
-import ImagePicker from "react-native-image-crop-picker";
-import { NavigationProp } from '../../../../types/navigation'
-
 const ProfileEdit = () => {
     const route = useRoute();
     const { location, profileInfo } = route.params as any;
@@ -20,7 +17,7 @@ const ProfileEdit = () => {
     const [loading, setloadingg] = useState(false)
 
     return (
-        <View className='flex-1 bg-[#F3F3F3] px-3 pt-2'>
+        <View className='flex-1 bg-white px-3 pt-2'>
             <NavigationProfile path='Edit Profile' option='' func={() => { }} />
             <View className='flex-1  pt-5  flex gap-10'>
                 <ScrollView className='flex-1'>

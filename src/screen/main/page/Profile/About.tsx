@@ -6,7 +6,7 @@ import ImageConstant from '../../../../constants/image/ImageConstant';
 
 const About = () => {
     return (
-        <View className="flex-1 bg-[#F3F3F3] px-4 pt-6">
+        <View className="flex-1 bg-white px-4 pt-6">
             <NavigationProfile path="About App" option="" func={() => { }} />
             <ScrollView showsVerticalScrollIndicator={false}>
                 {/* Header */}
