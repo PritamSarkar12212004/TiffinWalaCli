@@ -3,13 +3,12 @@ import React, { useRef, useEffect } from 'react'
 import FIcon from '../../icon/FIcon'
 import MapView, { Marker } from 'react-native-maps'
 
-const ShowProBottmSheet = ({ vender }: any) => {
+const ShowProBottmSheet = ({ vender, setModalImage }: any) => {
   // Animation refs
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(50)).current;
 
   useEffect(() => {
-    // Start animations when component mounts
     Animated.parallel([
       Animated.timing(fadeAnim, {
         toValue: 1,
@@ -81,12 +80,19 @@ const ShowProBottmSheet = ({ vender }: any) => {
       <View className='flex-1 w-full flex gap-4 relative bg-white rounded-t-3xl p-4 shadow-lg'>
         {/* Header with profile image and info */}
         <View className='flex-row gap-4 w-full flex items-center bg-gray-50 p-3 rounded-2xl shadow-sm'>
-          <Image
-            source={{ uri: vender.User_Image }}
-            className='rounded-full h-24 w-24 border-2 border-orange-400'
-            resizeMode='cover'
-            style={styles.profileImage}
-          />
+          <TouchableOpacity activeOpacity={0.8} onPress={() => {
+            setModalImage({
+              status: true,
+              img: vender.User_Image
+            })
+          }}>
+            <Image
+              source={{ uri: vender.User_Image }}
+              className='rounded-full h-24 w-24 border-2 border-orange-400'
+              resizeMode='cover'
+              style={styles.profileImage}
+            />
+          </TouchableOpacity>
           <View className='flex-1 justify-center gap-1'>
             <Text className='text-xl font-bold text-gray-800'>{vender.User_Name}</Text>
 

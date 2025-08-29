@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, TouchableOpacity, Dimensions, FlatList, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView, Image, TouchableOpacity, Dimensions, FlatList, StyleSheet, ActivityIndicator, Modal } from 'react-native'
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import NavigationShowProduct from '../../../../components/main/showProduct/navigation/NavigationShowProduct'
 import FIcon from '../../../../layout/icon/FIcon'
@@ -13,6 +13,7 @@ import { userContext } from '../../../../utils/context/ContextProvider'
 import useLikeproduct from '../../../../hooks/main/dashboard/controller/useLikeproduct'
 import ShowProBottmSheetSclotan from '../../../../skeleton/ShowProduct/ShowProBottmSheetSclotan'
 import useFollower from '../../../../hooks/main/dashboard/controller/useFollower'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 const { width } = Dimensions.get('window');
 const ShowmMainProductScreen = () => {
     const [fevirote, setIsFavorite] = useState<any>(null)
@@ -24,17 +25,6 @@ const ShowmMainProductScreen = () => {
     const [vender, setVender] = useState<any>(null)
     const [follower, setFollower] = useState<any>(null)
     const [followerLoadingm, setFollowerLoading] = useState<boolean | any>(false)
-    const renderItem = ({ item }: { item: any }) => {
-        return (
-            <View style={{ width, height: 384 }}>
-                <Image
-                    source={{ uri: item }}
-
-                    className='rounded-b-3xl w-full h-full'
-                />
-            </View>
-        );
-    };
 
     const handleScroll = (event: any) => {
         const scrollPosition = event.nativeEvent.contentOffset.x;
@@ -61,10 +51,10 @@ const ShowmMainProductScreen = () => {
     const handleSheetChanges = useCallback((index: number) => {
         console.log('handleSheetChanges', index);
     }, []);
-
     const openBottomSheet = () => {
         bottomSheetRef.current?.snapToIndex(0);
     };
+    const { top } = useSafeAreaInsets()
     const { viewsProduct } = useViewsProductApi()
     const { fetchUserData } = useUserFetchData()
     const { likeProductFetch } = useLikeproduct()
@@ -91,9 +81,61 @@ const ShowmMainProductScreen = () => {
         }
     }, [])
 
+    const [modalImage, setModalImage] = useState<null | {
+        status: boolean,
+        img: string | null
+    }>({
+        status: false,
+        img: null,
+    })
+
+    const renderItem = ({ item }: { item: any }) => {
+        return (
+            <TouchableOpacity activeOpacity={0.9} style={{ width, height: 384 }} onPress={() => {
+                console.log(item)
+                setModalImage({
+                    status: true,
+                    img: item,
+                })
+            }} >
+                <Image
+                    source={{ uri: item }}
+
+                    className='rounded-b-3xl w-full h-full'
+                />
+            </TouchableOpacity>
+        );
+    };
+
     return (
         <GestureHandlerRootView style={styles.container}>
             <ScrollView className='flex-1' showsVerticalScrollIndicator={false}>
+                <Modal transparent statusBarTranslucent visible={modalImage?.status} animationType='fade' style={{ paddingTop: top }}>
+                    <SafeAreaView className='flex-1 p-5 bg-black/70'>
+                        <View className='flex-1 flex items-center justify-between py-10 relative'>
+                            <View />
+                            <Image
+                                className="w-full"
+                                style={{ aspectRatio: 1 }}
+                                resizeMode="cover"
+                                source={{
+                                    uri: modalImage?.img
+                                        ? modalImage.img
+                                        : modalImage.img
+                                }}
+                            />
+                            <TouchableOpacity activeOpacity={0.8} onPress={() => {
+                                setModalImage({
+                                    status: false,
+                                    img: null
+                                })
+                            }} className='h-20 w-20 bg-black/30 rounded-full flex items-center justify-center'>
+                                <FIcon color={"white"} name={"xmark"} size={25} />
+                            </TouchableOpacity>
+
+                        </View>
+                    </SafeAreaView>
+                </Modal>
                 {
                     data ? <View className='flex-1 bg-[#F3F3F3] relative  gap-10'>
                         <View className='w-full flex relative rounded-b-3xl gap-3 pb-5'>
@@ -191,9 +233,12 @@ const ShowmMainProductScreen = () => {
                                         <View className='w-full flex gap-3'>
                                             {
                                                 data.postMenu.map((item: any, index: number) => (
-                                                    <View key={index} className='w-full flex gap-1'>
+                                                    <TouchableOpacity activeOpacity={0.8} onPress={() => setModalImage({
+                                                        status: true,
+                                                        img: item,
+                                                    })} key={index} className='w-full flex gap-1'>
                                                         <Image source={{ uri: item }} className='rounded-2xl' style={{ width: "100%", aspectRatio: 2 / 1.4 }} />
-                                                    </View>
+                                                    </TouchableOpacity>
                                                 ))
                                             }
                                         </View>
@@ -224,7 +269,7 @@ const ShowmMainProductScreen = () => {
             >
                 <BottomSheetView className='flex-1 bg-white p-3'>
                     {
-                        vender ? vender?.message ? <NoProfileDataFound message={vender} /> : <ShowProBottmSheet vender={vender} /> : <ShowProBottmSheetSclotan />
+                        vender ? vender?.message ? <NoProfileDataFound message={vender} /> : <ShowProBottmSheet vender={vender} setModalImage={setModalImage} /> : <ShowProBottmSheetSclotan />
                     }
                 </BottomSheetView>
             </BottomSheet>

@@ -100,28 +100,12 @@ const LocationScree = () => {
               </Text>
             </View>
           </View>
-          <View className='w-full flex-row items-center justify-between px-3'>
-            <View className='bg-[#e2e5e9] py-2 px- rounded-3xl px-2'>
-              <Text className='text-sm text-zinc-700 '>
-                {
-                  getNewLocation ? getNewLocation.latitude : locationPath.latitude
-                }
-              </Text>
-            </View>
-            <View className='bg-[#e2e5e9] py-2 px-2 rounded-3xl px-2'>
-              <Text className='text-sm text-zinc-700 '>
-                {
-                  getNewLocation ? getNewLocation.longitude : locationPath.longitude
-                }
-              </Text>
-            </View>
-          </View>
         </View>
         <View className='w-full '>
           <TouchableOpacity onPress={() => loading ? null : getNewLocation ? setLocationFunc() : CurrentLocationFun({ setPopUp, setLoading: setLoading, setLocation: setGetNewLocation }).getCurrentLocation()
-          } activeOpacity={0.8} className='w-full bg-[#FF7622] h-20 rounded-3xl flex items-center justify-center'>
+          } activeOpacity={0.8} className='w-full bg-[#FF7622] h-14 rounded-3xl flex items-center justify-center'>
             {
-              loading ? <ActivityIndicator color={'white'} size={'large'} /> : !getNewLocation ? <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>Get Location</Text> : <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>Conform Location</Text>
+              loading ? <ActivityIndicator color={'white'} size={'small'} /> : !getNewLocation ? <Text className='text-lg  flex flex-row gap-3 font-semibold text-white'>Get Location</Text> : <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>Conform Location</Text>
             }
           </TouchableOpacity>
         </View>

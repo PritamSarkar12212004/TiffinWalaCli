@@ -14,6 +14,7 @@ import com.facebook.soloader.SoLoader
 
 // Add this import as per instruction:
 import com.reactnativecompressor.CompressorPackage
+import  com.tiffinwalacli.Location.RNConnectivityStatusPackage
 
 class MainApplication : Application(), ReactApplication {
 
@@ -23,6 +24,7 @@ class MainApplication : Application(), ReactApplication {
             PackageList(this).packages.apply {
               // Add CompressorPackage manually:
               add(CompressorPackage())
+              add(RNConnectivityStatusPackage())
             }
 
         override fun getJSMainModuleName(): String = "index"

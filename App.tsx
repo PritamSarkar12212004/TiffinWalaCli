@@ -13,11 +13,13 @@ import { ContextProvider } from './src/utils/context/ContextProvider';
 import Mainnavigation from './src/navigations/main/Mainnavigation';
 import HelperNavigation from './src/navigations/helper/HelperNavigation';
 import mobileAds, { NativeAd, TestIds } from 'react-native-google-mobile-ads';
+import useConnectivity from './src/hooks/modules/native/useConnectivity';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [initialRoute, setInitialRoute] = useState<string>('');
-
+  const { locationEnabled } = useConnectivity()
+  console.log(locationEnabled)
 
   const tokenFinder = () => {
     getAuthToken(PageToken.profile.profileToken) ? setInitialRoute('Mainnavigation') : setInitialRoute('AuthNavigations')
