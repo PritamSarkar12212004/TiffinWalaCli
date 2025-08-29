@@ -24,7 +24,9 @@ const useFetchMainProduct = () => {
         setLoading(false);
       })
       .catch(err => {
-        navigation.replace('HelperNavigation' as never);
+        navigation.replace('HelperNavigation', {
+          screen: 'ErrorScreen',
+        } as never);
         setLoading(false);
       });
   };
