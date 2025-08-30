@@ -46,6 +46,8 @@ const DashboardScreen = () => {
     });
     return result;
   };
+
+  // noptifications
   useEffect(() => {
     const tokenRefresh = messaging().onTokenRefresh((newToken) => {
       setUpdateToken(newToken)
@@ -54,6 +56,8 @@ const DashboardScreen = () => {
       tokenRefresh()
     }
   }, [])
+
+  // notification
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       const { type } = remoteMessage.data || {}

@@ -4,6 +4,7 @@ const useFollower = () => {
   const fetchFollower = async ({
     followingId,
     FollowerId,
+    followerLocation,
     setFollowing,
     status,
     setFollowerLoading,
@@ -13,6 +14,7 @@ const useFollower = () => {
         payload: {
           followingId: followingId,
           FollowerId: FollowerId,
+          followerLocation: followerLocation,
           status: status,
         },
       })

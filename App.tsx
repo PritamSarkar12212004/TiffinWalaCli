@@ -40,7 +40,6 @@ const App = () => {
     // token check
     const token = getAuthToken(PageToken.profile.profileToken);
     setIsLoggedIn(!!token);
-
     mobileAds()
       .initialize()
       .then((adapterStatuses) => {

@@ -65,6 +65,7 @@ const ShowmMainProductScreen = () => {
         fetchFollower({
             followingId: userInfo.userinfo._id,
             FollowerId: data.postVendorId,
+            followerLocation: userInfo.userinfo.User_Address,
             setFollowing: setFollower,
             status: !follower,
             setFollowerLoading: setFollowerLoading
@@ -73,7 +74,7 @@ const ShowmMainProductScreen = () => {
 
     useEffect(() => {
         viewsProduct(data._id);
-        fetchUserData(data.postVendorId, setVender, setFollower)
+        fetchUserData(data.postVendorId, setVender, setFollower, userInfo.userinfo._id)
         likeProductFetch(userInfo.userinfo, data._id, setIsFavorite)
         return () => {
             setVender(null)
@@ -92,7 +93,6 @@ const ShowmMainProductScreen = () => {
     const renderItem = ({ item }: { item: any }) => {
         return (
             <TouchableOpacity activeOpacity={0.9} style={{ width, height: 384 }} onPress={() => {
-                console.log(item)
                 setModalImage({
                     status: true,
                     img: item,
