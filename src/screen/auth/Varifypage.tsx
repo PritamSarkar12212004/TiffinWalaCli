@@ -25,6 +25,7 @@ const Varifypage = () => {
     });
 
     const handleVarify = () => {
+        console.log(path)
         if (path === 'Login') {
             varifyotpLogin({
                 enterOtp,
@@ -35,14 +36,8 @@ const Varifypage = () => {
                 setLoading,
             });
         } else {
-            // varifyotp({
-            //     enterOtp,
-            //     otp,
-            //     phoneNumber,
-            //     navigation,
-            //     setTempPhomne,
-            //     setPopUp,
-            // });
+            setTempPhomne(phoneNumber);
+            navigation.navigate('ProfileSetupnav', { phoneNumber: phoneNumber });
         }
     };
 

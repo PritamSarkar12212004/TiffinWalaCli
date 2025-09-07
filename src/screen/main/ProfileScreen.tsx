@@ -66,14 +66,14 @@ const ProfileScreen = () => {
             icon: 'right-from-bracket',
             color: '#FB4A59',
             function: async () => {
-                await removeAuthToken(PageToken.profile.mainDataToken)
-                await removeLocation(PageToken.profile.locationToken)
-                await removeNotifyToken(NotiFyToken.Event)
-                await removeNotifyToken(NotiFyToken.Fun)
-                await removeNotifyToken(NotiFyToken.Promotion)
-                await removeNotifyToken(NotiFyToken.Remainder)
-                await removeAuthToken(PageToken.profile.profileToken)
-                await navigation.replace('AuthNavigations' as any)
+                 removeAuthToken(PageToken.profile.mainDataToken)
+                 removeLocation(PageToken.profile.locationToken)
+                 removeNotifyToken(NotiFyToken.Event)
+                 removeNotifyToken(NotiFyToken.Fun)
+                 removeNotifyToken(NotiFyToken.Promotion)
+                 removeNotifyToken(NotiFyToken.Remainder)
+                 removeAuthToken(PageToken.profile.profileToken)
+                 navigation.replace('AuthNavigations' as any)
             }
         },
 
