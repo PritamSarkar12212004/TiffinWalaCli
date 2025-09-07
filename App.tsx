@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthNavigations from './src/navigations/auth/AuthNavigations';
-import { Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import AnimationPath from './src/constants/animation/AnimationPath';
 import AnimationLotti from './src/components/global/animation/AnimationLotti';
 import { getAuthToken } from './src/functions/Token/PageTokenManagerFun';
@@ -57,21 +57,22 @@ const App = () => {
   if (!ready || locationEnabled === null) {
     return <EmptyData />;
   }
-
+  const routeName = locationEnabled === false ? "HelperNavigation" : isLoggedIn ? "Mainnavigation" : "AuthNavigations";
+  if (!routeName) {
+    <View className='w-full flex flex-1 bg-white items-center justify-center'>
+      <ActivityIndicator size={'large'} color={'#FB6F3D'} />
+    </View>
+  }
   return (
     <ContextProvider>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {locationEnabled === false ? (
-            <Stack.Screen
-              name="HelperNavigation"
-              component={HelperNavigation}
-            />
-          ) : isLoggedIn ? (
-            <Stack.Screen name="Mainnavigation" component={Mainnavigation} />
-          ) : (
-            <Stack.Screen name="AuthNavigations" component={AuthNavigations} />
-          )}
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={routeName}>
+          <Stack.Screen
+            name="HelperNavigation"
+            component={HelperNavigation}
+          />
+          <Stack.Screen name="Mainnavigation" component={Mainnavigation} />
+          <Stack.Screen name="AuthNavigations" component={AuthNavigations} />
           <Stack.Screen name="ProfileSetupnav" component={ProfileSetupnav} />
         </Stack.Navigator>
       </NavigationContainer>

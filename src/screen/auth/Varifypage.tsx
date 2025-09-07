@@ -5,7 +5,6 @@ import OtpInput from '../../components/auth/textinput/OtpInput';
 import VarifyButton from '../../components/auth/buttons/VarifyButton';
 import ImageConstant from '../../constants/image/ImageConstant';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import usevarifySignUpTop from '../../hooks/auth/signup/usevarifySignUpTop';
 import { userContext } from '../../utils/context/ContextProvider';
 import AuthPupup from '../../layout/popUp/AuthPupup';
 import useLoginVarify from '../../hooks/auth/login/useLoginVarify';
@@ -18,7 +17,6 @@ const Varifypage = () => {
     const [enterOtp, setEnterOtp] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const { setTempPhomne } = userContext();
-    const { varifyotp } = usevarifySignUpTop();
     const { varifyotpLogin } = useLoginVarify();
 
     const [popUp, setPopUp] = useState({
@@ -27,7 +25,7 @@ const Varifypage = () => {
     });
 
     const handleVarify = () => {
-        if (path === 'login') {
+        if (path === 'Login') {
             varifyotpLogin({
                 enterOtp,
                 otp,
@@ -37,14 +35,14 @@ const Varifypage = () => {
                 setLoading,
             });
         } else {
-            varifyotp({
-                enterOtp,
-                otp,
-                phoneNumber,
-                navigation,
-                setTempPhomne,
-                setPopUp,
-            });
+            // varifyotp({
+            //     enterOtp,
+            //     otp,
+            //     phoneNumber,
+            //     navigation,
+            //     setTempPhomne,
+            //     setPopUp,
+            // });
         }
     };
 

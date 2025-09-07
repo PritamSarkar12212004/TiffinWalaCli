@@ -12,11 +12,12 @@ const useLoginvarification = () => {
         number: phoneNumber,
       })
       .then(res => {
-        if (res.data.data.otp) {
+        console.log(res.data);
+        if (res.data.data.data.otp) {
           navigation.navigate('Varifypage', {
             phoneNumber: phoneNumber,
-            otp: res.data.data.otp,
-            path: 'login',
+            otp: res.data.data.data.otp,
+            path: res.data.type == 'Login' ? 'Login' : 'Signup',
           });
           setLoading(false);
         } else {

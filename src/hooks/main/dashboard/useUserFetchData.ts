@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
 import api from '../../../utils/api/Axios';
-
 const useUserFetchData = () => {
   const navigation = useNavigation();
   const fetchUserData = (

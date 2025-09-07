@@ -23,13 +23,13 @@ const useLoginVarify = () => {
           phone: phoneNumber,
         })
         .then(async res => {
-          await setAuthToken(PageToken.profile.mainDataToken, res.data.data);
-          await setAuthToken(PageToken.profile.profileToken, true);
-          await setNotifyToken(NotiFyToken.Event, 'true');
-          await setNotifyToken(NotiFyToken.Fun, 'true');
-          await setNotifyToken(NotiFyToken.Promotion, 'true');
-          await setNotifyToken(NotiFyToken.Remainder, 'true');
-          await setLocation(
+          setAuthToken(PageToken.profile.mainDataToken, res.data.data);
+          setAuthToken(PageToken.profile.profileToken, true);
+          setNotifyToken(NotiFyToken.Event, 'true');
+          setNotifyToken(NotiFyToken.Fun, 'true');
+          setNotifyToken(NotiFyToken.Promotion, 'true');
+          setNotifyToken(NotiFyToken.Remainder, 'true');
+          setLocation(
             PageToken.profile.locationToken,
             res.data.data.User_Address,
           );

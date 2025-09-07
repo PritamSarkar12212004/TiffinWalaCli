@@ -5,7 +5,7 @@ import FIcon from '../icon/FIcon';
 
 const AuthPupup = ({ popUp, setPopUp }: any) => {
     return (
-        <Modal animationIn={"fadeIn"} animationOut={"zoomOut"} isVisible={popUp.isVisible} style={{ flex: 1 }}>
+        <Modal animationIn={"fadeIn"} animationOut={"fadeIn"} isVisible={popUp.isVisible} style={{ flex: 1 }}>
             <View className='flex-1 flex items-center justify-center '>
                 <View className=' w-96 h-96 gap-5 bg-white rounded-[50px] shadow-slate-800 blur-xl flex items-center justify-between p-5'>
                     <View className='w-28 h-28 rounded-full bg-[#FF4759] flex items-center justify-center shadow-lg'>

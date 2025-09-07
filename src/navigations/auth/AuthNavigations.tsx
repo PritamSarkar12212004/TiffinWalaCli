@@ -4,10 +4,7 @@ import LoginScreen from '../../screen/auth/LoginScreen';
 import AuthWraper from '../../layout/wraper/AuthWraper';
 import Varifypage from '../../screen/auth/Varifypage';
 import { RootStackParamList } from '../../types/navigation';
-import SignupScreen from '../../screen/auth/SignUpScreen';
-
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
 
 const AuthNavigations = () => {
   return (
@@ -16,9 +13,6 @@ const AuthNavigations = () => {
         <Stack.Screen name="LoginScreen" options={{
           animation: 'fade'
         }} component={LoginScreen} />
-        <Stack.Screen name="SignupScreen" options={{
-          animation: 'fade'
-        }} component={SignupScreen} />
         <Stack.Screen name="Varifypage" options={{
           animation: 'slide_from_right'
         }} component={Varifypage} />

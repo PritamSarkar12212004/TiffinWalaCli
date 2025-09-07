@@ -5,6 +5,8 @@ const useFollower = () => {
     followingId,
     FollowerId,
     followerLocation,
+    imageUri,
+    User_Name,
     setFollowing,
     status,
     setFollowerLoading,
@@ -15,6 +17,8 @@ const useFollower = () => {
           followingId: followingId,
           FollowerId: FollowerId,
           followerLocation: followerLocation,
+          imageUri: imageUri,
+          User_Name: User_Name,
           status: status,
         },
       })

@@ -3,7 +3,6 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export type RootStackParamList = {
   // Auth Navigation
   LoginScreen: undefined;
-  SignupScreen: undefined;
   Varifypage: undefined;
 
   // Main Navigation
@@ -61,7 +60,6 @@ export type RootStackParamList = {
 
   // Additional routes that might be used
   AuthNavigations: undefined;
-  Mainnavigation: undefined;
   Mainnavigation: undefined;
 };
 
