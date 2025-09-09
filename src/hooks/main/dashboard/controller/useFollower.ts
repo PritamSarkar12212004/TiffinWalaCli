@@ -10,6 +10,7 @@ const useFollower = () => {
     setFollowing,
     status,
     setFollowerLoading,
+    followNotification,
   }: any) => {
     api
       .post('/api/product/user-followfetch', {
@@ -20,6 +21,7 @@ const useFollower = () => {
           imageUri: imageUri,
           User_Name: User_Name,
           status: status,
+          followNotification: followNotification,
         },
       })
       .then(res => {

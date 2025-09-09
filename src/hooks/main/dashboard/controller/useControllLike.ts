@@ -6,12 +6,14 @@ const useControllLike = () => {
     productId: string,
     isFavorite: boolean,
     setIsFavorite: (isFavorite: boolean) => void,
+    LikeNotification: any,
   ) => {
     try {
       api
         .post('/api/product/like-product', {
           userId,
           productId,
+          LikeNotification,
         })
         .then(res => {
           if (res.data.message === 'liked') {

@@ -4,11 +4,11 @@ import FIcon from '../../../../layout/icon/FIcon'
 import { useNavigation } from '@react-navigation/native'
 import useControllLike from '../../../../hooks/main/dashboard/controller/useControllLike'
 
-const NavigationShowProduct = ({ fevirote, userId, productid, setIsFavorite }: any) => {
+const NavigationShowProduct = ({ fevirote, userId, productid, setIsFavorite, LikeNotification }: any) => {
     const { likeControllers } = useControllLike()
     const navigation = useNavigation()
     const handleFavorite = () => {
-        likeControllers(userId, productid, productid, setIsFavorite)
+        likeControllers(userId, productid, productid, setIsFavorite,LikeNotification)
         setIsFavorite(!fevirote);
     };
     return (

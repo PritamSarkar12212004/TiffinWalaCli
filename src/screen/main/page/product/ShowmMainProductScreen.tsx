@@ -14,6 +14,7 @@ import useLikeproduct from '../../../../hooks/main/dashboard/controller/useLikep
 import ShowProBottmSheetSclotan from '../../../../skeleton/ShowProduct/ShowProBottmSheetSclotan'
 import useFollower from '../../../../hooks/main/dashboard/controller/useFollower'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import notificationPayload from '../../../../functions/notification/notificationPayloadBody'
 const { width } = Dimensions.get('window');
 const ShowmMainProductScreen = () => {
     const [fevirote, setIsFavorite] = useState<any>(null)
@@ -69,7 +70,8 @@ const ShowmMainProductScreen = () => {
             User_Name: userInfo.userinfo.User_Name,
             setFollowing: setFollower,
             status: !follower,
-            setFollowerLoading: setFollowerLoading
+            setFollowerLoading: setFollowerLoading,
+            followNotification: followNotification
         })
     }
 
@@ -90,6 +92,25 @@ const ShowmMainProductScreen = () => {
         status: false,
         img: null,
     })
+
+    const LikeNotification = notificationPayload({
+        contentImg: data.postCoverImage[0],
+        description: `${userInfo.userinfo.User_Name} liked your post ${data.postTitle}`,
+        riciver: data.postVendorId,
+        sender: userInfo.userinfo._id,
+        senderImg: userInfo.userinfo.User_Image,
+        title: `${userInfo.userinfo.User_Name} liked your post`,
+        type: 'controller',
+    });
+    const followNotification = notificationPayload({
+        contentImg: data.postCoverImage[0],
+        description: `${userInfo.userinfo.User_Name} Follow you by your Post ${data.postTitle}`,
+        riciver: data.postVendorId,
+        sender: userInfo.userinfo._id,
+        senderImg: userInfo.userinfo.User_Image,
+        title: `${userInfo.userinfo.User_Name} Follow you`,
+        type: 'controller',
+    });
 
     const renderItem = ({ item }: { item: any }) => {
         return (
@@ -140,7 +161,7 @@ const ShowmMainProductScreen = () => {
                 {
                     data ? <View className='flex-1 bg-[#F3F3F3] relative  gap-10'>
                         <View className='w-full flex relative rounded-b-3xl gap-3 pb-5'>
-                            <NavigationShowProduct fevirote={fevirote} userId={userInfo.userinfo._id} productid={data._id} setIsFavorite={setIsFavorite} />
+                            <NavigationShowProduct fevirote={fevirote} userId={userInfo.userinfo._id} productid={data._id} setIsFavorite={setIsFavorite} LikeNotification={LikeNotification} />
                             <View className='w-full h-96 bg-gray-300 rounded-b-3xl overflow-hidden'>
                                 <FlatList
                                     ref={flatListRef}

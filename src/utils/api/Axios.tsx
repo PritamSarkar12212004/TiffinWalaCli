@@ -1,6 +1,7 @@
 import axios from 'axios';
+import DemoApi from '../../constants/demo/demoApi';
 
 const api = axios.create({
-    baseURL: 'https://tiffin-wala-backend-orpin.vercel.app',
+    baseURL: DemoApi.Backend_Uri,
 });
 export default api;
