@@ -44,18 +44,18 @@ const useCreateProfile = () => {
             phone: phone,
           })
           .then(async res => {
-            await setAuthToken(PageToken.profile.mainDataToken, res.data.data);
-            await setLocation(
+            setAuthToken(PageToken.profile.mainDataToken, res.data.data);
+            setLocation(
               PageToken.profile.locationToken,
               res.data.data.User_Address,
             );
-            await setNotifyToken(NotiFyToken.Event, 'true');
-            await setNotifyToken(NotiFyToken.Fun, 'true');
-            await setNotifyToken(NotiFyToken.Promotion, 'true');
-            await setNotifyToken(NotiFyToken.Remainder, 'true');
-            await setAuthToken(PageToken.profile.profileToken, true);
+            setNotifyToken(NotiFyToken.Event, 'true');
+            setNotifyToken(NotiFyToken.Fun, 'true');
+            setNotifyToken(NotiFyToken.Promotion, 'true');
+            setNotifyToken(NotiFyToken.Remainder, 'true');
+            setAuthToken(PageToken.profile.profileToken, true);
             setLoading(false);
-            navigation.navigate('Mainnavigation' as any);
+            navigation.replace('Mainnavigation' as any);
           })
           .catch(err => {
             console.log(err);
