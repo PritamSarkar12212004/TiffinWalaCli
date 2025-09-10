@@ -14,6 +14,7 @@ import Mainnavigation from './src/navigations/main/Mainnavigation';
 import HelperNavigation from './src/navigations/helper/HelperNavigation';
 import mobileAds, { NativeAd, TestIds } from 'react-native-google-mobile-ads';
 import useConnectivity from './src/hooks/modules/native/useConnectivity';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 
@@ -70,9 +71,10 @@ const App = () => {
   }
 
   return (
-    <ContextProvider>
-      <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ContextProvider>
+        <NavigationContainer ref={navigationRef} detachInactiveScreens={false}>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen
             name="HelperNavigation"
             component={HelperNavigation}
@@ -80,9 +82,10 @@ const App = () => {
           <Stack.Screen name="Mainnavigation" component={Mainnavigation} />
           <Stack.Screen name="AuthNavigations" component={AuthNavigations} />
           <Stack.Screen name="ProfileSetupnav" component={ProfileSetupnav} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ContextProvider>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ContextProvider>
+    </GestureHandlerRootView>
   );
 };
 

@@ -1,5 +1,5 @@
 import { View, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import NavigationProfile from '../../../../components/main/profile/navigation/NavigationProfile'
 import FIcon from '../../../../layout/icon/FIcon'
 import useSearchEngine from '../../../../hooks/main/search/useSearchEngine'
@@ -17,34 +17,39 @@ const SearchScreen = () => {
     const [location, setLocation] = useState<any>(null)
     const [result, setResults] = useState<any>(null)
     const [top3Product, setTop3Product] = useState<any>(null)
-    const [loading, setLoading] = useState<any>(false)
+    const [, setLoading] = useState<any>(false)
     const { searchEngine } = useSearchEngine()
     const [input, setInput] = useState<any>('')
+    const debounceTimer = useRef<NodeJS.Timeout | null>(null)
     const handleinput = (valu: any) => {
         setInput(valu)
-        searchEngine(location, valu, setResults, setLoading, distance)
+        if (debounceTimer.current) clearTimeout(debounceTimer.current)
+        debounceTimer.current = setTimeout(() => {
+            searchEngine(location, valu?.trim?.() ?? valu, setResults, setLoading, distance)
+        }, 450)
     }
     const { top3ProductFinder } = useTopProductFetch()
     useEffect(() => {
         setLocation(userInfo.location)
         top3ProductFinder({ setTop3Product: setTop3Product, location: userInfo.location, distance: distance })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <View className='flex-1 bg-white px-3 pt-2'>
             <NavigationProfile path='Search' option='' />
             <ScrollView className='flex-1 ' showsVerticalScrollIndicator={false}>
-                <View className='flex-1  pt-5  flex gap-4'>
-                    <View className='w-full bg-[#A0A5BA] h-14 gap-4 rounded-3xl flex flex-row px-5 items-center'>
-                        <View className='h-full flex  justify-center'>
-                            <FIcon name='magnifying-glass' color='white' size={22} />
+                <View className='flex-1 pt-4 flex gap-4'>
+                    <View className='w-full bg-gray-100 h-14 rounded-3xl flex flex-row px-5 items-center shadow-sm border border-black/5'>
+                        <View className='h-full flex justify-center mr-3'>
+                            <FIcon name='magnifying-glass' color='black' size={20} />
                         </View>
                         <View className='flex-auto flex-1'>
-                            <TextInput onChangeText={(text) => handleinput(text)} value={input} className='h-full text-lg font-semibold text-white placeholder:text-white w-full  placeholder:text-lg' placeholder="Search for food, restaurants..."
+                            <TextInput onChangeText={(text) => handleinput(text)} value={input} className='h-full text-base font-semibold text-black placeholder:text-gray-500 w-full' placeholder="Search for food, restaurants..."
                             />
                         </View>
                         {
-                            input ? <TouchableOpacity onPress={() => setInput('')} activeOpacity={0.8} className='h-full flex  justify-center'>
-                                <FIcon name='xmark' color='white' size={25} />
+                            input ? <TouchableOpacity onPress={() => handleinput('')} activeOpacity={0.9} className='h-8 w-8 rounded-full bg-black/10 flex items-center justify-center'>
+                                <FIcon name='xmark' color='black' size={16} />
                             </TouchableOpacity> : null
                         }
                     </View>

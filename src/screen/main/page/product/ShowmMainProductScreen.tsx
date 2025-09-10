@@ -19,10 +19,10 @@ const { width } = Dimensions.get('window');
 const ShowmMainProductScreen = () => {
     const [fevirote, setIsFavorite] = useState<any>(null)
     const { userInfo } = userContext()
-    const route = useRoute()
+    const route = useRoute() as any
     const data = route.params?.item as any
     const [activeIndex, setActiveIndex] = useState(0);
-    const flatListRef = useRef(null);
+    const flatListRef = useRef<FlatList<any> | null>(null);
     const [vender, setVender] = useState<any>(null)
     const [follower, setFollower] = useState<any>(null)
     const [followerLoadingm, setFollowerLoading] = useState<boolean | any>(false)
@@ -35,13 +35,15 @@ const ShowmMainProductScreen = () => {
 
     const renderDotIndicators = () => {
         return data.postCoverImage.map((_: any, index: number) => {
+            const isActive = activeIndex === index
             return (
                 <TouchableOpacity
                     key={index}
                     onPress={() => {
                         flatListRef.current?.scrollToIndex({ index, animated: true });
                     }}
-                    className={`h-2 w-2 rounded-full mx-1 ${activeIndex === index ? 'bg-orange-500' : 'bg-gray-300'}`}
+                    className={`mx-1 rounded-full ${isActive ? 'bg-orange-500 h-2.5 w-5' : 'bg-gray-300 h-2 w-2'}`}
+                    activeOpacity={0.9}
                 />
             );
         });
@@ -84,9 +86,10 @@ const ShowmMainProductScreen = () => {
             setVender(null)
             setIsFavorite(null)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const [modalImage, setModalImage] = useState<null | {
+    const [modalImage, setModalImage] = useState<{
         status: boolean,
         img: string | null
     }>({
@@ -131,22 +134,20 @@ const ShowmMainProductScreen = () => {
     };
 
     return (
-        <GestureHandlerRootView style={styles.container}>
-            <ScrollView className='flex-1' showsVerticalScrollIndicator={false}>
-                <Modal transparent statusBarTranslucent visible={modalImage?.status} animationType='fade' style={{ paddingTop: top }}>
+        <View style={styles.container}>
+            <ScrollView className='flex-1 bg-white' showsVerticalScrollIndicator={false}>
+                <Modal transparent statusBarTranslucent visible={!!modalImage.status} animationType='fade' style={{ paddingTop: top }}>
                     <SafeAreaView className='flex-1 p-5 bg-black/70'>
                         <View className='flex-1 flex items-center justify-between py-10 relative'>
                             <View />
-                            <Image
-                                className="w-full"
-                                style={{ aspectRatio: 1 }}
-                                resizeMode="cover"
-                                source={{
-                                    uri: modalImage?.img
-                                        ? modalImage.img
-                                        : modalImage.img
-                                }}
-                            />
+                            {modalImage.img && (
+                                <Image
+                                    className="w-full"
+                                    style={{ aspectRatio: 1 }}
+                                    resizeMode="cover"
+                                    source={{ uri: modalImage.img }}
+                                />
+                            )}
                             <TouchableOpacity activeOpacity={0.8} onPress={() => {
                                 setModalImage({
                                     status: false,
@@ -160,10 +161,10 @@ const ShowmMainProductScreen = () => {
                     </SafeAreaView>
                 </Modal>
                 {
-                    data ? <View className='flex-1 bg-white relative  gap-10'>
+                    data ? <View className='flex-1 bg-white relative gap-8'>
                         <View className='w-full flex relative rounded-b-3xl gap-3 pb-5'>
                             <NavigationShowProduct fevirote={fevirote} userId={userInfo.userinfo._id} productid={data._id} setIsFavorite={setIsFavorite} LikeNotification={LikeNotification} />
-                            <View className='w-full h-96 bg-gray-300 rounded-b-3xl overflow-hidden'>
+                            <View className='w-full h-96 bg-gray-200 rounded-b-3xl overflow-hidden'>
                                 <FlatList
                                     ref={flatListRef}
                                     data={data.postCoverImage}
@@ -180,43 +181,43 @@ const ShowmMainProductScreen = () => {
                                 </View>
                             </View>
                             <View className='w-full px-4 flex gap-8'>
-                                <View className='w-full flex gap-1 '>
+                                <View className='w-full flex gap-2 '>
                                     <View className='w-full flex flex-row items-center justify-between'>
-                                        <Text className='text-2xl font-semibold'>{data.postTitle}</Text>
-                                        <TouchableOpacity activeOpacity={0.8} onPress={() => followerLoadingm ? null : funcFollowControll()} className={`w-28 flex items-center justify-center ${follower ? 'bg-white border-black' : "bg-red-500 duration-100 border-red-500"} h-8 border-[1px]  rounded-full`}>
+                                        <Text className='text-2xl font-bold'>{data.postTitle}</Text>
+                                        <TouchableOpacity activeOpacity={0.9} onPress={() => followerLoadingm ? null : funcFollowControll()} className={`w-28 flex items-center justify-center h-9 border rounded-full shadow-sm ${follower ? 'bg-white border-black/20' : 'bg-orange-500 border-orange-500'}`} disabled={!!followerLoadingm}>
                                             {
-                                                followerLoadingm ? <ActivityIndicator color={'orange'} size={'small'} /> : follower == true ? <Text className={`${follower ? 'bg-white' : "bg-white"}`}>Following</Text>
-                                                    : <Text className={`${follower ? 'color-white' : "color-white"}`}>Follow</Text>
+                                                followerLoadingm ? <ActivityIndicator color={'white'} size={'small'} /> : follower == true ? <Text className='text-black font-semibold'>Following</Text>
+                                                    : <Text className='text-white font-semibold'>Follow</Text>
                                             }
                                         </TouchableOpacity>
                                     </View>
                                     <View className='w-full flex flex-row gap-2'>
-                                        <FIcon name='location-dot' color='orange' size={20} />
+                                        <FIcon name='location-dot' color='orange' size={18} />
                                         <Text className='text-sm text-gray-500 text-wrap pr-3'>{data.postLocation}</Text>
                                     </View>
                                 </View>
-                                <View className='w-full flex flex-row  items-center justify-between'>
-                                    <View className='flex flex-row gap-5'>
-                                        <View className='flex flex-row gap-1'>
-                                            <FIcon name='heart' color='orange' size={22} />
-                                            <Text className='text-lg font-semibold'>{data.productLikes.length}</Text>
+                                <View className='w-full flex flex-row items-center justify-between'>
+                                    <View className='flex flex-row gap-3'>
+                                        <View className='flex flex-row items-center gap-1 px-2 py-1 rounded-full bg-orange-50'>
+                                            <FIcon name='heart' color='orange' size={18} />
+                                            <Text className='text-sm font-semibold text-orange-600'>{data.productLikes.length}</Text>
                                         </View>
-                                        <View className='flex flex-row gap-1'>
-                                            <FIcon name='eye' color='orange' size={22} />
-                                            <Text className='text-lg font-semibold'>{data.postTotalViews}</Text>
+                                        <View className='flex flex-row items-center gap-1 px-2 py-1 rounded-full bg-orange-50'>
+                                            <FIcon name='eye' color='orange' size={18} />
+                                            <Text className='text-sm font-semibold text-orange-600'>{data.postTotalViews}</Text>
                                         </View>
-                                        <View className='flex flex-row gap-1'>
-                                            <FIcon name='location-dot' color='orange' size={22} />
-                                            <Text className='text-lg font-semibold'>{data.distanceText}</Text>
+                                        <View className='flex flex-row items-center gap-1 px-2 py-1 rounded-full bg-orange-50'>
+                                            <FIcon name='location-dot' color='orange' size={18} />
+                                            <Text className='text-sm font-semibold text-orange-600'>{data.distanceText}</Text>
                                         </View>
                                     </View>
-                                    <View className='flex flex-row items-center justify-center gap-2 '>
-                                        <FIcon name='money-bill' color='green' size={22} />
-                                        <Text className='text-lg font-semibold'>₹ {data.postPrice}</Text>
+                                    <View className='flex flex-row items-center justify-center gap-2'>
+                                        <FIcon name='money-bill' color='green' size={18} />
+                                        <Text className='text-lg font-bold'>₹ {data.postPrice}</Text>
                                     </View>
                                 </View>
                                 <View className='w-full '>
-                                    <Text className='text-wrap text-lg flex flex-wrap text-zinc-500'>
+                                    <Text className='text-wrap text-base flex flex-wrap text-zinc-600'>
                                         {
                                             data.postDescription
                                         }
@@ -227,11 +228,11 @@ const ShowmMainProductScreen = () => {
                                     <ScrollView className='w-full flex py-3' horizontal showsHorizontalScrollIndicator={false}>
                                         {
                                             data.postFoodType.map((item: any, index: number) => (
-                                                <TouchableOpacity activeOpacity={0.8} key={index} className='pr-10 p-2 flex flex-row items-center gap-5 mr-5 rounded-full' style={{ backgroundColor: "#FFD27C" }}>
-                                                    <View className='h-10 w-10 rounded-full bg-white flex items-center justify-center'>
-                                                        <FIcon name={'leaf'} size={20} color={item == 'Vegan' ? 'green' : item == 'Veg' ? 'green' : 'red'} />
+                                                <TouchableOpacity activeOpacity={0.9} key={index} className='px-4 py-2 flex flex-row items-center gap-3 mr-3 rounded-full bg-orange-100'>
+                                                    <View className='h-9 w-9 rounded-full bg-white flex items-center justify-center shadow-sm'>
+                                                        <FIcon name={'leaf'} size={18} color={item == 'Vegan' ? 'green' : item == 'Veg' ? 'green' : 'red'} />
                                                     </View>
-                                                    <Text className=' font-semibold'>{item}</Text>
+                                                    <Text className='text-sm font-semibold'>{item}</Text>
                                                 </TouchableOpacity>
                                             ))
                                         }
@@ -239,12 +240,12 @@ const ShowmMainProductScreen = () => {
                                 </View>
                                 <View className='w-full flex gap-3'>
                                     <Text className='text-xl font-semibold'>Available days</Text>
-                                    <View className='w-full flex flex-row flex-wrap gap-5'>
+                                    <View className='w-full flex flex-row flex-wrap gap-3'>
                                         {
                                             data.postValidDay.map((item: any, index: number) => (
-                                                <View key={index} className='flex flex-row items-center justify-center gap-1'>
-                                                    <FIcon name={'calendar-days'} size={20} color={'orange'} />
-                                                    <Text className='text-sm text-gray-500'>{item}</Text>
+                                                <View key={index} className='flex flex-row items-center justify-center gap-1 px-3 py-1 rounded-full bg-gray-100'>
+                                                    <FIcon name={'calendar-days'} size={16} color={'orange'} />
+                                                    <Text className='text-xs text-gray-600'>{item}</Text>
                                                 </View>
                                             ))
                                         }
@@ -256,11 +257,11 @@ const ShowmMainProductScreen = () => {
                                         <View className='w-full flex gap-3'>
                                             {
                                                 data.postMenu.map((item: any, index: number) => (
-                                                    <TouchableOpacity activeOpacity={0.8} onPress={() => setModalImage({
+                                                    <TouchableOpacity activeOpacity={0.9} onPress={() => setModalImage({
                                                         status: true,
                                                         img: item,
-                                                    })} key={index} className='w-full flex gap-1'>
-                                                        <Image source={{ uri: item }} className='rounded-2xl' style={{ width: "100%", aspectRatio: 2 / 1.4 }} />
+                                                    })} key={index} className='w-full rounded-2xl overflow-hidden shadow-md shadow-black/10'>
+                                                        <Image source={{ uri: item }} className='w-full h-48' style={{ resizeMode: 'cover' }} />
                                                     </TouchableOpacity>
                                                 ))
                                             }
@@ -268,8 +269,8 @@ const ShowmMainProductScreen = () => {
                                     }
                                 </View>
                                 <View className='w-full flex '>
-                                    <TouchableOpacity onPress={() => openBottomSheet()} activeOpacity={0.8} className='w-full flex h-14 bg-orange-400 rounded-3xl flex items-center justify-center'>
-                                        <Text className='text-lg text-white font-semibold'>
+                                    <TouchableOpacity onPress={() => openBottomSheet()} activeOpacity={0.9} className='w-full h-14 bg-orange-500 rounded-3xl flex items-center justify-center shadow-lg shadow-orange-300/40'>
+                                        <Text className='text-base text-white font-semibold'>
                                             Contact Details
                                         </Text>
                                     </TouchableOpacity>
@@ -283,20 +284,22 @@ const ShowmMainProductScreen = () => {
 
             </ScrollView>
             <BottomSheet
-
                 ref={bottomSheetRef}
                 onChange={handleSheetChanges}
                 snapPoints={['100%']}
                 enablePanDownToClose={true}
                 index={-1}
+                handleIndicatorStyle={{ backgroundColor: '#e5e7eb', width: 48, height: 4, borderRadius: 9999 }}
+                backgroundStyle={{ borderTopLeftRadius: 28, borderTopRightRadius: 28 }}
+                handleStyle={{ paddingVertical: 8 }}
             >
-                <BottomSheetView className='flex-1 bg-white p-3'>
+                <BottomSheetView className='flex-1 bg-white p-4'>
                     {
                         vender ? vender?.message ? <NoProfileDataFound message={vender} /> : <ShowProBottmSheet vender={vender} setModalImage={setModalImage} /> : <ShowProBottmSheetSclotan />
                     }
                 </BottomSheetView>
             </BottomSheet>
-        </GestureHandlerRootView >
+        </View>
     )
 }
 const styles = StyleSheet.create({
