@@ -159,7 +159,7 @@ const ShowmMainProductScreen = () => {
                     </SafeAreaView>
                 </Modal>
                 {
-                    data ? <View className='flex-1 bg-[#F3F3F3] relative  gap-10'>
+                    data ? <View className='flex-1 bg-white relative  gap-10'>
                         <View className='w-full flex relative rounded-b-3xl gap-3 pb-5'>
                             <NavigationShowProduct fevirote={fevirote} userId={userInfo.userinfo._id} productid={data._id} setIsFavorite={setIsFavorite} LikeNotification={LikeNotification} />
                             <View className='w-full h-96 bg-gray-300 rounded-b-3xl overflow-hidden'>
@@ -301,7 +301,7 @@ const ShowmMainProductScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'grey',
+        backgroundColor: 'white',
     },
 
 });

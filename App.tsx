@@ -1,9 +1,9 @@
 import './global.css';
-import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect, useState, useRef } from 'react';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthNavigations from './src/navigations/auth/AuthNavigations';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import AnimationPath from './src/constants/animation/AnimationPath';
 import AnimationLotti from './src/components/global/animation/AnimationLotti';
 import { getAuthToken } from './src/functions/Token/PageTokenManagerFun';
@@ -21,6 +21,7 @@ const App = () => {
   const [ready, setReady] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { locationEnabled } = useConnectivity();
+  const navigationRef = useRef<any>(null); // navigation access ke liye
 
   const EmptyData = () => (
     <View className="flex-1 bg-white flex items-center justify-center">
@@ -37,36 +38,41 @@ const App = () => {
   );
 
   useEffect(() => {
-    // token check
     const token = getAuthToken(PageToken.profile.profileToken);
     setIsLoggedIn(!!token);
-    mobileAds()
-      .initialize()
-      .then((adapterStatuses) => {
-        console.log("MobileAds initialization complete", adapterStatuses);
-      });
+
+    mobileAds().initialize().then((adapterStatuses) => {
+      console.log("MobileAds initialization complete", adapterStatuses);
+    });
     NativeAd.createForAdRequest(TestIds.NATIVE)
-      .then(() => {
-        console.log("native ad loaded");
-      })
+      .then(() => console.log("native ad loaded"))
       .catch(console.error);
 
     setReady(true);
   }, []);
 
+  useEffect(() => {
+    if (!ready || locationEnabled === null || !navigationRef.current) return;
+
+    if (locationEnabled === false) {
+      navigationRef.current?.dispatch(
+        StackActions.replace("HelperNavigation")
+      );
+    } else {
+      const route = isLoggedIn ? "Mainnavigation" : "AuthNavigations";
+      navigationRef.current?.dispatch(
+        StackActions.replace(route)
+      );
+    }
+  }, [locationEnabled, ready, isLoggedIn]);
   if (!ready || locationEnabled === null) {
     return <EmptyData />;
   }
-  const routeName = locationEnabled === false ? "HelperNavigation" : isLoggedIn ? "Mainnavigation" : "AuthNavigations";
-  if (!routeName) {
-    <View className='w-full flex flex-1 bg-white items-center justify-center'>
-      <ActivityIndicator size={'large'} color={'#FB6F3D'} />
-    </View>
-  }
+
   return (
     <ContextProvider>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={routeName}>
+      <NavigationContainer ref={navigationRef}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen
             name="HelperNavigation"
             component={HelperNavigation}

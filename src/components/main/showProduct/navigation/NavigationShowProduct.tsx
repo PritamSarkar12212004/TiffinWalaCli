@@ -8,7 +8,7 @@ const NavigationShowProduct = ({ fevirote, userId, productid, setIsFavorite, Lik
     const { likeControllers } = useControllLike()
     const navigation = useNavigation()
     const handleFavorite = () => {
-        likeControllers(userId, productid, productid, setIsFavorite,LikeNotification)
+        likeControllers(userId, productid, productid, setIsFavorite, LikeNotification)
         setIsFavorite(!fevirote);
     };
     return (
@@ -18,7 +18,7 @@ const NavigationShowProduct = ({ fevirote, userId, productid, setIsFavorite, Lik
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleFavorite()} activeOpacity={0.8} className='h-12 flex items-center justify-center w-12 flex items-center justify-center bg-white/40 rounded-full '>
                 {
-                    fevirote !== null ? fevirote ? <FIcon name='heart' size={25} color='red' /> : <FIcon name='heart' size={25} color='white' /> : <ActivityIndicator size={'small'} color={'black'} />
+                    fevirote !== null ? fevirote ? <FIcon name='heart' size={25} color='red' /> : <FIcon name='heart' size={25} color='white' /> : <ActivityIndicator size={'small'} color={'white'} />
 
                 }
             </TouchableOpacity>
