@@ -62,6 +62,7 @@ const ShowmMainProductScreen = () => {
     const { fetchFollower } = useFollower()
     const funcFollowControll = () => {
         setFollowerLoading(true)
+        setFollower(!follower)
         fetchFollower({
             followingId: userInfo.userinfo._id,
             FollowerId: data.postVendorId,

@@ -7,16 +7,15 @@ const ProMainOptionCard = ({
   index,
 }: any) => {
   return (
-    <TouchableOpacity onPress={() => option.function()} activeOpacity={0.8} key={index} className='w-full py-2 flex flex-row items-center justify-between' >
-      <View className='flex flex-row items-center  gap-5'>
-        <View className='h-12 w-12 rounded-full bg-white flex items-center justify-center'>
-          <FIcon name={option.icon} size={16} color={option.color} />
-
+    <TouchableOpacity onPress={() => option.function()} activeOpacity={0.9} key={index} className='w-full py-3 flex flex-row items-center justify-between'>
+      <View className='flex flex-row items-center gap-4'>
+        <View className='h-[52px] w-[52px] rounded-2xl bg-white flex items-center justify-center shadow-md shadow-black/10'>
+          <FIcon name={option.icon} size={20} color={option.color} />
         </View>
-        <Text className='text-lg font-semibold'>{option.title}</Text>
+        <Text className='text-base font-semibold'>{option.title}</Text>
       </View>
       <View className='flex items-center justify-center'>
-        <FIcon name='chevron-right' size={16} color='gray' />
+        <FIcon name='chevron-right' size={18} color='gray' />
       </View>
     </TouchableOpacity>
   )

@@ -4,7 +4,7 @@ import ProMainOptionCard from '../../../../components/main/profile/elements/ProM
 
 const ProfileOptionContainer = ({ options }: any) => {
     return (
-        <View className='flex bg-[#dadfe4] rounded-3xl px-4 py-1 gap-3'>
+        <View className='flex bg-white rounded-3xl px-4 py-2 gap-1 shadow-md shadow-black/5 border border-black/5'>
             {
                 options.map((option: any, index: number) => (
                     <ProMainOptionCard key={index} option={option} />

@@ -6,17 +6,25 @@ import { useNavigation } from '@react-navigation/native'
 const NavigationProfile = ({ path, option, func }: any) => {
     const navigation = useNavigation()
     return (
-        <View className='w-full flex  flex-row items-center justify-between pb-3'>
-            <View className='flex flex-row items-center justify-center gap-6'>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()} className='h-12 w-12 bg-black/60 rounded-full flex items-center justify-center'>
-                    <FIcon name='chevron-left' size={15} color='white' />
+        <View className='w-full flex flex-row items-center justify-between pb-3'>
+            <View className='flex-1 flex flex-row items-center gap-3'>
+                <TouchableOpacity
+                    activeOpacity={0.9}
+                    onPress={() => navigation.goBack()}
+                    className='h-11 w-11 rounded-2xl bg-black/80 flex items-center justify-center shadow-lg shadow-black/30'>
+                    <FIcon name='chevron-left' size={16} color='white' />
                 </TouchableOpacity>
+                <Text className='text-xl font-bold tracking-widest' numberOfLines={1}>{path}</Text>
             </View>
-            <Text className='text-xl tracking-widest font-semibold'>{path}</Text>
             <View className='flex items-center justify-center'>
-                <TouchableOpacity onPress={func} activeOpacity={0.8} className='flex items-center justify-center h-12 w-12'>
-                    <Text className='text-xl   text-[#FF7622]'>{option}</Text>
-                </TouchableOpacity>
+                {!!option && (
+                    <TouchableOpacity
+                        onPress={func}
+                        activeOpacity={0.9}
+                        className='px-4 h-11 rounded-2xl bg-[#FF7622] flex items-center justify-center shadow-lg shadow-black/20'>
+                        <Text className='text-white font-semibold'>{option}</Text>
+                    </TouchableOpacity>
+                )}
             </View>
         </View>
     )

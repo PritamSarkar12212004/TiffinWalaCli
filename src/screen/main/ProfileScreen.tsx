@@ -13,7 +13,7 @@ import { NavigationProp } from '../../types/navigation'
 const ProfileScreen = () => {
     const navigation = useNavigation<NavigationProp>()
 
-    const route = useRoute()
+    const route = useRoute() as any
     const profileInfo = route.params?.userInfo?.userinfo
     const location = route.params?.userInfo?.location
 
@@ -66,14 +66,14 @@ const ProfileScreen = () => {
             icon: 'right-from-bracket',
             color: '#FB4A59',
             function: async () => {
-                 removeAuthToken(PageToken.profile.mainDataToken)
-                 removeLocation(PageToken.profile.locationToken)
-                 removeNotifyToken(NotiFyToken.Event)
-                 removeNotifyToken(NotiFyToken.Fun)
-                 removeNotifyToken(NotiFyToken.Promotion)
-                 removeNotifyToken(NotiFyToken.Remainder)
-                 removeAuthToken(PageToken.profile.profileToken)
-                 navigation.replace('AuthNavigations' as any)
+                removeAuthToken(PageToken.profile.mainDataToken)
+                removeLocation(PageToken.profile.locationToken)
+                removeNotifyToken(NotiFyToken.Event)
+                removeNotifyToken(NotiFyToken.Fun)
+                removeNotifyToken(NotiFyToken.Promotion)
+                removeNotifyToken(NotiFyToken.Remainder)
+                removeAuthToken(PageToken.profile.profileToken)
+                navigation.replace('AuthNavigations' as any)
             }
         },
 
@@ -83,10 +83,10 @@ const ProfileScreen = () => {
     return (
         <View className='flex-1 bg-white px-3 pt-2'>
             <NavigationProfile path='Profile' option='' func={() => { }} />
-            <ScrollView className='flex-1 pt-5 ' showsVerticalScrollIndicator={false}>
-                <View className='flex-1 flex gap-10 mb-20'>
+            <ScrollView className='flex-1 pt-4' showsVerticalScrollIndicator={false}>
+                <View className='flex-1 flex gap-6 pb-10'>
                     <ProfileView profileInfo={profileInfo} />
-                    <View className='flex-1 flex gap-5'>
+                    <View className='flex-1 flex gap-4'>
                         <ProfileOptionContainer options={options1} />
                         <ProfileOptionContainer options={options2} />
                         <ProfileOptionContainer options={options3} />

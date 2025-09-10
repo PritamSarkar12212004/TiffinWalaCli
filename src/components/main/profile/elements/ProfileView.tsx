@@ -3,13 +3,17 @@ import React from 'react'
 
 const ProfileView = ({ profileInfo }: any) => {
   return (
-    <View className='w-full flex flex-row items-center gap-5'>
-      <View className='w-40 h-40 rounded-full bg-[#FFC6AE]'>
-        <Image source={{ uri: profileInfo.User_Image }} className='w-full h-full rounded-full' />
+    <View className='w-full rounded-3xl overflow-hidden bg-gradient-to-r from-[#FFF0E6] to-[#FFE3D4] p-4 flex flex-row items-center gap-4'>
+      <View className='h-24 w-24 rounded-full bg-white flex items-center justify-center shadow-lg shadow-black/20'>
+        <View className='h-[88px] w-[88px] rounded-full bg-[#FFC6AE] overflow-hidden'>
+          <Image source={{ uri: profileInfo.User_Image }} className='w-full h-full rounded-full' />
+        </View>
       </View>
-      <View className='flex-wrap flex gap-2'>
-        <Text className='text-2xl text-wrap font-bold tracking-widest'>{profileInfo.User_Name}</Text>
-        <Text className=' tracking-widest text-lg'>{profileInfo.User_Bio}</Text>
+      <View className='flex-1 flex gap-1'>
+        <Text className='text-2xl font-extrabold tracking-wide' numberOfLines={1}>{profileInfo.User_Name}</Text>
+        {!!profileInfo?.User_Bio && (
+          <Text className='text-base text-black/70' numberOfLines={2}>{profileInfo.User_Bio}</Text>
+        )}
       </View>
     </View>
   )
