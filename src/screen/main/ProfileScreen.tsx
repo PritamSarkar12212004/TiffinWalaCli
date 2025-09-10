@@ -38,6 +38,15 @@ const ProfileScreen = () => {
 
             }
         },
+        {
+            title: 'Following',
+            icon: 'plus',
+            color: '#B33D',
+            function: () => {
+                navigation.navigate('FollowPage', { profileInfo: profileInfo })
+
+            }
+        },
 
 
     ]

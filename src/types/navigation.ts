@@ -34,6 +34,9 @@ export type RootStackParamList = {
   FeviroteProductScreen: {
     profileInfo: any;
   };
+  FollowPage: {
+    profileInfo: any;
+  };
   About: {
     profileInfo: any;
   };

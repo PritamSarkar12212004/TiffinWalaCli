@@ -13,6 +13,7 @@ import RewardedAdd from '../../screen/main/page/add/RewardedAdd';
 import TermsCondition from '../../screen/main/page/Profile/TermsCondition';
 import About from '../../screen/main/page/Profile/About';
 import { RootStackParamList } from '../../types/navigation';
+import FollowPage from '../../screen/main/page/Profile/FollowPage';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Mainnavigation = () => {
@@ -43,6 +44,9 @@ const Mainnavigation = () => {
                 <Stack.Screen name="FeviroteProductScreen" options={{
                     animation: 'slide_from_right'
                 }} component={FeviroteProductScreen} />
+                <Stack.Screen name="FollowPage" options={{
+                    animation: 'slide_from_right'
+                }} component={FollowPage} />
                 <Stack.Screen name="About" options={{
                     animation: 'slide_from_right'
                 }} component={About} />

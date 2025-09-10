@@ -63,7 +63,6 @@ const ShowmMainProductScreen = () => {
     const { likeProductFetch } = useLikeproduct()
     const { fetchFollower } = useFollower()
     const funcFollowControll = () => {
-        setFollowerLoading(true)
         setFollower(!follower)
         fetchFollower({
             followingId: userInfo.userinfo._id,
