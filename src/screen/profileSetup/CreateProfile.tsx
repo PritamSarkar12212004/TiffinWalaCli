@@ -1,13 +1,11 @@
 import { Image, ScrollView, Text, TouchableOpacity, View, StatusBar } from 'react-native';
 import React, { useState } from 'react';
-import SetproNevigation from '../../components/setProfile/navigation/SetproNevigation';
 import InputField from '../../components/setProfile/inputfildes/InputField';
 import FIcon from '../../layout/icon/FIcon';
 import SingleImgPicker from '../../functions/image/SingleImgPicker';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import useCreateProfile from '../../hooks/setProfile/useCreateProfile';
 import CreateProfileButton from '../../components/setProfile/buttons/CreateProfileButton';
-import AuthPupup from '../../layout/popUp/AuthPupup';
 import { NavigationProp } from '../../types/navigation';
 
 const CreateProfile = () => {
@@ -78,7 +76,6 @@ const CreateProfile = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100 }}
             >
-                <AuthPupup popUp={popUp} setPopUp={setPopUp} />
                 <View className="px-6 pt-8 pb-6">
                     <Text className="text-3xl font-bold text-slate-800 text-center mb-2">
                         Complete Your Profile
@@ -155,7 +152,7 @@ const CreateProfile = () => {
                     {/* Gender Selection */}
                     <View className="space-y-4">
                         <Text className="text-lg font-semibold text-slate-800">Gender</Text>
-                        <View className="flex-row justify-between space-x-3">
+                        <View className="flex-row justify-between gap-3">
                             {genderOption.map((item, index) => {
                                 const isSelected = gender === item.name;
                                 return (
@@ -165,11 +162,11 @@ const CreateProfile = () => {
                                         activeOpacity={0.8}
                                         className={`flex-1 items-center justify-center py-4 px-3 rounded-2xl
                                                    border-2 transition-all duration-200 ${isSelected
-                                                ? `bg-gradient-to-br ${item.color === '#3B82F6'
+                                                ? `bg-gradient-to-br ${item.color === 'bg-orange-400'
                                                     ? 'from-blue-500 to-blue-600'
                                                     : item.color === '#EC4899'
-                                                        ? 'from-pink-500 to-pink-600'
-                                                        : 'from-purple-500 to-purple-600'
+                                                        ? 'bg-orange-400'
+                                                        : 'bg-orange-400'
                                                 } border-transparent shadow-lg`
                                                 : 'bg-white border-slate-200 shadow-sm'
                                             }`}

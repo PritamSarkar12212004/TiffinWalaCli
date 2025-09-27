@@ -45,29 +45,28 @@ const ProfileLocation = () => {
                 showsVerticalScrollIndicator={false}
                 style={{ flex: 1 }}
             >
-                <AuthPupup popUp={popUp} setPopUp={setPopUp} />
-                    <MapView
-                        region={region}
-                        style={{ flex: 1, width: '100%', height: 400 }}
-                        showsUserLocation={true}
-                        showsMyLocationButton={true}
-                        showsCompass={true}
-                        userInterfaceStyle="dark"
-                        scrollEnabled={false}
-                        loadingEnabled={true}
-                        loadingIndicatorColor="orange"
-                    >
-                        {location && (
-                            <Marker
-                                coordinate={{
-                                    latitude: location.latitude,
-                                    longitude: location.longitude,
-                                }}
-                                title="Your Location"
-                                description="This is your current location"
-                            />
-                        )}
-                    </MapView>
+                <MapView
+                    region={region}
+                    style={{ flex: 1, width: '100%', height: 400 }}
+                    showsUserLocation={true}
+                    showsMyLocationButton={true}
+                    showsCompass={true}
+                    userInterfaceStyle="dark"
+                    scrollEnabled={false}
+                    loadingEnabled={true}
+                    loadingIndicatorColor="orange"
+                >
+                    {location && (
+                        <Marker
+                            coordinate={{
+                                latitude: location.latitude,
+                                longitude: location.longitude,
+                            }}
+                            title="Your Location"
+                            description="This is your current location"
+                        />
+                    )}
+                </MapView>
                 <Text className="text-center text-sm text-zinc-600 mt-4 px-6">
                     {location?.address ?? '📍 Tap below to fetch your current location'}
                 </Text>
@@ -81,7 +80,7 @@ const ProfileLocation = () => {
                         icon="location-dot"
                     />
                     <Text className="text-center text-xs text-zinc-500 tracking-wider leading-5 px-3 font-medium">
-                        DFOOD only accesses your location while using the app for better delivery accuracy.
+                        Tiffin Wala only accesses your location while using the app for better delivery accuracy.
                     </Text>
                 </View>
             </ScrollView>

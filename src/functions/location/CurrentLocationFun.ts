@@ -1,7 +1,9 @@
 import Geolocation from '@react-native-community/geolocation';
 import axios from 'axios';
+import {useNotify} from '../../layout/wraper/ComProviderWraper';
 
 const CurrentLocationFun = ({setPopUp, setLoading, setLocation}: any) => {
+  const {caller} = useNotify();
   const getCurrentLocation = async () => {
     setLoading(true);
     try {
@@ -32,9 +34,10 @@ const CurrentLocationFun = ({setPopUp, setLoading, setLocation}: any) => {
       setLoading(false);
       return locationData;
     } catch (error) {
-      setPopUp({
-        isVisible: true,
-        message: 'Failed to get current location. Please try again.',
+      caller({
+        message: 'Location Error',
+        description: 'Failed to fetch your location. Please try again.',
+        type: 'danger',
       });
       setLoading(false);
       throw error;

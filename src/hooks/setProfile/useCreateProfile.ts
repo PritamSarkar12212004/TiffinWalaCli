@@ -6,9 +6,11 @@ import {
   setAuthToken,
   setLocation,
 } from '../../functions/Token/PageTokenManagerFun';
+import {useNotify} from '../../layout/wraper/ComProviderWraper';
 import api from '../../utils/api/Axios';
 
 const useCreateProfile = () => {
+  const {caller} = useNotify();
   const createProfile = async ({
     name,
     email,
@@ -22,9 +24,10 @@ const useCreateProfile = () => {
     navigation,
   }: any) => {
     if (!name || !email || !bio || !location || !image || !phone || !gender) {
-      setPopUp({
-        isVisible: true,
-        message: 'Please fill all the fields also check your profile image',
+      caller({
+        message: 'fields',
+        description: 'Please fill all the fields also check your profile image',
+        type: 'danger',
       });
     } else {
       setLoading(true);
@@ -57,19 +60,23 @@ const useCreateProfile = () => {
             setLoading(false);
             navigation.replace('Mainnavigation' as any);
           })
-          .catch(err => {
-            console.log(err);
+          .catch(() => {
             setPopUp({
               isVisible: true,
               message: 'Failed to create profile. Please try again.',
             });
+            caller({
+              message: 'Server Error',
+              description: 'Failed to create profile. Please try again.',
+              type: 'danger',
+            });
             setLoading(false);
           });
       } catch (error) {
-        console.log(error);
-        setPopUp({
-          isVisible: true,
-          message: 'Failed to create profile. Please try again.',
+        caller({
+          message: 'Server Error',
+          description: 'Failed to create profile. Please try again.',
+          type: 'danger',
         });
         setLoading(false);
       }

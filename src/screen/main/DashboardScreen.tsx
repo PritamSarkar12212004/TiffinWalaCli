@@ -152,7 +152,7 @@ const DashboardScreen = () => {
           <AnimationLotti
             height={200}
             width={200}
-            bg={'#F3F3F3'}
+            bg={'white'}
             path={AnimationPath.SplashLoading}
           />
         </View>

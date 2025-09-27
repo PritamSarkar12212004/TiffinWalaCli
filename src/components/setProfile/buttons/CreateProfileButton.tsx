@@ -27,14 +27,9 @@ const CreateProfileButton: React.FC<CreateProfileButtonProps> = ({
             activeOpacity={0.8}
             onPress={handlePress}
             disabled={isDisabled}
-            className={`w-full rounded-2xl h-14 flex items-center justify-center shadow-lg
-                ${
-                    isDisabled
-                        ? 'bg-slate-300 shadow-slate-200'
-                        : 'bg-gradient-to-r from-blue-500 to-purple-600 shadow-blue-200'
-                }`}
+            className={`w-full rounded-2xl h-14 flex items-center justify-center shadow-lg bg-orange-400`}
         >
-            <View className="flex-row items-center justify-center">
+            <View className="flex-row items-center justify-center gap-4">
                 {loading ? (
                     <>
                         <ActivityIndicator size="small" color="#fff" />
@@ -44,13 +39,13 @@ const CreateProfileButton: React.FC<CreateProfileButtonProps> = ({
                     </>
                 ) : (
                     <>
-                        <Text className={`text-lg font-bold ${isDisabled ? 'text-slate-500' : 'text-white'}`}>
+                        <Text className={`text-lg font-bold ${isDisabled ? 'text-white' : 'text-white'}`}>
                             {content}
                         </Text>
                         <FIcon
                             name="arrow-right"
                             size={20}
-                            color={isDisabled ? '#94A3B8' : 'white'}
+                            color={isDisabled ? 'white' : 'white'}
                             style={{ marginLeft: 8 }}
                         />
                     </>

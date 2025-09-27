@@ -19,7 +19,7 @@ const ProfileEdit = () => {
     return (
         <View className='flex-1 bg-white px-3 pt-2'>
             <NavigationProfile path='Edit Profile' option='' func={() => { }} />
-            <View className='flex-1  pt-5  flex gap-10'>
+            <View className='flex-1   flex gap-10'>
                 <ScrollView className='flex-1'>
                     <View className='w-full flex items-center justify-center'>
                         <View className=' h-56 w-56 rounded-full relative'>

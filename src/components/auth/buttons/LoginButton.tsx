@@ -2,8 +2,10 @@ import { ActivityIndicator, Text, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import useLoginvarification from '../../../hooks/auth/login/useLoginvarification';
+import { useNotify } from '../../../layout/wraper/ComProviderWraper';
 
 const LoginButton = ({ activenavigate, phoneNumber, setPopUp }: any) => {
+    const { caller } = useNotify()
     const navigation = useNavigation();
     const [loading, setLoading] = useState<boolean>(false);
     const { otpvarify } = useLoginvarification()
@@ -14,7 +16,11 @@ const LoginButton = ({ activenavigate, phoneNumber, setPopUp }: any) => {
                 phoneNumber: phoneNumber, setPopUp: setPopUp, setLoading: setLoading, navigation: navigation
             }) : null
         } else {
-            setPopUp({ isVisible: true, message: 'Please enter your phone number' })
+            caller({
+                message: 'Invalid Number',
+                description: 'Please enter a valid mobile number.',
+                type: 'danger',
+            });
         }
     }
     return (

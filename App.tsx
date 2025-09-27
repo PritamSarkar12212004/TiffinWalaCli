@@ -15,6 +15,7 @@ import HelperNavigation from './src/navigations/helper/HelperNavigation';
 import mobileAds, { NativeAd, TestIds } from 'react-native-google-mobile-ads';
 import useConnectivity from './src/hooks/modules/native/useConnectivity';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import ComProviderWraper from './src/layout/wraper/ComProviderWraper';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +31,7 @@ const App = () => {
         height={200}
         width={350}
         path={AnimationPath.SplashLoading}
-        bg={"#fff"}
+        bg={"white"}
       />
       <Text className="text-2xl font-bold text-gray-800">
         Welcome to Tiffin Wala
@@ -41,14 +42,12 @@ const App = () => {
   useEffect(() => {
     const token = getAuthToken(PageToken.profile.profileToken);
     setIsLoggedIn(!!token);
-
     mobileAds().initialize().then((adapterStatuses) => {
       console.log("MobileAds initialization complete", adapterStatuses);
     });
     NativeAd.createForAdRequest(TestIds.NATIVE)
       .then(() => console.log("native ad loaded"))
       .catch(console.error);
-
     setReady(true);
   }, []);
 
@@ -69,22 +68,24 @@ const App = () => {
   if (!ready || locationEnabled === null) {
     return <EmptyData />;
   }
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ContextProvider>
-        <NavigationContainer ref={navigationRef} detachInactiveScreens={false}>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen
-            name="HelperNavigation"
-            component={HelperNavigation}
-          />
-          <Stack.Screen name="Mainnavigation" component={Mainnavigation} />
-          <Stack.Screen name="AuthNavigations" component={AuthNavigations} />
-          <Stack.Screen name="ProfileSetupnav" component={ProfileSetupnav} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ContextProvider>
+      <ComProviderWraper>
+        <ContextProvider>
+          <NavigationContainer ref={navigationRef} detachInactiveScreens={false}>
+            <Stack.Navigator
+              screenOptions={{ headerShown: false }}
+              initialRouteName="SplashScreen"
+            >
+              <Stack.Screen name="SplashScreen" component={EmptyData} />
+              <Stack.Screen name="HelperNavigation" component={HelperNavigation} />
+              <Stack.Screen name="Mainnavigation" component={Mainnavigation} />
+              <Stack.Screen name="AuthNavigations" component={AuthNavigations} />
+              <Stack.Screen name="ProfileSetupnav" component={ProfileSetupnav} />
+            </Stack.Navigator>
+          </NavigationContainer>]
+        </ContextProvider>
+      </ComProviderWraper>
     </GestureHandlerRootView>
   );
 };

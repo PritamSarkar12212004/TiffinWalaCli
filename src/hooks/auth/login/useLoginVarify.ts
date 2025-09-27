@@ -5,15 +5,16 @@ import {
   setAuthToken,
   setLocation,
 } from '../../../functions/Token/PageTokenManagerFun';
+import {useNotify} from '../../../layout/wraper/ComProviderWraper';
 import api from '../../../utils/api/Axios';
 
 const useLoginVarify = () => {
+  const {caller} = useNotify();
   const varifyotpLogin = ({
     enterOtp,
     otp,
     phoneNumber,
     navigation,
-    setPopUp,
     setLoading,
   }: any) => {
     setLoading(true);
@@ -33,17 +34,29 @@ const useLoginVarify = () => {
             PageToken.profile.locationToken,
             res.data.data.User_Address,
           );
+          caller({
+            message: 'OTP Verified',
+            description: 'Your number has been successfully verified.',
+            type: 'success',
+          });
+
           navigation.replace('Mainnavigation' as any);
         })
         .catch(err => {
-          setPopUp({isVisible: true, message: err.response.data.message});
+          caller({
+            message: 'Invalid OTP',
+            description: 'Please enter a valid OTP.',
+            type: 'danger',
+          });
           setLoading(false);
         });
     } else {
-      setPopUp({
-        isVisible: true,
-        message: 'Invalid OTP Please try again',
+      caller({
+        message: 'Invalid OTP',
+        description: 'Please enter a valid OTP.',
+        type: 'danger',
       });
+
       setLoading(false);
     }
   };

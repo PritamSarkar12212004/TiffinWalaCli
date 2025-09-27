@@ -7,7 +7,9 @@ import {
 } from '../../functions/Token/PageTokenManagerFun';
 import api from '../../utils/api/Axios';
 import {userContext} from '../../utils/context/ContextProvider';
+import {useNotify} from '../../layout/wraper/ComProviderWraper';
 const useUpdateProfile = () => {
+  const {caller} = useNotify();
   const {pageLoader, setPageLoader} = userContext();
   const navigation = useNavigation();
   const updateProfile = async ({
@@ -20,7 +22,6 @@ const useUpdateProfile = () => {
     profileInfo,
     setloadingg,
   }: any) => {
-    console.log(location);
     setloadingg(true);
     const uploadedImg = image
       ? await CloudanerysingleImgIpload(image, 'image')
@@ -45,11 +46,21 @@ const useUpdateProfile = () => {
         );
         await setPageLoader(!pageLoader);
         await setloadingg(false);
+        caller({
+          message: 'Profile Updated',
+          description: 'Your profile changes have been saved.',
+          type: 'success',
+        });
+
         navigation.navigate('DashboardScreen' as never);
       })
       .catch(err => {
         setloadingg(false);
-        console.log(err);
+        caller({
+          message: 'Update Failed',
+          description: 'Could not update your profile. Please try again.',
+          type: 'danger',
+        });
       });
   };
   return {

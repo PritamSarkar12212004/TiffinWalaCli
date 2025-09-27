@@ -9,10 +9,11 @@ import PageToken from '../../constants/tokens/PageToken'
 import { removeNotifyToken } from '../../functions/Token/NotifyTokenManagerFun'
 import NotiFyToken from '../../constants/tokens/NotiFyToken'
 import { NavigationProp } from '../../types/navigation'
+import { useNotify } from '../../layout/wraper/ComProviderWraper'
 
 const ProfileScreen = () => {
     const navigation = useNavigation<NavigationProp>()
-
+    const { caller } = useNotify()
     const route = useRoute() as any
     const profileInfo = route.params?.userInfo?.userinfo
     const location = route.params?.userInfo?.location
@@ -82,6 +83,11 @@ const ProfileScreen = () => {
                 removeNotifyToken(NotiFyToken.Promotion)
                 removeNotifyToken(NotiFyToken.Remainder)
                 removeAuthToken(PageToken.profile.profileToken)
+                caller({
+                    message: 'Logged Out',
+                    description: 'You have been logged out successfully.',
+                    type: 'success',
+                });
                 navigation.replace('AuthNavigations' as any)
             }
         },

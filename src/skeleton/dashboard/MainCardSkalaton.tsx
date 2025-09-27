@@ -7,7 +7,7 @@ const MainCardSkalaton = () => {
     return (
         <View className="w-full mb-6">
             {/* Image Skeleton */}
-            <View className="w-full h-72 bg-gray-300 rounded-3xl overflow-hidden">
+            <View className="w-full h-72 bg-white rounded-3xl overflow-hidden">
                 <ShimmerPlaceHolder
                     LinearGradient={LinearGradient}
                     style={{ height: '100%', width: '100%' }}
@@ -15,7 +15,7 @@ const MainCardSkalaton = () => {
             </View>
 
             {/* Title Skeleton */}
-            <View className="mt-3 px-1 space-y-1">
+            <View className="mt-3 px-1 gap-1">
                 <ShimmerPlaceHolder
                     LinearGradient={LinearGradient}
                     style={{ height: 24, width: 150, borderRadius: 6 }}

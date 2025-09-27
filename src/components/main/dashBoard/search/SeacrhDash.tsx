@@ -9,7 +9,7 @@ const SeacrhDash = ({ name, distance }: any) => {
     return (
         <TouchableOpacity onPress={() => navigation.navigate('SearchScreen', {
             distance: distance
-        })} activeOpacity={0.8} className='w-full flex gap-4 '>
+        })} activeOpacity={0.9} className='w-full flex gap-4 '>
             <Text className=''>Hey {name}, <Text className='font-bold'>Welcome!</Text></Text>
             <View>
                 <View className='w-full bg-[#A0A5BA] h-14 gap-4 rounded-3xl flex flex-row px-5 items-center'>
