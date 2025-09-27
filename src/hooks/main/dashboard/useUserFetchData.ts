@@ -7,6 +7,7 @@ const useUserFetchData = () => {
     setVender: any,
     setFollower: any,
     id: any,
+    callForView: any,
   ) => {
     try {
       api
@@ -15,6 +16,7 @@ const useUserFetchData = () => {
           id,
         })
         .then(async res => {
+          callForView(res.data.data._id);
           await setVender(res.data.data);
           await setFollower(res.data.follower);
         })

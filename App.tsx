@@ -23,7 +23,7 @@ const App = () => {
   const [ready, setReady] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { locationEnabled } = useConnectivity();
-  const navigationRef = useRef<any>(null); \
+  const navigationRef = useRef<any>(null); // navigation access ke liye
 
   const EmptyData = () => (
     <View className="flex-1 bg-white flex items-center justify-center">
@@ -71,8 +71,9 @@ const App = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ComProviderWraper>
+
         <ContextProvider>
-          <NavigationContainer ref={navigationRef} >
+          <NavigationContainer ref={navigationRef} detachInactiveScreens={false}>
             <Stack.Navigator
               screenOptions={{ headerShown: false }}
               initialRouteName="SplashScreen"
@@ -83,7 +84,8 @@ const App = () => {
               <Stack.Screen name="AuthNavigations" component={AuthNavigations} />
               <Stack.Screen name="ProfileSetupnav" component={ProfileSetupnav} />
             </Stack.Navigator>
-          </NavigationContainer>]
+          </NavigationContainer>
+
         </ContextProvider>
       </ComProviderWraper>
     </GestureHandlerRootView>

@@ -78,10 +78,15 @@ const ShowmMainProductScreen = () => {
         })
     }
 
+    const callForView = (adminId: any) => {
+        viewsProduct({ postId: data._id, adminId: adminId });
+
+    }
+
     useEffect(() => {
-        viewsProduct(data._id);
-        fetchUserData(data.postVendorId, setVender, setFollower, userInfo.userinfo._id)
         likeProductFetch(userInfo.userinfo, data._id, setIsFavorite)
+        fetchUserData(data.postVendorId, setVender, setFollower, userInfo.userinfo._id, callForView)
+
         return () => {
             setVender(null)
             setIsFavorite(null)
