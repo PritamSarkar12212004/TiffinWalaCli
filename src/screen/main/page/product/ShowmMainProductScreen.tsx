@@ -15,6 +15,7 @@ import ShowProBottmSheetSclotan from '../../../../skeleton/ShowProduct/ShowProBo
 import useFollower from '../../../../hooks/main/dashboard/controller/useFollower'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import notificationPayload from '../../../../functions/notification/notificationPayloadBody'
+import ShowProductSclotan from '../../../../skeleton/dashboard/ShowProductSclotan'
 const { width } = Dimensions.get('window');
 const ShowmMainProductScreen = () => {
     const [fevirote, setIsFavorite] = useState<any>(null)
@@ -85,7 +86,6 @@ const ShowmMainProductScreen = () => {
             setVender(null)
             setIsFavorite(null)
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [modalImage, setModalImage] = useState<{
@@ -160,7 +160,7 @@ const ShowmMainProductScreen = () => {
                     </SafeAreaView>
                 </Modal>
                 {
-                    data ? <View className='flex-1 bg-white relative gap-8'>
+                    data && follower && fevirote ? <View className='flex-1 bg-white relative gap-8'>
                         <View className='w-full flex relative rounded-b-3xl gap-3 pb-5'>
                             <NavigationShowProduct fevirote={fevirote} userId={userInfo.userinfo._id} productid={data._id} setIsFavorite={setIsFavorite} LikeNotification={LikeNotification} />
                             <View className='w-full h-96 bg-gray-200 rounded-b-3xl overflow-hidden'>
@@ -181,7 +181,7 @@ const ShowmMainProductScreen = () => {
                             </View>
                             <View className='w-full px-4 flex gap-8'>
                                 <View className='w-full flex gap-2 '>
-                                    <View className='w-full flex flex-row items-center justify-between'>
+                                    <View className='w-full flex flex-row items-center justify-between flex-wrap'>
                                         <Text className='text-2xl font-bold'>{data.postTitle}</Text>
                                         <TouchableOpacity activeOpacity={0.9} onPress={() => followerLoadingm ? null : funcFollowControll()} className={`w-28 flex items-center justify-center h-9 border rounded-full shadow-sm ${follower ? 'bg-white border-black/20' : 'bg-orange-500 border-orange-500'}`} disabled={!!followerLoadingm}>
                                             {
@@ -276,9 +276,7 @@ const ShowmMainProductScreen = () => {
                                 </View>
                             </View>
                         </View>
-                    </View> : <View className='flex-1 bg-[#F3F3F3] py-2 gap-10 flex items-center justify-center'>
-                        <Text>Loading</Text>
-                    </View>
+                    </View> : <ShowProductSclotan />
                 }
 
             </ScrollView>

@@ -93,7 +93,7 @@ const ShowProBottmSheet = ({ vender, setModalImage }: any) => {
               style={styles.profileImage}
             />
           </TouchableOpacity>
-          <View className='flex-1 justify-center gap-1'>
+          <View className='flex-1 justify-center gap-1 '>
             <Text className='text-xl font-bold text-gray-800'>{vender.User_Name}</Text>
 
             <TouchableOpacity onPress={phoneLinking} className='flex-row items-center gap-2 mt-1 bg-blue-50 p-2 rounded-lg'>
@@ -101,7 +101,7 @@ const ShowProBottmSheet = ({ vender, setModalImage }: any) => {
               <Text className='text-blue-700 font-medium'>{vender.User_Phone_Number}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={emailLinking} className='flex-row items-center gap-2 mt-1 bg-red-50 p-2 rounded-lg'>
+            <TouchableOpacity onPress={emailLinking} className='flex-row items-center gap-2 mt-1 bg-red-50 p-2 rounded-lg flex-wrap'>
               <FIcon name='envelope' size={16} color='#ef4444' />
               <Text className='text-red-700 font-medium text-wrap'>{vender.User_Email}</Text>
             </TouchableOpacity>
