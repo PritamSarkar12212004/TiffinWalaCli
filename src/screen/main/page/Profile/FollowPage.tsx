@@ -62,8 +62,19 @@ const FollowPage = () => {
                     data={data}
                     keyExtractor={(item) => item._id}
                     ListEmptyComponent={
-                        <View className="flex-1 items-center justify-center py-20">
-                            <Text className="text-gray-500 text-lg">No Data Found</Text>
+                        <View className="flex-1 items-center justify-center py-20 px-4">
+                            <View className="items-center">
+                                <View className="w-24 h-24 bg-gray-100 rounded-full items-center justify-center mb-4">
+                                    <Text className="text-3xl">👥</Text>
+                                </View>
+                                <Text className="text-xl font-semibold text-gray-700 mb-2">No Following Yet</Text>
+                                <Text className="text-gray-500 text-center text-base leading-5">
+                                    You haven't started following anyone.{'\n'}
+                                    Discover and connect with amazing people!
+                                </Text>
+
+
+                            </View>
                         </View>
                     }
                     renderItem={({ item }) => {

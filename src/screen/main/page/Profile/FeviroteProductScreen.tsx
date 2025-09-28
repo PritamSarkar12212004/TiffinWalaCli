@@ -29,7 +29,19 @@ const FeviroteProductScreen = () => {
                 <NavigationProfile path='Favorite' option='' func={() => { }} />
                 {
                     list ? list.error ? <View className='flex-1 flex items-center justify-center'>
-                        <Text className='text-red-500 text-2xl font-bold'>{list.error}</Text>
+                        <View className="flex-1 items-center justify-center py-20 px-4">
+                            <View className="items-center">
+                                <View className="w-24 h-24 bg-gray-100 rounded-full items-center justify-center mb-4">
+                                    <Text className="text-3xl">❤️</Text>
+                                </View>
+                                <Text className="text-xl font-semibold text-gray-700 mb-2">No Likes Yet</Text>
+                                <Text className="text-gray-500 text-center text-base leading-5">
+                                    You haven't liked any posts yet.{'\n'}
+                                    Explore content and show some love!
+                                </Text>
+                            </View>
+                        </View>
+
                     </View> : <View className='flex-1 pt-5'>
                         <FlatList
                             data={list}
