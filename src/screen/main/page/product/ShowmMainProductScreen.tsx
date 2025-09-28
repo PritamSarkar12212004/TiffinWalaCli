@@ -165,7 +165,7 @@ const ShowmMainProductScreen = () => {
                     </SafeAreaView>
                 </Modal>
                 {
-                    data && follower && fevirote ? <View className='flex-1 bg-white relative gap-8'>
+                    data && !followerLoadingm && fevirote !== null  ? <View className='flex-1 bg-white relative gap-8'>
                         <View className='w-full flex relative rounded-b-3xl gap-3 pb-5'>
                             <NavigationShowProduct fevirote={fevirote} userId={userInfo.userinfo._id} productid={data._id} setIsFavorite={setIsFavorite} LikeNotification={LikeNotification} />
                             <View className='w-full h-96 bg-gray-200 rounded-b-3xl overflow-hidden'>

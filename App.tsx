@@ -16,14 +16,16 @@ import mobileAds, { NativeAd, TestIds } from 'react-native-google-mobile-ads';
 import useConnectivity from './src/hooks/modules/native/useConnectivity';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ComProviderWraper from './src/layout/wraper/ComProviderWraper';
-
+import AppCenter from 'appcenter';
+import Analytics from 'appcenter-analytics';
+import Crashes from 'appcenter-crashes';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [ready, setReady] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { locationEnabled } = useConnectivity();
-  const navigationRef = useRef<any>(null); // navigation access ke liye
+  const navigationRef = useRef<any>(null);
 
   const EmptyData = () => (
     <View className="flex-1 bg-white flex items-center justify-center">
@@ -40,6 +42,8 @@ const App = () => {
   );
 
   useEffect(() => {
+    Analytics.trackEvent("App Launched", { Category: "Init" });
+    Analytics.trackEvent("My custom event");
     const token = getAuthToken(PageToken.profile.profileToken);
     setIsLoggedIn(!!token);
     mobileAds().initialize().then((adapterStatuses) => {

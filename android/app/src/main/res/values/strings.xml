@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Tiffin Wala</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+<string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+  <string moduleConfig="true" name="CodePushDeploymentKey">j2oh4ffRs96PRNVJ2SPz3_tPw7kClRiFwWb</string>
+  <string moduleConfig="true" name="CodePushServerUrl">https://codepush.appsonair.com</string>
 </resources>
