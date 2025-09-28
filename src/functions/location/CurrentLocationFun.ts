@@ -1,9 +1,12 @@
 import Geolocation from '@react-native-community/geolocation';
 import axios from 'axios';
-import {useNotify} from '../../layout/wraper/ComProviderWraper';
 
-const CurrentLocationFun = ({setPopUp, setLoading, setLocation}: any) => {
-  const {caller} = useNotify();
+const CurrentLocationFun = ({
+  setPopUp,
+  setLoading,
+  setLocation,
+  caller,
+}: any) => {
   const getCurrentLocation = async () => {
     setLoading(true);
     try {
@@ -22,6 +25,7 @@ const CurrentLocationFun = ({setPopUp, setLoading, setLocation}: any) => {
         longitude,
         setPopUp,
         setLoading,
+        caller,
       );
       const locationData = {
         latitude,
@@ -56,6 +60,7 @@ const reverseGeocode = async (
   longitude: number,
   setPopUp: any,
   setLoading: any,
+  caller: any,
 ) => {
   try {
     const response = await axios.get(
@@ -75,16 +80,19 @@ const reverseGeocode = async (
     if (response.data && response.data.display_name) {
       return response.data.display_name;
     } else {
-      setPopUp({
-        isVisible: true,
-        message: 'Failed to get address. Please try again.',
+      caller({
+        message: 'Location Error',
+        description: 'Failed to fetch your location. Please try again.',
+        type: 'danger',
       });
+
       setLoading(false);
     }
   } catch (error) {
-    setPopUp({
-      isVisible: true,
-      message: 'Failed to get address. Please try again.',
+    caller({
+      message: 'Location Error',
+      description: 'Failed to fetch your location. Please try again.',
+      type: 'danger',
     });
     setLoading(false);
   }

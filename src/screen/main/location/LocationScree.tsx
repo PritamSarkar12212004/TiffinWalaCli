@@ -9,8 +9,11 @@ import { removeLocation, setLocation } from '../../../functions/Token/PageTokenM
 import PageToken from '../../../constants/tokens/PageToken';
 import { userContext } from '../../../utils/context/ContextProvider';
 import GetCurrentLocationByMark from '../../../functions/location/GetCurrentLocationByMark';
+import { useNotify } from '../../../layout/wraper/ComProviderWraper';
 
 const LocationScree = () => {
+  const { caller } = useNotify();
+
   const navigation = useNavigation()
   const route = useRoute()
   const { location } = route.params as any;
@@ -102,7 +105,7 @@ const LocationScree = () => {
           </View>
         </View>
         <View className='w-full '>
-          <TouchableOpacity onPress={() => loading ? null : getNewLocation ? setLocationFunc() : CurrentLocationFun({ setPopUp, setLoading: setLoading, setLocation: setGetNewLocation }).getCurrentLocation()
+          <TouchableOpacity onPress={() => loading ? null : getNewLocation ? setLocationFunc() : CurrentLocationFun({ setPopUp, setLoading: setLoading, setLocation: setGetNewLocation, caller }).getCurrentLocation()
           } activeOpacity={0.8} className='w-full bg-[#FF7622] h-14 rounded-3xl flex items-center justify-center'>
             {
               loading ? <ActivityIndicator color={'white'} size={'small'} /> : !getNewLocation ? <Text className='text-lg  flex flex-row gap-3 font-semibold text-white'>Get Location</Text> : <Text className='text-xl  flex flex-row gap-3 font-bold text-white'>Conform Location</Text>
