@@ -28,7 +28,7 @@ android {
      applicationVariants.all { variant ->
         if (variant.buildType.name == "release") {
             variant.outputs.all { output ->
-                def newApkName = "MyApp-${variant.versionName}.apk"
+                def newApkName = "TiffinWala-${variant.versionName}.apk"
                 output.outputFileName = newApkName
             }
         }
