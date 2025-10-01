@@ -8,7 +8,6 @@ react {
 }
 
 def enableProguardInReleaseBuilds = false
-
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
 android {
@@ -25,7 +24,9 @@ android {
         versionCode 1
         versionName "1.0"
     }
-     applicationVariants.all { variant ->
+
+    // Rename release APK
+    applicationVariants.all { variant ->
         if (variant.buildType.name == "release") {
             variant.outputs.all { output ->
                 def newApkName = "TiffinWala-${variant.versionName}.apk"
@@ -34,6 +35,7 @@ android {
         }
     }
 
+    // Signing configurations
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -41,18 +43,25 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file('my-release-key.jks')
+            storePassword 'PritamSarkar@2004'
+            keyAlias 'tiffinwala-release'
+            keyPassword 'PritamSarkar@2004'
+        }
     }
 
-  buildTypes {
-    debug {
-        signingConfig signingConfigs.debug
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.release 
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
     }
-    release {
-        signingConfig signingConfigs.debug
-        minifyEnabled false
-        proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-    }
-}
 }
 
 dependencies {
