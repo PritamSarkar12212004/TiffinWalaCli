@@ -20,8 +20,6 @@ import Analytics from 'appcenter-analytics';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const adUnitId = __DEV__ ? TestIds.NATIVE : 'ca-app-pub-6357576702874785~6863678824';
-
   const [ready, setReady] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { locationEnabled } = useConnectivity();
@@ -49,7 +47,7 @@ const App = () => {
     mobileAds().initialize().then((adapterStatuses) => {
       console.log("MobileAds initialization complete", adapterStatuses);
     });
-    NativeAd.createForAdRequest(adUnitId)
+    NativeAd.createForAdRequest(TestIds.NATIVE)
       .then(() => console.log("native ad loaded"))
       .catch(console.error);
     setReady(true);

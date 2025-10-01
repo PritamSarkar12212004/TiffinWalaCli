@@ -40,7 +40,7 @@ const DashboardScreen = () => {
     const result: any[] = [];
     data.forEach((item: any, index: number) => {
       result.push(item);
-      if ((index + 1) % 3 === 0) {
+      if ((index + 1) % 4 === 0) {
         result.push({ isAd: true, _id: `ad-${index}` });
       }
     });
