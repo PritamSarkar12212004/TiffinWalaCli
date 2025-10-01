@@ -16,12 +16,12 @@ import mobileAds, { NativeAd, TestIds } from 'react-native-google-mobile-ads';
 import useConnectivity from './src/hooks/modules/native/useConnectivity';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ComProviderWraper from './src/layout/wraper/ComProviderWraper';
-import AppCenter from 'appcenter';
 import Analytics from 'appcenter-analytics';
-import Crashes from 'appcenter-crashes';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const adUnitId = __DEV__ ? TestIds.NATIVE : 'ca-app-pub-6357576702874785~6863678824';
+
   const [ready, setReady] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { locationEnabled } = useConnectivity();
@@ -49,7 +49,7 @@ const App = () => {
     mobileAds().initialize().then((adapterStatuses) => {
       console.log("MobileAds initialization complete", adapterStatuses);
     });
-    NativeAd.createForAdRequest(TestIds.NATIVE)
+    NativeAd.createForAdRequest(adUnitId)
       .then(() => console.log("native ad loaded"))
       .catch(console.error);
     setReady(true);
