@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-  "build": "cd android && gradlew assembleRelease bundleRelease && cd .. && if not exist builds mkdir builds && copy android\\app\\build\\outputs\\apk\\release\\*.apk builds\\ && copy android\\app\\build\\outputs\\bundle\\release\\*.aab builds\\",
+    "build": "cd android && gradlew assembleRelease bundleRelease && cd .. && if not exist builds mkdir builds && copy android\\app\\build\\outputs\\apk\\release\\*.apk builds\\ && copy android\\app\\build\\outputs\\bundle\\release\\*.aab builds\\",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
@@ -34,6 +34,7 @@
     "react": "19.0.0",
     "react-native": "0.79.2",
     "react-native-compressor": "^1.11.0",
+    "react-native-device-info": "^15.0.1",
     "react-native-element-dropdown": "^2.12.4",
     "react-native-flash-message": "^0.4.2",
     "react-native-geocoding": "^0.5.0",
