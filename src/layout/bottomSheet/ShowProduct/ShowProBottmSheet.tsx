@@ -4,7 +4,6 @@ import FIcon from '../../icon/FIcon'
 import MapView, { Marker } from 'react-native-maps'
 
 const ShowProBottmSheet = ({ vender, setModalImage }: any) => {
-  // Animation refs
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(50)).current;
 
@@ -24,8 +23,8 @@ const ShowProBottmSheet = ({ vender, setModalImage }: any) => {
   }, []);
 
   const locationPath = {
-    latitude: vender?.User_Address.latitude || 30.375321,
-    longitude: vender?.User_Address.longitude || 78.031999,
+    latitude: vender?.User_Address?.latitude ?? vender?.User_Address?.coords?.latitude,
+    longitude: vender?.User_Address.longitude ?? vender?.User_Address?.coords?.longitude,
     latitudeDelta: 0.015,
     longitudeDelta: 0.0121,
   }
@@ -139,8 +138,8 @@ const ShowProBottmSheet = ({ vender, setModalImage }: any) => {
               {vender?.User_Address && (
                 <Marker
                   coordinate={{
-                    latitude: vender?.User_Address.latitude,
-                    longitude: vender?.User_Address.longitude,
+                    latitude: vender?.User_Address?.latitude ?? vender?.User_Address?.coords?.latitude,
+                    longitude: vender?.User_Address?.longitude ?? vender?.User_Address?.coords?.longitude,
                   }}
                   title={vender.User_Name}
                   description={vender.User_Address.address}
